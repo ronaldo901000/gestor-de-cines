@@ -10,7 +10,8 @@ import { FormsModule } from '@angular/forms';
 export class BuscadorCineComponent {
 
  palabra: string = '';
-  @Output() palabraBuscada = new EventEmitter<string>();
+  @Output()
+   palabraBuscada = new EventEmitter<string>();
 
   enviarPalabra() {
     this.palabraBuscada.emit(this.palabra);

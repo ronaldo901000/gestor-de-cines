@@ -34,5 +34,9 @@ export class CineServices {
         );
     }
 
+    eliminarCine(codigo: string): Observable<void> {
+        return this.httpClient.delete<void>(
+            `${this.restConstants.getApiURL()}cines/${codigo}`);
+    }
 
 }

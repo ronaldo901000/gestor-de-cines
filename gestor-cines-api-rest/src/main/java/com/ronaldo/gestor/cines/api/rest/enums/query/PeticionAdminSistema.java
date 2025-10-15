@@ -14,7 +14,8 @@ public enum PeticionAdminSistema {
        OBTENER_CINES("select * from cine where activo=1"),
        OBTENER_CINES_POR_CODIGO_NOMBRE("select * from cine where codigo=? or nombre=? and activo=1"),
        OBTENER_CINE_POR_CODIGO("select * from cine where codigo=?"),
-       ACTUALIZAR_CINE("update cine set nombre=?, ubicacion=?, fecha_creacion=? where codigo=?");
+       ACTUALIZAR_CINE("update cine set nombre=?, ubicacion=?, fecha_creacion=? where codigo=?"),
+       ELIMINAR_CINE("delete from cine where codigo=?");
        private String peticion;
 
        private PeticionAdminSistema(String peticion) {

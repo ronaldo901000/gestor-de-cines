@@ -20,6 +20,9 @@ public abstract class CRUD {
                DataBaseException;
 
        protected abstract Editable extraer(EntidadRequest entidadRequest) throws UserDataInvalidException;
-       protected abstract EntidadResponse actualizar(EntidadRequest entidadRequest)throws DataBaseException,
+
+       protected abstract EntidadResponse actualizar(EntidadRequest entidadRequest) throws DataBaseException,
                EntityNotFoundException, UserDataInvalidException;
+
+       protected abstract void eliminar(String codigo)throws DataBaseException, EntityNotFoundException;
 }

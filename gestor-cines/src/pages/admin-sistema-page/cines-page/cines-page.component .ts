@@ -27,17 +27,19 @@ export class CinesPage implements OnInit {
   cargarCines() {
     this.cinesServices.traerCinesPorPagina(this.inicio).subscribe({
       next: (cinesServer: Cine[]) => {
-        this.cines!;
         this.cines = cinesServer;
       },
-      error: (err) =>
-        console.error('Error al cargar cines:', err)
+      error: (error) =>
+        console.error('Error al cargar cines:', error)
     });
   }
 
   buscarCines(palabra: string) {
-    if (!palabra) {
-      this.cargarCines();
+    if (!palabra || palabra.trim().length == 0) {
+      this.toast.titulo = 'Error';
+      this.toast.tipo = 'warning';
+      this.toast.mensaje = 'Debe ingresar al menos un caracter';
+      this.toast.mostrar();
       return;
     }
     this.cinesServices.traerCinesPorPalabraClave(palabra)
@@ -47,7 +49,7 @@ export class CinesPage implements OnInit {
           if (cines.length == 0) {
             this.toast.titulo = 'Sin Resultados';
             this.toast.tipo = 'info';
-            this.toast.mensaje='Sin resultados de tu busqueda "'+palabra+'"';
+            this.toast.mensaje = 'Sin resultados de tu busqueda "' + palabra + '"';
             this.toast.mostrar();
           }
         }
@@ -57,7 +59,7 @@ export class CinesPage implements OnInit {
           this.toast.tipo = 'danger';
           console.error(error);
           if (error.status === 400) {
-            this.toast.mensaje = 'Error en los datos enviados. Por favor, revisa';
+            this.toast.mensaje = 'Error en los datos enviados, datos nullos o caracteres invalidos';
           } else if (error.status === 500) {
             this.toast.mensaje = 'Error interno del servidor.';
           } else {
@@ -84,5 +86,6 @@ export class CinesPage implements OnInit {
     }
     return this.cines.length === this.rango;
   }
+
 
 }

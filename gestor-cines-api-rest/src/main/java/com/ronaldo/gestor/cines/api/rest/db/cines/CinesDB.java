@@ -150,4 +150,22 @@ public class CinesDB {
                       LocalDate.parse(resultSet.getString("fecha_creacion")));
        }
 
+       /**
+        * 
+        * @param codigo
+        * @throws DataBaseException 
+        */
+       public void eliminarCine(String codigo) throws DataBaseException {
+              try {
+                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+                     try (PreparedStatement query = connection.prepareStatement(PeticionAdminSistema.ELIMINAR_CINE.getPeticion())) {
+                            query.setString(1, codigo);
+                            query.executeUpdate();
+                     }
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al eliminar cine en la db");
+              }
+       }
+
 }

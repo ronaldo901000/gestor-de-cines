@@ -50,6 +50,7 @@ export class CineFormComponent implements OnInit {
                          this.toast.mensaje ='Ya existe un cine con el codigo: "'+this.newCine.codigo+'" usa otro';
                     } else if (error.status == 400) {
                          this.toast.mensaje ='Error en los datos enviados, por favor ingresa datos correctos';
+                         this.reset();
                     } else if (error.status == 500) {
                          this.toast.mensaje ='Error interno del servidor';
                     }
