@@ -19,12 +19,20 @@ export class CineServices {
         return this.httpClient.post<void>(`${this.restConstants.getApiURL()}cines`, cine);
     }
 
-public traerCinesPorPagina(inicio: number): Observable<Cine[]> {
-    return this.httpClient.get<Cine[]>(`${this.restConstants.getApiURL()}cines/pagina/${inicio}`);
-}
+    public traerCinesPorPagina(inicio: number): Observable<Cine[]> {
+        return this.httpClient.get<Cine[]>(`${this.restConstants.getApiURL()}cines/pagina/${inicio}`);
+    }
 
-public traerCinesPorPalabraClave(palabraClave: String): Observable<Cine[]> {
-    return this.httpClient.get<Cine[]>(`${this.restConstants.getApiURL()}cines/palabraClave/${palabraClave}`);
-}
+    public traerCinesPorPalabraClave(palabraClave: String): Observable<Cine[]> {
+        return this.httpClient.get<Cine[]>(`${this.restConstants.getApiURL()}cines/palabraClave/${palabraClave}`);
+    }
+
+    public actualizarCine(cine: Cine): Observable<Cine> {
+        return this.httpClient.put<Cine>(
+            `${this.restConstants.getApiURL()}cines`,
+            cine
+        );
+    }
+
 
 }

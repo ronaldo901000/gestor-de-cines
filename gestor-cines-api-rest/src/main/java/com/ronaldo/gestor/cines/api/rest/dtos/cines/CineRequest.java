@@ -1,16 +1,16 @@
 package com.ronaldo.gestor.cines.api.rest.dtos.cines;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.ronaldo.gestor.cines.api.rest.models.herencia.EntidadRequest;
 import java.time.LocalDate;
 
 /**
  *
  * @author ronaldo
  */
-public class NuevoCineRequest {
+public class CineRequest extends EntidadRequest{
 
        private String codigo;
        private String nombre;

@@ -10,6 +10,7 @@ export class ToastComponent implements AfterViewInit {
     @Input() titulo: string = 'Mensaje';
     @Input() mensaje: string = '';
     @Input() tipo: 'success' | 'danger' | 'warning' | 'info' = 'success';
+    
 
     @ViewChild('toastEl') toastEl!: ElementRef;
     private toastInstance: any;
