@@ -1,0 +1,6 @@
+body {
+  background: linear-gradient(to right, #eeeff4, #4980de);
+  color: rgb(167, 241, 174);
+  background-attachment: fixed;
+  min-height: 100vh;
+}

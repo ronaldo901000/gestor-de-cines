@@ -1,0 +1,50 @@
+<form [formGroup]="cineActualizarForm" (submit)="submit()">
+  <div class="row g-3" id="contenedor">
+    <div class="col-6">
+      <label for="codigo" class="form-label">Codigo:</label>
+      <input
+        type="text"
+        class="form-control"
+        readonly
+        id="codigo"
+        name="codigo"
+        formControlName="codigo"
+        [class.is-invalid]="
+          cineActualizarForm.controls['codigo'].dirty &&
+          cineActualizarForm.controls['codigo'].invalid
+        "
+      />
+    </div>
+    <div class="col-6">
+      <label for="nombre" class="form-label">Nombre:</label>
+      <input type="text" class="form-control" id="nombre" name="nombre" formControlName="nombre" />
+    </div>
+
+    <div class="col-6">
+      <label for="ubicacion" class="form-label">Ubicacion:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="ubicacion"
+        name="ubicacion"
+        formControlName="ubicacion"
+      />
+    </div>
+    <div class="col-6">
+      <label for="fechaCreacion" class="form-label">Fecha de Creacion:</label>
+      <input
+        type="date"
+        class="form-control"
+        id="fechaCreacion"
+        name="fechaCreacion"
+        formControlName="fechaCreacion"
+      />
+    </div>
+  </div>
+  <hr class="my-4" />
+  <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
+    <button class="btn btn-success" [disabled]="cineActualizarForm.invalid">
+      <strong>Actualizar Cine</strong>
+    </button>
+  </div>
+</form>

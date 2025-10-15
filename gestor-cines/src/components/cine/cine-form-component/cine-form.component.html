@@ -1,0 +1,40 @@
+<app-toast-component #toast></app-toast-component>
+<form [formGroup]="newCineForm" (submit)="crear()">
+    <div class="row g-3" id="contenedor">
+        <div class="col-6">
+            <label for="codigo" class="form-label">Codigo:</label>
+            <input type="text" class="form-control" id="codigo" name="codigo" formControlName="codigo"
+            [class.is-invalid]="newCineForm.controls['codigo'].dirty && newCineForm.controls['codigo'].invalid"
+            >
+        </div>
+         @if (newCineForm.controls['codigo'].invalid && newCineForm.controls['codigo'].touched) {
+                <div class="invalid-feedback">
+                    <div>
+                        Por favor ingresa un codigo de cine valido
+                    </div>
+                </div>
+                }
+        <div class="col-6">
+            <label for="nombre" class="form-label">Nombre:</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" formControlName="nombre">
+        </div>
+
+
+        <div class="col-6">
+            <label for="ubicacion" class="form-label">Ubicacion:</label>
+            <input type="text" class="form-control" id="ubicacion" name="ubicacion" formControlName="ubicacion">
+        </div>
+
+        <div class="col-6">
+            <label for="fechaCreacion" class="form-label">Fecha de Creacion:</label>
+            <input type="date" class="form-control" id="fechaCreacion" name="fechaCreacion" formControlName="fechaCreacion">
+        </div>
+    </div>
+    <hr class="my-4">
+    <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
+        <button class="btn btn-secondary me-md-2" type="button" (click)="reset()">Limpiar</button>
+        <button class="btn btn-success" [disabled]="newCineForm.invalid">
+            <strong>Crear Cine</strong>
+        </button>
+    </div>
+</form>

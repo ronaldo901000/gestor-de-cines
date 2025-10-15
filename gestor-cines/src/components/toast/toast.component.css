@@ -1,0 +1,46 @@
+/* Contenedor centrado horizontalmente y un poco más abajo */
+.toast-container {
+    position: fixed;
+    top: 6cm; /* ajusta a la distancia que quieras desde arriba */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1100;
+}
+
+/* Estilos base para el toast */
+.toast {
+    min-width: 300px;
+    max-width: 500px;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+}
+
+.toast-success {
+    background-color: #49b061;
+    color: #fff;
+}
+
+.toast-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.toast-warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.toast-info {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+/* Saltos de línea respetados */
+.toast-body {
+    white-space: pre-line;
+}
+
+/* Ajustes del header */
+.toast-header {
+    font-weight: bold;
+}

@@ -1,0 +1,10 @@
+<nav aria-label="Paginación">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" [class.disabled]="inicio===0">
+      <button class="page-link" (click)="anterior()">Anterior</button>
+    </li>
+    <li class="page-item" [class.disabled]="!hayMas">
+      <button class="page-link" (click)="siguiente()">Siguiente</button>
+    </li>
+  </ul>
+</nav>

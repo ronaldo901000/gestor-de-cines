@@ -1,0 +1,55 @@
+<app-header-admin-sistema></app-header-admin-sistema>
+
+<div class="container align-content-sm-center text-black ">
+  <div class="text-center text-black">
+    <h1>BIENVENIDO ADMIN DE SISTEMA</h1>
+  </div>
+
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-4 text-center">
+        <svg class="bi" width="2em" height="2em">
+          <use xlink:href="#toggles2"></use>
+        </svg>
+
+        <h2>Ver Listado de Cines Registrados</h2>
+        <h5 class="text-muted">Apartado para ver el listado de cines, o crear un nuevo cine</h5>
+        <a routerLink="/cines" class="btn btn-success">
+          <i class="bi bi-toggles2"></i> Ir a Cines Registrados
+        </a>
+      </div>
+
+      <div class="col-md-4 text-center">
+        <svg class="bi" width="2em" height="2em">
+          <use xlink:href="#toggles2"></use>
+        </svg>
+
+        <h2>Oportunidades de trabajo</h2>
+        <p class="text-muted">
+          Consulta de convocatorias para proponer talleres o ponencias en un congreso
+        </p>
+        <a
+          href="${pageContext.request.contextPath}/mcv/trabajo-servlet?inicio=0"
+          class="btn btn-primary"
+        >
+          <i class="bi bi-toggles2"></i> Ver Lista de convocatorias a trabajo
+        </a>
+      </div>
+
+      <div class="col-md-4 text-center">
+        <svg class="bi" width="2em" height="2em">
+          <use xlink:href="#toggles2"></use>
+        </svg>
+
+        <h2>Estado de solicitudes de trabajo</h2>
+        <p class="text-muted">Apartado para ver el estado de las solicitudes enviadas</p>
+        <a
+          href="${pageContext.request.contextPath}/mvc/solicitud/solicitudes-enviadas-servlet"
+          class="btn btn-primary"
+        >
+          <i class="bi bi-toggles2"></i> Ver estado de solicitudes
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

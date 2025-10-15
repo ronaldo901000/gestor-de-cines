@@ -1,0 +1,52 @@
+<header class="p-4 bg-black text-white">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+      <li class="me-0 list-unstyled d-flex align-items-center">
+        <a
+          routerLink="/home/admin-sistema"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-link px-3 text-white fs-4"
+        >
+          <i class="bi bi-house-door-fill me-2 fs-3"></i> Home
+        </a>
+      </li>
+      <a
+        routerLink="/cines"
+        class="btn btn-outline-light me-1 btn-lg"
+        routerLinkActive="active"
+        aria-current="page"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Cines
+      </a>
+      <a
+        routerLink="/home/admin-sistema"
+        routerLinkActive="active"
+        class="btn btn-outline-light me-1 btn-lg"
+      >
+        Admins
+      </a>
+
+      <a
+        routerLink="/faqs"
+        routerLinkActive="active"
+        class="btn btn-outline-light me-2 btn-lg"
+      >
+        FAQs
+      </a>
+      <h2>ID: - - - -</h2>
+      <div class="ms-auto text-end">
+        <a
+          routerLink="/"
+          class="btn btn-outline-light btn-lg"
+        >
+          Cerrar Sesión
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+<br>
+

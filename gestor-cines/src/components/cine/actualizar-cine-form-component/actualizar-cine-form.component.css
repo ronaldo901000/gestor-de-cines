@@ -1,0 +1,6 @@
+#contenedor {
+  background-color: rgba(78, 195, 176, 0.74);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(209, 16, 16, 0.63);
+}
