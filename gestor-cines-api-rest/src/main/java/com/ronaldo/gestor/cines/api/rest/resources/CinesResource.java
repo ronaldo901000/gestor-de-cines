@@ -9,6 +9,7 @@ import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
 import com.ronaldo.gestor.cines.api.rest.services.cines.CRUDCines;
 import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.POST;
@@ -92,4 +93,20 @@ public class CinesResource {
                      return Response.status(Response.Status.BAD_REQUEST).build();
               }
        }
+
+       @DELETE
+       @Path("{codigoCine}")
+       @Consumes(MediaType.APPLICATION_JSON)
+       public Response deleteCine(@PathParam("codigoCine") String codigo) {
+              CRUDCines crudCines = new CRUDCines();
+              try {
+                     crudCines.eliminar(codigo);
+                     return Response.ok().build();
+              } catch (DataBaseException e) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+              } catch (EntityNotFoundException e) {
+                     return Response.status(Response.Status.NOT_FOUND).build();
+              }
+       }
+
 }

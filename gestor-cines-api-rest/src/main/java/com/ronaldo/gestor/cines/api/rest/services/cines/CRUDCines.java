@@ -13,6 +13,7 @@ import com.ronaldo.gestor.cines.api.rest.exceptions.UserDataInvalidException;
 import com.ronaldo.gestor.cines.api.rest.models.cines.Cine;
 import com.ronaldo.gestor.cines.api.rest.models.herencia.EntidadRequest;
 import com.ronaldo.gestor.cines.api.rest.services.CRUD;
+import com.ronaldo.gestor.cines.api.rest.verificacion.caracter.VerificadorCaracteres;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -45,7 +46,6 @@ public class CRUDCines extends CRUD {
                              String.format("El Cine con codigo %s ya existe", cine.getCodigo()));
               }
               cinesDB.crearCine(cine);
-              System.out.println("si se creo");
               return cine;
        }
 
@@ -116,8 +116,12 @@ public class CRUDCines extends CRUD {
         */
        public List<CineResponse> obtenerCinesPorNombreOCodigo(String palabra) throws DataBaseException, UserDataInvalidException {
               List<CineResponse> cinesDTO = new ArrayList<>();
+              VerificadorCaracteres verificadorCaracteres= new VerificadorCaracteres();
+              if(!verificadorCaracteres.caracteresPermitidosNombre(palabra)){
+                     throw new UserDataInvalidException();
+              }
               CinesDB cinesDB = new CinesDB();
-
+              
               List<Cine> cines = cinesDB.obtenerCinePorCodigoONombre(palabra);
               cinesDTO = cargarDTOs(cines, cinesDTO);
               
@@ -158,5 +162,15 @@ public class CRUDCines extends CRUD {
                      throw new UserDataInvalidException("Error en los datos enviados");
               }
               return cineUpdate;
+       }
+       
+       @Override
+       public void eliminar(String codigo) throws DataBaseException, EntityNotFoundException {
+              CinesDB cinesDB = new CinesDB();
+              HerramientaDB herramientaDB = new HerramientaDB();
+              if (!herramientaDB.existeEntidad(codigo, PeticionAdminSistema.BUSCAR_CINE.getPeticion())) {
+                     throw new EntityNotFoundException("No se encontro ningun cine con ese codigo en la db");
+              }
+              cinesDB.eliminarCine(codigo);
        }
 }
