@@ -2,16 +2,17 @@ package com.ronaldo.gestor.cines.api.rest.resources;
 
 import com.ronaldo.gestor.cines.api.rest.dtos.cines.CineResponse;
 import com.ronaldo.gestor.cines.api.rest.exceptions.UserDataInvalidException;
-import com.ronaldo.gestor.cines.api.rest.dtos.cines.NuevoCineRequest;
+import com.ronaldo.gestor.cines.api.rest.dtos.cines.CineRequest;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.EntityAlreadyExistsException;
+import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
 import com.ronaldo.gestor.cines.api.rest.services.cines.CRUDCines;
-import com.ronaldo.gestor.cines.api.rest.services.cines.CreadorCines;
 import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
@@ -31,10 +32,10 @@ public class CinesResource {
 
        @POST
        @Consumes(MediaType.APPLICATION_JSON)
-       public Response crearCine(NuevoCineRequest cineRequest) throws DataBaseException {
-              CreadorCines creadorCines = new CreadorCines();
+       public Response crearCine(CineRequest cineRequest) throws DataBaseException {
+              CRUDCines creadorCines = new CRUDCines();
               try {
-                     creadorCines.crearCine(cineRequest);
+                     creadorCines.crear(cineRequest);
                      return Response.status(Response.Status.CREATED).build();
               } catch (UserDataInvalidException e) {
                      return Response.status(Response.Status.BAD_REQUEST).build();
@@ -70,6 +71,23 @@ public class CinesResource {
                      return Response.ok(cines).build();
               } catch (DataBaseException e) {
                      return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+              } catch (UserDataInvalidException e) {
+                     return Response.status(Response.Status.BAD_REQUEST).build();
+              } 
+       }
+
+       @PUT
+       @Consumes(MediaType.APPLICATION_JSON)
+       @Produces(MediaType.APPLICATION_JSON)
+       public Response updateEvent(CineRequest cineRequest) {
+              CRUDCines crudCines = new CRUDCines();
+              try {
+                     CineResponse cineActualizado = crudCines.actualizar(cineRequest);
+                     return Response.ok(cineActualizado).build();
+              } catch (DataBaseException e) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+              } catch (EntityNotFoundException e) {
+                     return Response.status(Response.Status.NOT_FOUND).build();
               } catch (UserDataInvalidException e) {
                      return Response.status(Response.Status.BAD_REQUEST).build();
               }

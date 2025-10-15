@@ -1,5 +1,8 @@
 package com.ronaldo.gestor.cines.api.rest.models.cines;
 
+import com.ronaldo.gestor.cines.api.rest.enums.caracter.LimiteCaracter;
+import com.ronaldo.gestor.cines.api.rest.models.interfaces.Editable;
+import com.ronaldo.gestor.cines.api.rest.verificacion.caracter.VerificadorLimiteCaracteres;
 import java.time.LocalDate;
 import org.apache.commons.lang3.StringUtils;
 
@@ -7,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author ronaldo
  */
-public class Cine {
+public class Cine implements Editable{
 
        private String codigo;
        private String nombre;
@@ -75,7 +78,16 @@ public class Cine {
               return StringUtils.isNotBlank(codigo)
                       && StringUtils.isNotBlank(nombre)
                       && StringUtils.isNotBlank(ubicacion)
-                      && fechaCreacion != null;
+                      && fechaCreacion != null
+                      && limiteCaracteresValidos();
+       }
+
+       private boolean limiteCaracteresValidos() {
+              VerificadorLimiteCaracteres verificador = new VerificadorLimiteCaracteres();
+
+              return !(!verificador.numeroCaracteresValido(codigo, LimiteCaracter.CODIGO_CINE.getLimite())
+                      || !verificador.numeroCaracteresValido(nombre, LimiteCaracter.NOMBRE_CINE.getLimite())
+                      || !verificador.numeroCaracteresValido(ubicacion, LimiteCaracter.UBICACION_CINE.getLimite()));
        }
 
 }

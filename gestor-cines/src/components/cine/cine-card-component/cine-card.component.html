@@ -17,7 +17,7 @@
       </h5>
       <a
         [routerLink]="['/cine/actualizar']"
-        [state]="{ cine: cineSeleccionado }"
+        [state]="{codigoCine: cineSeleccionado.codigo}"
         class="btn btn-primary"
       >
         Actualizar Cine

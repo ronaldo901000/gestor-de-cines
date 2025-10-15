@@ -16,7 +16,6 @@
   <app-buscador-cine-component
   (palabraBuscada)="buscarCines($event)">
 </app-buscador-cine-component>
-
   </div>
   <br>
   <nav aria-label="Paginación">
@@ -29,6 +28,7 @@
       </li>
     </ul>
   </nav>
+  <app-toast-component #toast></app-toast-component>
   <div class="row">
     @for (cine of cines; track $index) {
     <h1></h1>
@@ -36,3 +36,4 @@
     }
   </div>
 </div>
+
