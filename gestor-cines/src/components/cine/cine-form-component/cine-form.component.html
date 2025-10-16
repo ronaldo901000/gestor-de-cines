@@ -3,7 +3,7 @@
     <div class="row g-3" id="contenedor">
         <div class="col-6">
             <label for="codigo" class="form-label">Codigo:</label>
-            <input type="text" class="form-control" placeholder="ej: CN-00" id="codigo" name="codigo" formControlName="codigo"
+            <input type="text" class="form-control" id="codigo" name="codigo" formControlName="codigo"
             [class.is-invalid]="newCineForm.controls['codigo'].dirty && newCineForm.controls['codigo'].invalid"
             >
         </div>

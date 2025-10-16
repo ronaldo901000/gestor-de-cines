@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-home-admin-sistema-page',
   imports: [HeaderAdminSistemaComponent, RouterLink],
-  templateUrl: './home-admin-sistema-page.component.html'
+  templateUrl: './home-admin-sistema-page.component.html',
 })
 export class HomeAdminSistema {
 

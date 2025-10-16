@@ -1,7 +1,8 @@
 <header class="p-4 bg-black text-white">
   <div class="container">
-    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-
+    <div
+      class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
+    >
       <li class="me-0 list-unstyled d-flex align-items-center">
         <a
           routerLink="/home/admin-sistema"
@@ -22,6 +23,15 @@
         Cines
       </a>
       <a
+        routerLink="/anunciantes"
+        class="btn btn-outline-light me-1 btn-lg"
+        routerLinkActive="active"
+        aria-current="page"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Anunciantes
+      </a>
+      <a
         routerLink="/home/admin-sistema"
         routerLinkActive="active"
         class="btn btn-outline-light me-1 btn-lg"
@@ -29,24 +39,14 @@
         Admins
       </a>
 
-      <a
-        routerLink="/faqs"
-        routerLinkActive="active"
-        class="btn btn-outline-light me-2 btn-lg"
-      >
+      <a routerLink="/faqs" routerLinkActive="active" class="btn btn-outline-light me-2 btn-lg">
         FAQs
       </a>
       <h2>ID: - - - -</h2>
       <div class="ms-auto text-end">
-        <a
-          routerLink="/"
-          class="btn btn-outline-light btn-lg"
-        >
-          Cerrar Sesión
-        </a>
+        <a routerLink="/" class="btn btn-outline-light btn-lg"> Cerrar Sesión </a>
       </div>
     </div>
   </div>
 </header>
-<br>
-
+<br />
