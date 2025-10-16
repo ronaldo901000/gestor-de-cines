@@ -1,0 +1,30 @@
+<div id="contenedor">
+  <br />
+  <div class="container">
+    <app-toast-component #toast></app-toast-component>
+    <form [formGroup]="nuevoAnuncianteForm" (submit)="crear()">
+      <div class="col-12 justify-content-lg-center">
+        <label for="idUsuario" class="form-label"><h4>ID Del Usuario:</h4></label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Ingresa el ID"
+          id="idUsuario"
+          name="idUsuario"
+          formControlName="idUsuario"
+          [class.is-invalid]="
+            nuevoAnuncianteForm.controls['idUsuario'].dirty &&
+            nuevoAnuncianteForm.controls['idUsuario'].invalid
+          "
+        />
+      </div>
+      <hr class="my-4" />
+      <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
+        <button class="btn btn-success" [disabled]="nuevoAnuncianteForm.invalid">
+          <strong>Crear Anunciante</strong>
+        </button>
+      </div>
+    </form>
+  </div>
+  <br />
+</div>

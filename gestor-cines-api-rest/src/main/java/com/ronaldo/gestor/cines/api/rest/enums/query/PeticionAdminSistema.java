@@ -21,7 +21,11 @@ public enum PeticionAdminSistema {
        CREAR_ADMIN_CINE("insert into admin_cine (id_usuario, codigo_cine) values(?,?)"),
        OBTENER_ADMIN_SISTEMA("select * from admin_sistema where id_usuario=?"),
        OBTENER_TODOS_ADMINS_DE_CINE("select * from admin_cine join usuario on id_usuario=id where codigo_cine=?"),
-       ELIMINAR_ADMIN_CINE("delete from admin_cine where id_usuario=?");
+       ELIMINAR_ADMIN_CINE("delete from admin_cine where id_usuario=?"),
+       BUSCAR_ANUNCIANTE("select * from anunciante where id_usuario=?"),
+       CREAR_ANUNCIANTE("insert into anunciante (id_usuario) values (?)"),
+       OBTENER_ANUNCIANTES("select * from anunciante join usuario on id_usuario=id where anunciante.activo=1"),
+       ;
        
        private String peticion;
 
