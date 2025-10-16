@@ -37,6 +37,14 @@ export class TablaAdminsCine implements OnInit {
             }
         })
     }
+
+    confirmarEliminacion(idAdmin: string): void {
+        const confirmado = confirm('¿Estas seguro de que deseas eliminar este admin?');
+        if (confirmado) {
+            this.eliminarAdmin(idAdmin);
+        }
+    }
+
     eliminarAdmin(idAdmin: string) {
         console.log('eliminando');
         this.adminsService.eliminarAdminCine(idAdmin).subscribe({

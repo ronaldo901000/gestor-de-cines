@@ -64,4 +64,22 @@ public class AnunciantesDB {
               return anunciantes;
        }
 
+       /**
+        * 
+        * @param idUsuario
+        * @throws DataBaseException 
+        */
+       public void eliminar(String idUsuario) throws DataBaseException {
+              try {
+                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+                     try (PreparedStatement delete = connection.
+                             prepareStatement(PeticionAdminSistema.ELIMINAR_ANUNCIANTE.get())) {
+                            delete.setString(1, idUsuario);
+                            delete.executeUpdate();
+                     }
+              } catch (SQLException e) {
+                     throw new DataBaseException("Error al eliminar anunciante en la base de datos");
+              }
+       }
+
 }

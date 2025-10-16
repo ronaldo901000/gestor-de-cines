@@ -38,7 +38,7 @@ export class AnuncianteFormComponent {
                     
                     this.toast.titulo = 'Anunciante Creado con exito';
                     this.toast.tipo = 'success';
-                    this.toast.mensaje = 'Anunciante con ID: "' + this.nuevoAnunciante.id + '" creado exitosamente'
+                    this.toast.mensaje = 'Anunciante creado exitosamente'
                     this.toast.mostrar();
                     this.reset();
                 },

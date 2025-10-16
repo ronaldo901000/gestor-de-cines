@@ -25,6 +25,7 @@ public enum PeticionAdminSistema {
        BUSCAR_ANUNCIANTE("select * from anunciante where id_usuario=?"),
        CREAR_ANUNCIANTE("insert into anunciante (id_usuario) values (?)"),
        OBTENER_ANUNCIANTES("select * from anunciante join usuario on id_usuario=id where anunciante.activo=1"),
+       ELIMINAR_ANUNCIANTE("delete from anunciante where id_usuario=?"),
        ;
        
        private String peticion;

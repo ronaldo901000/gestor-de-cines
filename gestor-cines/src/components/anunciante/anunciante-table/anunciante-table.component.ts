@@ -43,7 +43,37 @@ export class AnunciantesTableComponent implements OnInit {
             }
         })
     }
-    eliminarAnunciante(idAdmin: string) {
+    confirmarEliminacion(idAnunciante: string): void {
+        const confirmado = confirm('¿Estas seguro de que deseas eliminar este anunciante?');
+        if (confirmado) {
+            this.eliminarAnunciante(idAnunciante);
+        }
+    }
+    eliminarAnunciante(idAnunciante: string) {
+        this.anuncianteService.eliminarAnunciante(idAnunciante).subscribe({
+            next: () => {
+                this.toast.titulo = 'Eliminacion exitosa';
+                this.toast.tipo = 'warning';
+                this.toast.mensaje = 'Eliminacion realizada con exito';
+                this.toast.mostrar();
+                this.eliminarDeLista(idAnunciante);
+            },
+            error: (error) => {
+                this.toast.titulo = 'Error al Eliminar';
+                this.toast.tipo = 'danger';
+                if (error.status === Status.INTERNAL_SERVER_ERROR) {
+                    this.toast.mensaje = 'Error en la base de datos al eliminar anunciante';
+                } else if (error.status === Status.NOT_FOUND) {
+                    this.toast.mensaje = 'No se encontro el usuario en la base de datos';
+                } else if (error.status === Status.BAD_REQUEST) {
+                    this.toast.mensaje = 'Error en los datos enviados, verifica';
+                } else {
+                    this.toast.mensaje = 'Sucedio un error desconocido';
+                }
+                this.toast.mostrar();
+            }
+
+        });
     }
 
     eliminarDeLista(idAdmin: String) {
