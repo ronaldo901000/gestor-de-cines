@@ -1,0 +1,32 @@
+@if(admins.length==0){
+  <h2>No hay admins en este cine, Crea uno</h2>
+}
+@if(admins.length>0){
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Correo</th>
+      <th scope="col">Telefono</th>
+      <th scope="col">Eliminar</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (admin of admins; track $index) {
+    <tr>
+      <td>{{ admin.id }}</td>
+      <td>{{ admin.nombre }}</td>
+      <td>{{ admin.correo }}</td>
+      <td>{{ admin.telefono }}</td>
+      <td>
+        <button type="button" class="btn btn-danger" onclick="eliminarAdmin(admin.codigo)">
+          <i class="bi bi-trash"></i>
+        </button>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
+}
+

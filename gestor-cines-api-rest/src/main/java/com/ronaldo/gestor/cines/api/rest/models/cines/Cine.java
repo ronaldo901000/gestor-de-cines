@@ -75,6 +75,9 @@ public class Cine implements Editable{
        }
 
        public boolean esValidoEnCampos() {
+              codigo = codigo.trim();
+              nombre = nombre.trim();
+              ubicacion = ubicacion.trim();
               return StringUtils.isNotBlank(codigo)
                       && StringUtils.isNotBlank(nombre)
                       && StringUtils.isNotBlank(ubicacion)
@@ -82,7 +85,7 @@ public class Cine implements Editable{
                       && limiteCaracteresValidos()
                       && caracteresPermitidos();
        }
-       
+
        private boolean limiteCaracteresValidos() {
               VerificadorCaracteres verificador = new VerificadorCaracteres();
 
