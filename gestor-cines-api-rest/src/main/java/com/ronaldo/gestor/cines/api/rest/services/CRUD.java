@@ -17,7 +17,7 @@ public abstract class CRUD {
        protected abstract Editable crear(EntidadRequest entidadRequest) throws
                UserDataInvalidException,
                EntityAlreadyExistsException,
-               DataBaseException;
+               DataBaseException, EntityNotFoundException;
 
        protected abstract Editable extraer(EntidadRequest entidadRequest) throws UserDataInvalidException;
 

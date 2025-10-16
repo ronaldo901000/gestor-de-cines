@@ -1,0 +1,36 @@
+<app-toast-component #toast></app-toast-component>
+
+<div class="container text-center align-content-center mt-4">
+  <form [formGroup]="adminCineForm" (submit)="crear()" class="mx-auto col-md-6">
+    <div id="contenedor" class="d-flex flex-column gap-3 text-start">
+      <div>
+        <label for="codigoCine" class="form-label fw-bold text-primary">
+          Codigo del Cine:
+        </label>
+        <input type="text" class="form-control bg-light border border-primary" readonly
+          id="codigoCine" name="codigoCine" formControlName="codigoCine"
+          [class.is-invalid]=" adminCineForm.controls['codigoCine']?.dirty && adminCineForm.controls['codigoCine']?.invalid
+          "
+        />
+      </div>
+      <div>
+        <label for="id" class="form-label">ID del Usuario:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="id"
+          name="id"
+          formControlName="id"
+          [class.is-invalid]="adminCineForm.controls['id']?.dirty && adminCineForm.controls['id']?.invalid"
+        />
+      </div>
+    </div>
+
+    <hr class="my-4" />
+    <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
+      <button class="btn btn-success" [disabled]="adminCineForm.invalid">
+        <strong>Crear Admin Cine</strong>
+      </button>
+    </div>
+  </form>
+</div>

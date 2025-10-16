@@ -15,14 +15,20 @@ public enum PeticionAdminSistema {
        OBTENER_CINES_POR_CODIGO_NOMBRE("select * from cine where codigo=? or nombre=? and activo=1"),
        OBTENER_CINE_POR_CODIGO("select * from cine where codigo=?"),
        ACTUALIZAR_CINE("update cine set nombre=?, ubicacion=?, fecha_creacion=? where codigo=?"),
-       ELIMINAR_CINE("delete from cine where codigo=?");
+       ELIMINAR_CINE("delete from cine where codigo=?"),
+       OBTENER_USUARIO("select * from usuario where id=?"),
+       OBTENER_ADMIN_CINE("select * from admin_cine where id_usuario=?"),
+       CREAR_ADMIN_CINE("insert into admin_cine (id_usuario, codigo_cine) values(?,?)"),
+       OBTENER_ADMIN_SISTEMA("select * from admin_sistema where id_usuario=?"),
+       OBTENER_TODOS_ADMINS_DE_CINE("select * from admin_cine join usuario on id_usuario=id where codigo_cine=?");
+       
        private String peticion;
 
        private PeticionAdminSistema(String peticion) {
               this.peticion = peticion;
        }
 
-       public String getPeticion() {
+       public String get() {
               return peticion;
        }
        

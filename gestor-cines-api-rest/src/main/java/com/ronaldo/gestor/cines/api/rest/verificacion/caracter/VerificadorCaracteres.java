@@ -9,7 +9,7 @@ package com.ronaldo.gestor.cines.api.rest.verificacion.caracter;
  * @author ronaldo
  */
 public class VerificadorCaracteres {
-
+       
        public boolean numeroCaracteresValido(String elemento, int limiteCaracter) {
               return elemento.length() <= limiteCaracter;
        }

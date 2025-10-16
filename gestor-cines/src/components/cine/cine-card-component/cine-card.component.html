@@ -19,13 +19,18 @@
       <a
         [routerLink]="['/cine/actualizar']"
         [state]="{codigoCine: cineSeleccionado.codigo}"
-        class="btn btn-primary"
+        class="btn btn-primary me-3"
       >
         Actualizar Cine
       </a>
+      
+      <a 
+      class="btn btn-success me-3" 
+      routerLink="/cine/admins"
+      [state]="{cine: cineSeleccionado}"
+      >Ver Admins Cine</a>
 
      <a class="btn btn-danger" (click)="confirmarEliminacion()">Eliminar</a>
-
     </div>
   </div>
 </div>

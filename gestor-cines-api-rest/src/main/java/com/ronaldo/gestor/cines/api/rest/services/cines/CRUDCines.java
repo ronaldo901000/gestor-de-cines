@@ -41,7 +41,7 @@ public class CRUDCines extends CRUD {
               HerramientaDB herramienta = new HerramientaDB();
               Cine cine = extraer(cineRequest);
 
-              if (herramienta.existeEntidad(cineRequest.getCodigo(), PeticionAdminSistema.BUSCAR_CINE.getPeticion())) {
+              if (herramienta.existeEntidad(cineRequest.getCodigo(), PeticionAdminSistema.BUSCAR_CINE.get())) {
                      throw new EntityAlreadyExistsException(
                              String.format("El Cine con codigo %s ya existe", cine.getCodigo()));
               }
@@ -168,7 +168,7 @@ public class CRUDCines extends CRUD {
        public void eliminar(String codigo) throws DataBaseException, EntityNotFoundException {
               CinesDB cinesDB = new CinesDB();
               HerramientaDB herramientaDB = new HerramientaDB();
-              if (!herramientaDB.existeEntidad(codigo, PeticionAdminSistema.BUSCAR_CINE.getPeticion())) {
+              if (!herramientaDB.existeEntidad(codigo, PeticionAdminSistema.BUSCAR_CINE.get())) {
                      throw new EntityNotFoundException("No se encontro ningun cine con ese codigo en la db");
               }
               cinesDB.eliminarCine(codigo);

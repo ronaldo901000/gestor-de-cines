@@ -28,7 +28,7 @@ public class CinesDB {
        public void crearCine(Cine cine) throws DataBaseException {
               try {
                      Connection connection = DataSourceDBSingleton.getInstance().getConnection();
-                     try (PreparedStatement insert = connection.prepareStatement(PeticionAdminSistema.CREAR_CINE.getPeticion());) {
+                     try (PreparedStatement insert = connection.prepareStatement(PeticionAdminSistema.CREAR_CINE.get());) {
                             insert.setString(1, cine.getCodigo());
                             insert.setString(2, cine.getNombre());
                             insert.setString(3, cine.getUbicacion());
@@ -54,7 +54,7 @@ public class CinesDB {
               int contador = 0;
               try {
                      Connection connection = DataSourceDBSingleton.getInstance().getConnection();
-                     try (PreparedStatement query = connection.prepareStatement(PeticionAdminSistema.OBTENER_CINES.getPeticion());) {
+                     try (PreparedStatement query = connection.prepareStatement(PeticionAdminSistema.OBTENER_CINES.get());) {
                             ResultSet resultSet = query.executeQuery();
                             while (resultSet.next()) {
                                    if (contador >= inicio && contador < fin) {
@@ -81,7 +81,7 @@ public class CinesDB {
               List<Cine> cines = new ArrayList<>();
               try {
                      Connection connection = DataSourceDBSingleton.getInstance().getConnection();
-                     try (PreparedStatement query = connection.prepareStatement(PeticionAdminSistema.OBTENER_CINES_POR_CODIGO_NOMBRE.getPeticion())) {
+                     try (PreparedStatement query = connection.prepareStatement(PeticionAdminSistema.OBTENER_CINES_POR_CODIGO_NOMBRE.get())) {
                             query.setString(1, elementoDeBusqueda);
                             query.setString(2, elementoDeBusqueda);
                             ResultSet resultSet = query.executeQuery();
@@ -107,7 +107,7 @@ public class CinesDB {
        public Optional<Cine> obtenerCinePorCodigo(String codigo) throws DataBaseException {
               try {
                      Connection connection = DataSourceDBSingleton.getInstance().getConnection();
-                     try (PreparedStatement query = connection.prepareStatement(PeticionAdminSistema.OBTENER_CINE_POR_CODIGO.getPeticion())) {
+                     try (PreparedStatement query = connection.prepareStatement(PeticionAdminSistema.OBTENER_CINE_POR_CODIGO.get())) {
                             query.setString(1, codigo);
                             ResultSet resultSet = query.executeQuery();
                             if (resultSet.next()) {
@@ -129,7 +129,7 @@ public class CinesDB {
        public void updateCine(Cine cine) throws DataBaseException {
               try {
                      Connection connection = DataSourceDBSingleton.getInstance().getConnection();
-                     try (PreparedStatement query = connection.prepareStatement(PeticionAdminSistema.ACTUALIZAR_CINE.getPeticion())) {
+                     try (PreparedStatement query = connection.prepareStatement(PeticionAdminSistema.ACTUALIZAR_CINE.get())) {
                             query.setString(1, cine.getNombre());
                             query.setString(2, cine.getUbicacion());
                             query.setDate(3, Date.valueOf(cine.getFechaCreacion()));
@@ -158,7 +158,7 @@ public class CinesDB {
        public void eliminarCine(String codigo) throws DataBaseException {
               try {
                      Connection connection = DataSourceDBSingleton.getInstance().getConnection();
-                     try (PreparedStatement query = connection.prepareStatement(PeticionAdminSistema.ELIMINAR_CINE.getPeticion())) {
+                     try (PreparedStatement query = connection.prepareStatement(PeticionAdminSistema.ELIMINAR_CINE.get())) {
                             query.setString(1, codigo);
                             query.executeUpdate();
                      }
