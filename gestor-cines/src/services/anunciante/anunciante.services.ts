@@ -22,20 +22,9 @@ export class AnuncianteServices {
         return this.httpClient.get<Usuario[]>(`${this.restConstants.getApiURL()}anunciantes`);
     }
 
-    public traerCinesPorPalabraClave(palabraClave: String): Observable<Cine[]> {
-        return this.httpClient.get<Cine[]>(`${this.restConstants.getApiURL()}cines/palabraClave/${palabraClave}`);
-    }
-
-    public actualizarCine(cine: Cine): Observable<Cine> {
-        return this.httpClient.put<Cine>(
-            `${this.restConstants.getApiURL()}cines`,
-            cine
-        );
-    }
-
-    eliminarCine(codigo: string): Observable<void> {
+    eliminarAnunciante(id: string): Observable<void> {
         return this.httpClient.delete<void>(
-            `${this.restConstants.getApiURL()}cines/${codigo}`);
+            `${this.restConstants.getApiURL()}anunciantes/${id}`);
     }
 
 }

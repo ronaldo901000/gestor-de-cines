@@ -17,6 +17,7 @@ import com.ronaldo.gestor.cines.api.rest.models.usuario.Usuario;
 import com.ronaldo.gestor.cines.api.rest.services.CRUD;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -77,13 +78,23 @@ public class CRUDAnunciantes extends CRUD {
        }
 
        @Override
-       public EntidadResponse actualizar(EntidadRequest entidadRequest) throws DataBaseException, EntityNotFoundException, UserDataInvalidException {
-              throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       public EntidadResponse actualizar(EntidadRequest entidadRequest)
+               throws DataBaseException, EntityNotFoundException, UserDataInvalidException {
+              return null;
        }
 
        @Override
-       public void eliminar(String codigo) throws DataBaseException, EntityNotFoundException, UserDataInvalidException {
-              throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       public void eliminar(String id)
+               throws DataBaseException, EntityNotFoundException, UserDataInvalidException {
+              HerramientaDB herramientaDB = new HerramientaDB();
+              AnunciantesDB anunciantesDB = new AnunciantesDB();
+              if (!StringUtils.isNoneBlank(id)) {
+                     throw new UserDataInvalidException("error en los datos enviados");
+              }
+              if (!herramientaDB.existeEntidad(id, PeticionAdminSistema.OBTENER_USUARIO.get())) {
+                     throw new EntityNotFoundException("El usuario no esta registrado en el sistema");
+              }
+              anunciantesDB.eliminar(id);
        }
 
 }
