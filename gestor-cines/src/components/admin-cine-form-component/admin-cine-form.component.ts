@@ -5,6 +5,7 @@ import { ToastComponent } from "../toast/toast.component";
 import { AdminCine } from "../../models/admin-cine/admin-cine";
 import { Cine } from "../../models/cine/cine";
 import { AdminCinesServices } from "../../services/admin-cine/admin-cine.services";
+import { Status } from "../../shared/status/status";
 
 @Component({
   selector: 'app-crear-admin-cine-form-component',
@@ -37,20 +38,21 @@ export class CrearAdminCineFormComponet implements OnInit {
         next: () => {
           this.toast.titulo = 'Creacion exitosa';
           this.toast.tipo = 'success';
-          this.toast.mensaje = 'Creacion del admin exitoso';
+          this.toast.mensaje = 'Creacion del admin con ID:"'+this.adminCine.id+'" exitoso';
           this.toast.mostrar();
+          this.reset();
 
         },
         error: (error: any) => {
           this.toast.titulo = 'Error de creacion';
           this.toast.tipo = 'danger';
-          if(error.status==400){
+          if(error.status==Status.BAD_REQUEST){
             this.toast.mensaje='Error con los datos enviados';
           }
-          else if(error.status==409){
-            this.toast.mensaje='El usuario ya es admin';
+          else if(error.status==Status.CONFLICT){
+            this.toast.mensaje='El usuario no esta disponible';
           }
-          else if(error.status==404){
+          else if(error.status==Status.NOT_FOUND){
             this.toast.mensaje='El ID del usuario no esta registrado en el sistema';
           }
           this.toast.mostrar();
@@ -61,6 +63,8 @@ export class CrearAdminCineFormComponet implements OnInit {
   }
 
   reset(): void {
-    this.adminCineForm.reset();
+    this.adminCineForm.reset({
+      codigoCine:this.cine.codigo
+    });
   }
 }

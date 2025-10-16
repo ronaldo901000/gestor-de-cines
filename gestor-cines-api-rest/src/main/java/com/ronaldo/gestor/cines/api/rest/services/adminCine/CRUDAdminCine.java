@@ -17,6 +17,7 @@ import com.ronaldo.gestor.cines.api.rest.models.usuario.Usuario;
 import com.ronaldo.gestor.cines.api.rest.services.CRUD;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -88,9 +89,24 @@ public class CRUDAdminCine extends CRUD {
               throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
        }
 
+       /**
+        * 
+        * @param idUsuario
+        * @throws DataBaseException
+        * @throws EntityNotFoundException
+        * @throws UserDataInvalidException 
+        */
        @Override
-       protected void eliminar(String codigo) throws DataBaseException, EntityNotFoundException {
-              throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       public void eliminar(String idUsuario) throws DataBaseException, EntityNotFoundException, UserDataInvalidException {
+              HerramientaDB herramientaDB= new HerramientaDB();
+              AdminCineDB adminCineDB= new AdminCineDB();
+              if(StringUtils.isBlank(idUsuario)){
+                     throw new UserDataInvalidException("Error en el id enviado");
+              }
+              if(!herramientaDB.existeEntidad(idUsuario, PeticionAdminSistema.OBTENER_USUARIO.get())){
+                     throw new EntityNotFoundException("El usuario no esta registrado en el sistema");
+              }
+              adminCineDB.eliminar(idUsuario);
        }
 
 }

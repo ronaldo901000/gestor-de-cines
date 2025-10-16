@@ -18,6 +18,11 @@ import java.util.List;
  */
 public class AdminCineDB {
 
+       /**
+        * 
+        * @param adminCine
+        * @throws DataBaseException 
+        */
        public void crearAdmin(AdminCine adminCine) throws DataBaseException {
               try {
                      Connection connection = DataSourceDBSingleton.getInstance().getConnection();
@@ -32,6 +37,12 @@ public class AdminCineDB {
 
        }
 
+       /**
+        * 
+        * @param codigoCine
+        * @return
+        * @throws DataBaseException 
+        */
        public List<Usuario> obtenerAdminsCine(String codigoCine) throws DataBaseException {
               List<Usuario> admins = new ArrayList<>();
               try {
@@ -53,5 +64,23 @@ public class AdminCineDB {
               }
               return admins;
        }
-       
+
+       /**
+        *
+        * @param id
+        * @throws DataBaseException
+        */
+       public void eliminar(String id) throws DataBaseException {
+              try {
+                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+                     try (PreparedStatement delete = connection.prepareStatement(PeticionAdminSistema.ELIMINAR_ADMIN_CINE.get())) {
+                            delete.setString(1, id);
+                            delete.executeUpdate();
+                     }
+              } catch (SQLException e) {
+                     throw new DataBaseException("Error al eliminar admin cine en la db");
+              }
+
+       }
+
 }
