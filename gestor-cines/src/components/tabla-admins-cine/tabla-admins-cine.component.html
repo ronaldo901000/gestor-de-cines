@@ -1,7 +1,7 @@
+<app-toast-component #toast></app-toast-component>
 @if(admins.length==0){
-  <h2>No hay admins en este cine, Crea uno</h2>
-}
-@if(admins.length>0){
+<h2>No hay admins en este cine, Crea uno</h2>
+} @if(admins.length>0){
 <table class="table table-striped">
   <thead>
     <tr>
@@ -20,7 +20,7 @@
       <td>{{ admin.correo }}</td>
       <td>{{ admin.telefono }}</td>
       <td>
-        <button type="button" class="btn btn-danger" onclick="eliminarAdmin(admin.codigo)">
+        <button class="btn btn-danger" (click)="eliminarAdmin(admin.id)">
           <i class="bi bi-trash"></i>
         </button>
       </td>
@@ -29,4 +29,3 @@
   </tbody>
 </table>
 }
-

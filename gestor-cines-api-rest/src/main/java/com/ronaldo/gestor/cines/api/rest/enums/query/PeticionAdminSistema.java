@@ -20,7 +20,8 @@ public enum PeticionAdminSistema {
        OBTENER_ADMIN_CINE("select * from admin_cine where id_usuario=?"),
        CREAR_ADMIN_CINE("insert into admin_cine (id_usuario, codigo_cine) values(?,?)"),
        OBTENER_ADMIN_SISTEMA("select * from admin_sistema where id_usuario=?"),
-       OBTENER_TODOS_ADMINS_DE_CINE("select * from admin_cine join usuario on id_usuario=id where codigo_cine=?");
+       OBTENER_TODOS_ADMINS_DE_CINE("select * from admin_cine join usuario on id_usuario=id where codigo_cine=?"),
+       ELIMINAR_ADMIN_CINE("delete from admin_cine where id_usuario=?");
        
        private String peticion;
 
