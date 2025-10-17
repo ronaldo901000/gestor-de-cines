@@ -29,6 +29,9 @@ public enum PeticionAdminSistema {
        OBTENER_PRECIOS_ANUNCIOS("select * from precio_anuncio"),
        OBTENER_PRECIO_ANUNCIO("select * from precio_anuncio where id=?"),
        ACTUALIZAR_PRECIOS_ANUNCIO("update precio_anuncio set precio_venta_dia=?, precio_bloqueo_dia=? where id=?"),
+       CREAR_CATEGORIA("insert into categoria_pelicula (nombre) values(?)"),
+       BUSCAR_CATEGORIA("select * from categoria_pelicula where nombre=?"),
+       OBTENER_CATEGORIAS("select * from categoria_pelicula"),
        ;
        
        private String peticion;

@@ -11,6 +11,9 @@ import { AnunciantesPageComponent } from '../pages/admin-sistema-page/anunciante
 import { CrearAnunciantePageComponent } from '../pages/admin-sistema-page/crear-anunciante-page/crear-anunciante-page.component';
 import { ConfigPreciosAnunciosPage } from '../pages/admin-sistema-page/configuracion-precios-anuncios-page/config-precios-anuncios-page.component';
 import { ActualizarPreciosAnunciosPageComponent } from '../pages/admin-sistema-page/actualizar-precios-page/actualizar-precios-page.component';
+import { ConfigPeliculasPage } from '../pages/admin-sistema-page/config-peliculas-page/config-peliculas-page.component';
+import { CategoriasPage } from '../pages/admin-sistema-page/categorias-page/categorias-page.componet';
+import { CategoriaFormPage } from '../pages/admin-sistema-page/categorias-form-page/categorias-form-page.component';
 
 export const routes: Routes = [
     {
@@ -56,5 +59,16 @@ export const routes: Routes = [
     {
         path:'preciosCines/actualizar',
         component: ActualizarPreciosAnunciosPageComponent
+    },
+    {
+        path:'peliculas/config',
+        component:ConfigPeliculasPage
+    },
+    {
+        path:'categorias',
+        component:CategoriasPage
+    },{
+        path:'categorias/nuevo',
+        component:CategoriaFormPage
     }
 ];

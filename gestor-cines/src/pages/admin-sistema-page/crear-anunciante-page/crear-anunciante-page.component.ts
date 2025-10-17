@@ -6,7 +6,7 @@ import { AnuncianteFormComponent } from "../../../components/anunciante/anuncian
 @Component({
   selector: 'app-crear-anunciante-page',
   imports: [RouterLink, HeaderAdminSistemaComponent, AnuncianteFormComponent],
-  templateUrl: './crear-anunciante-page.component .html',
+  templateUrl: './crear-anunciante-page.component.html',
 })
 
 export class CrearAnunciantePageComponent {
