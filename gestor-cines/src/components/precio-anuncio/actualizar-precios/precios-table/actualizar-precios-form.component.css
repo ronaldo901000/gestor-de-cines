@@ -1,0 +1,43 @@
+#ID input {
+    text-align: center;
+    background-color: #d4cea6;
+    color: #0b355b;
+    font-size: 140%   ;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 600;
+    border: 1px solid #9ec5fe;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+#tipo input {
+    text-align: center;
+    background-color: #d4cea6;
+    color: #0b355b;
+    font-size: 140%   ;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 600;
+    border: 1px solid #9ec5fe;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+#venta input {
+    text-align: center;
+    background-color: #fffffc;
+    color: #0b355b;
+    font-size: 110%;
+    font-weight: 600;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+#bloqueo input {
+    text-align: center;
+    background-color: #fffffc;
+    color: #0b355b;
+    font-size: 110%   ;
+    font-weight: 600;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}

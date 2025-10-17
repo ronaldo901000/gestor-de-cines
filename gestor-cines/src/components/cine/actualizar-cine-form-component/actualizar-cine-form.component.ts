@@ -46,8 +46,7 @@ export class ActualizarCineFormComponent implements OnInit {
                 next: (resultado: Cine[]) => {
                     if (resultado.length > 0) {
                         this.cineActualizado = resultado[0];
-                        console.log('Cine encontrado:', this.cineActualizado);
-
+                        
                         this.cineActualizarForm.patchValue({
                             codigo: this.cineActualizado.codigo,
                             nombre: this.cineActualizado.nombre,

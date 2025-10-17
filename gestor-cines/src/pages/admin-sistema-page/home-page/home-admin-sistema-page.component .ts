@@ -8,6 +8,4 @@ import { RouterLink } from '@angular/router';
   templateUrl: './home-admin-sistema-page.component.html',
 })
 export class HomeAdminSistema {
-
-
 }

@@ -1,0 +1,30 @@
+<app-toast-component #toast></app-toast-component>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">TIPO DE ANUNCIO</th>
+      <th scope="col">PRECIO DE VENTA POR DIA</th>
+      <th scope="col">PRECIO DE BLOQUEO POR DIA</th>
+      <th scope="col">ACTUALIZAR PRECIOS</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (precio of preciosAnuncios; track $index) {
+    <tr>
+      <td>{{ precio.id }}</td>
+      <td>{{ precio.tipo }}</td>
+      <td>{{ precio.precioVentaPorDia | currency:'Q.'}}</td>
+      <td>{{ precio.precioBloqueoPorDia| currency:'Q.' }}</td>
+      <td>
+        <a  
+        routerLink="/preciosCines/actualizar" 
+        [state]="{idPrecioAnuncio: precio.id}"
+        class="btn btn-warning">
+          <i class="bi bi-pencil"></i>
+        </a>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
