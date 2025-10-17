@@ -1,0 +1,30 @@
+<app-toast-component #toast></app-toast-component>
+<div id="contenedor">
+  <br />
+  <div class="container">
+    <app-toast-component></app-toast-component>
+    <form [formGroup]="categoriaForm" (submit)="crear()">
+      <div class="col-12 justify-content-lg-center">
+        <label for="nombre" class="form-label"><h4>Nombre de la Categoria:</h4></label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Ingresa la categoria"
+          id="nombre"
+          name="nombre"
+          formControlName="nombre"
+          [class.is-invalid]="
+            categoriaForm.controls['nombre'].dirty && categoriaForm.controls['nombre'].invalid
+          "
+        />
+      </div>
+      <hr class="my-4" />
+      <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
+        <button class="btn btn-success" [disabled]="categoriaForm.invalid">
+          <strong>Crear Categoria</strong>
+        </button>
+      </div>
+    </form>
+  </div>
+  <br />
+</div>

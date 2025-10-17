@@ -9,6 +9,7 @@ import {
 import { CineServices } from '../../../services/cine/cine.services';
 import { Cine } from '../../../models/cine/cine';
 import { ToastComponent } from '../../toast/toast.component';
+import { Status } from '../../../shared/status/status';
 @Component({
     selector: 'app-cine-form',
     imports: [FormsModule, ReactiveFormsModule, ToastComponent],
@@ -46,12 +47,12 @@ export class CineFormComponent implements OnInit {
                     this.toast.titulo = 'Error';
                     this.toast.tipo = 'danger';
                     console.log(error);
-                    if (error.status == 409) {
+                    if (error.status == Status.CONFLICT) {
                          this.toast.mensaje ='Ya existe un cine con el codigo: "'+this.newCine.codigo+'" usa otro';
-                    } else if (error.status == 400) {
+                    } else if (error.status == Status.BAD_REQUEST) {
                          this.toast.mensaje ='Error en los datos enviados, por favor ingresa datos correctos';
                          this.reset();
-                    } else if (error.status == 500) {
+                    } else if (error.status == Status.INTERNAL_SERVER_ERROR) {
                          this.toast.mensaje ='Error interno del servidor';
                     }
                     this.toast.mostrar();

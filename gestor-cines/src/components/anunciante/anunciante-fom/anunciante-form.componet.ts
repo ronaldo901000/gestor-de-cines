@@ -1,8 +1,6 @@
 import { Component, ViewChild } from "@angular/core";
 import { ToastComponent } from "../../toast/toast.component";
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
-import { CineServices } from "../../../services/cine/cine.services";
-import { Cine } from "../../../models/cine/cine";
 import { FormsModule } from "@angular/forms";
 import { AnuncianteServices } from "../../../services/anunciante/anunciante.services";
 import { Anunciante } from "../../../models/anunciante/anunciante";
