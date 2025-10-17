@@ -9,6 +9,8 @@ import { AdminsCinePage } from '../pages/admin-sistema-page/admins-cine-page/adm
 import { CrearAdminCineComponentPage } from '../pages/admin-sistema-page/crear-admin-cine-page/crear-admin-cine-page.component';
 import { AnunciantesPageComponent } from '../pages/admin-sistema-page/anunciantes-page/anunciantes-page.component';
 import { CrearAnunciantePageComponent } from '../pages/admin-sistema-page/crear-anunciante-page/crear-anunciante-page.component';
+import { ConfigPreciosAnunciosPage } from '../pages/admin-sistema-page/configuracion-precios-anuncios-page/config-precios-anuncios-page.component';
+import { ActualizarPreciosAnunciosPageComponent } from '../pages/admin-sistema-page/actualizar-precios-page/actualizar-precios-page.component';
 
 export const routes: Routes = [
     {
@@ -46,5 +48,13 @@ export const routes: Routes = [
     {
         path:'anunciantes/nuevo',
         component: CrearAnunciantePageComponent
+    },
+    {
+        path:'preciosAnuncios',
+        component:ConfigPreciosAnunciosPage
+    },
+    {
+        path:'preciosCines/actualizar',
+        component: ActualizarPreciosAnunciosPageComponent
     }
 ];
