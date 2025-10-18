@@ -7,7 +7,10 @@ import com.ronaldo.gestor.cines.api.rest.models.peliculas.Pelicula;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,5 +76,61 @@ public class PeliculasDB {
                             throw new DataBaseException("Error al insertar categoría en la DB");
                      }
               }
+       }
+       
+       public List<Pelicula> obtenerPeliculasPorRango(int inicio, int fin) throws DataBaseException {
+              List<Pelicula> peliculas = new ArrayList<>();
+              int contador = 0;
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
+                    
+                     try (PreparedStatement query = connection.prepareStatement(PeticionAdminSistema.OBTENER_PELICULAS.get());) {
+                            ResultSet resultSet = query.executeQuery();
+                            while (resultSet.next()) {
+                                   if (contador >= inicio && contador < fin) {
+                                          peliculas.add(new Pelicula(
+                                                  resultSet.getString("codigo"),
+                                                  resultSet.getString("titulo"),
+                                                  resultSet.getString("sinopsis"),
+                                                  resultSet.getInt("duracion"),
+                                                  resultSet.getString("director"),
+                                                  resultSet.getString("cast"),
+                                                  resultSet.getString("clasificacion"),
+                                                  LocalDate.parse(resultSet.getString("fecha_estreno")))
+                                          );
+                                   }
+                                   contador++;
+                            }
+                     }
+                     
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al obtener cines en la db");
+              }
+              return peliculas;
+       }
+
+       /**
+        * 
+        * @param codigoPelicula
+        * @return
+        * @throws DataBaseException 
+        */
+       public String obtenerCategoriasPelicula(String codigoPelicula) throws DataBaseException {
+              String categorias = "";
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
+                     
+                     try (PreparedStatement query = connection.prepareStatement(
+                             PeticionAdminSistema.OBTENER_CATEGORIAS_PELICULA.get())) {
+                            query.setString(1, codigoPelicula);
+                            ResultSet resultSet = query.executeQuery();
+                            while (resultSet.next()) {
+                                   categorias += resultSet.getString("nombre")+", ";
+                            }
+                     }
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al insertar categoría en la DB");
+              }
+              return categorias;
        }
 }

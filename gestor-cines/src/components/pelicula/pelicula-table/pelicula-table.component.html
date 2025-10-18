@@ -1,0 +1,57 @@
+<div id="tabla">
+  <app-toast-component #toast></app-toast-component>
+  <nav aria-label="Paginación">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="inicio === 0">
+        <button class="page-link" (click)="retrocederUnaPagina()">Anterior</button>
+      </li>
+      <li class="page-item" [class.disabled]="!hayMasCines()">
+        <button class="page-link" (click)="avanzarUnaPagina()">Siguiente</button>
+      </li>
+    </ul>
+  </nav>
+  @if(peliculas.length==0){
+  <h2>No hay peliculas</h2>
+  } @if(peliculas.length>0){
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Codigo</th>
+        <th scope="col">Titulo</th>
+        <th scope="col">Duracion</th>
+        <th scope="col">Director</th>
+        <th scope="col">Cast</th>
+        <th scope="col">Clasificacion</th>
+        <th scope="col">Fecha de estreno</th>
+        <th scope="col">Categorias</th>
+        <th scope="col">Actualizar</th>
+        <th scope="col">Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (pelicula of peliculas; track $index) {
+      <tr>
+        <td><strong>{{ pelicula.codigo }}</strong></td>
+        <td>{{ pelicula.titulo }}</td>
+        <td>{{ pelicula.duracion | duracion}}</td>
+        <td>{{ pelicula.director }}</td>
+        <td>{{ pelicula.cast }}</td>
+        <td>{{ pelicula.clasificacion }}</td>
+        <td>{{ pelicula.fechaEstreno | date : 'MMMM,dd yyyy'}}</td>
+        <td>{{ pelicula.idsCategorias }}</td>
+        <td>
+          <button class="btn btn-warning">
+            <i class="bi bi-pencil"></i>
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-danger">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  }
+</div>

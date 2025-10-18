@@ -9,7 +9,9 @@ package com.ronaldo.gestor.cines.api.rest.enums.query;
  * @author ronaldo
  */
 public enum RangoBusquedaElemento {
-       CINES(5);
+       CINES(5),
+       PELICULAS(6),
+       ;
        private int rango;
 
        private RangoBusquedaElemento(int rango) {
