@@ -1,0 +1,142 @@
+<app-toast-component #toast></app-toast-component>
+<form [formGroup]="peliculaForm" (submit)="crear()">
+  <div class="row g-3">
+    <div class="col-6">
+      <label for="codigo" class="form-label">Codigo:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="codigo"
+        name="codigo"
+        formControlName="codigo"
+        [class.is-invalid]="
+          peliculaForm.controls['codigo'].dirty && peliculaForm.controls['codigo'].invalid
+        "
+      />
+    </div>
+
+    <div class="col-6">
+      <label for="titulo" class="form-label">Titulo:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="titulo"
+        name="titulo"
+        formControlName="titulo"
+        [class.is-invalid]="
+          peliculaForm.controls['titulo'].dirty && peliculaForm.controls['titulo'].invalid
+        "
+      />
+    </div>
+
+    <div class="col-6">
+      <label for="sinopsis" class="form-label">Sinopsis:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="sinopsis"
+        name="sinopsis"
+        formControlName="sinopsis"
+        [class.is-invalid]="
+          peliculaForm.controls['sinopsis'].dirty && peliculaForm.controls['sinopsis'].invalid
+        "
+      />
+    </div>
+
+    <div class="col-6">
+      <label for="duracion" class="form-label">Duracion (minutos):</label>
+      <input
+        type="number"
+        class="form-control"
+        id="duracion"
+        name="duracion"
+        formControlName="duracion"
+        [class.is-invalid]="
+          peliculaForm.controls['duracion'].dirty && peliculaForm.controls['duracion'].invalid
+        "
+      />
+    </div>
+
+    <div class="col-6">
+      <label for="director" class="form-label">Director:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="director"
+        name="director"
+        formControlName="director"
+        [class.is-invalid]="
+          peliculaForm.controls['director'].dirty && peliculaForm.controls['director'].invalid
+        "
+      />
+    </div>
+
+    <div class="col-6">
+      <label for="cast" class="form-label">Cast:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="cast"
+        name="cast"
+        formControlName="cast"
+        [class.is-invalid]="
+          peliculaForm.controls['cast'].dirty && peliculaForm.controls['cast'].invalid
+        "
+      />
+    </div>
+
+    <div class="col-6">
+      <label for="clasificacion" class="form-label">Clasificacion:</label>
+      <select
+        id="clasificacion"
+        name="clasificacion"
+        class="form-control"
+        formControlName="clasificacion"
+      >
+        <option *ngFor="let option of eventTypeOptions" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-6">
+      <label for="fechaEstreno" class="form-label">Fecha de Estreno:</label>
+      <input
+        type="date"
+        class="form-control"
+        id="fechaEstreno"
+        name="fechaEstreno"
+        formControlName="fechaEstreno"
+      />
+    </div>
+
+    <div class="col-12" id="listadoCat">
+      <label class="form-label"><h3>Categorias Disponibles:</h3></label>
+      <textarea class="form-control" rows="2" [value]="categoriasString" readonly></textarea>
+    </div>
+
+    <div class="col-6">
+      <label for="idsCategorias" class="form-label"
+        >Ingresa los ID's de las categorias (separados por comas y sin espacios ):</label
+      >
+      <input
+        type="text"
+        class="form-control"
+        id="idsCategorias"
+        name="idsCategorias"
+        formControlName="idsCategorias"
+        [class.is-invalid]="
+          peliculaForm.controls['idsCategorias'].dirty &&
+          peliculaForm.controls['idsCategorias'].invalid
+        "
+      />
+    </div>
+  </div>
+  <hr class="my-4" />
+  <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
+    <button class="btn btn-secondary me-md-2" type="button" (click)="reset()">Limpiar</button>
+    <button class="btn btn-success" [disabled]="peliculaForm.invalid">
+      <strong>Crear Pelicula</strong>
+    </button>
+  </div>
+</form>

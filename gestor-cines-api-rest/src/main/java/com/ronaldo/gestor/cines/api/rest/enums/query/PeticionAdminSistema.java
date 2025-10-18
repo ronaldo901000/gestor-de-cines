@@ -32,6 +32,12 @@ public enum PeticionAdminSistema {
        CREAR_CATEGORIA("insert into categoria_pelicula (nombre) values(?)"),
        BUSCAR_CATEGORIA("select * from categoria_pelicula where nombre=?"),
        OBTENER_CATEGORIAS("select * from categoria_pelicula"),
+       OBTENER_CATEGORIA("select * from categoria_pelicula where id=?"),
+       OBTENER_PELICULA("select * from pelicula where codigo=?"),
+       CREAR_PELICULA("insert into pelicula (codigo, titulo, sinopsis, duracion, director, cast, clasificacion, fecha_estreno) "
+               + "values (?, ?, ?, ?, ?, ?, ?, ?)"),
+       CREAR_REGISTRO_CATEGORIAS_PELICULA("insert into registro_categoria_pelicula (id_categoria, codigo_pelicula)"
+               + "values (?,?)"),
        ;
        
        private String peticion;
