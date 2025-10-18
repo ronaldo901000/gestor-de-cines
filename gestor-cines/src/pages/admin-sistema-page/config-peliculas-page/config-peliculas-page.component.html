@@ -1,22 +1,20 @@
 <app-header-admin-sistema></app-header-admin-sistema>
 <div class="container">
-<app-header-config-peliculas></app-header-config-peliculas>
+  <app-header-config-peliculas></app-header-config-peliculas>
 </div>
 <div class="container text-center">
   <br />
-  <a routerLink="/anunciantes/nuevo" class="btn btn-success">
+  <a routerLink="/peliculas/nueva" class="btn btn-success">
     <i class="bi bi-file-earmark-plus"></i>
-    <h6>Crear Peliculas</h6>
+    <h6>Crear Pelicula</h6>
   </a>
 </div>
 
-<div class="container text-center">
-
-</div>
+<div class="container text-center"></div>
 
 <br />
 <div class="container text-black text-center">
-  <h1><strong> LISTA DE PELICULAS REGISTRADAS:</strong></h1>
+  <h1><strong> LISTA DE PELICULAS REGISTRADAS</strong></h1>
   <br />
   <div class="container text-center">
     <a routerLink="/home/admin-sistema" class="btn btn-primary">
@@ -24,6 +22,18 @@
       Regresar Al Menu Principal
     </a>
   </div>
+  <br>
+  <br>
+  <nav aria-label="Paginacion">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <button class="page-link">Anterior</button>
+      </li>
+      <li class="page-item">
+        <button class="page-link">Siguiente</button>
+      </li>
+    </ul>
+  </nav>
   <br />
   <app-anunciantes-table-component></app-anunciantes-table-component>
 </div>

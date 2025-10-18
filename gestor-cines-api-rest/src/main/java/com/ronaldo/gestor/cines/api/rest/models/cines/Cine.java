@@ -89,9 +89,9 @@ public class Cine implements Editable{
        private boolean limiteCaracteresValidos() {
               VerificadorCaracteres verificador = new VerificadorCaracteres();
 
-              return !(!verificador.numeroCaracteresValido(codigo, LimiteCaracter.CODIGO_CINE.getLimite())
-                      || !verificador.numeroCaracteresValido(nombre, LimiteCaracter.NOMBRE_CINE.getLimite())
-                      || !verificador.numeroCaracteresValido(ubicacion, LimiteCaracter.UBICACION_CINE.getLimite()));
+              return !(!verificador.numeroCaracteresValido(codigo, LimiteCaracter.CODIGO.get())
+                      || !verificador.numeroCaracteresValido(nombre, LimiteCaracter.NOMBRE_CINE.get())
+                      || !verificador.numeroCaracteresValido(ubicacion, LimiteCaracter.UBICACION_CINE.get()));
        }
 
        private boolean caracteresPermitidos() {

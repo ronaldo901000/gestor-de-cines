@@ -14,6 +14,7 @@ import { ActualizarPreciosAnunciosPageComponent } from '../pages/admin-sistema-p
 import { ConfigPeliculasPage } from '../pages/admin-sistema-page/config-peliculas-page/config-peliculas-page.component';
 import { CategoriasPage } from '../pages/admin-sistema-page/categorias-page/categorias-page.componet';
 import { CategoriaFormPage } from '../pages/admin-sistema-page/categorias-form-page/categorias-form-page.component';
+import { CrearPeliculaPage } from '../pages/admin-sistema-page/crear-pelicula-page/crear-pelicula-page.component';
 
 export const routes: Routes = [
     {
@@ -70,5 +71,9 @@ export const routes: Routes = [
     },{
         path:'categorias/nuevo',
         component:CategoriaFormPage
+    },
+    {
+        path:'peliculas/nueva',
+        component:CrearPeliculaPage
     }
 ];

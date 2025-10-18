@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RestConstants } from '../../shared/rest-api/rest-constants';
-import { Cine } from '../../models/cine/cine';
 import { Observable } from 'rxjs';
 import { Categoria } from '../../models/categoria/categoria';
 import { CategoriaResponse } from '../../models/categoria/categoria-response';
