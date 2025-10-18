@@ -3,7 +3,9 @@ package com.ronaldo.gestor.cines.api.rest.services.peliculas;
 import com.ronaldo.gestor.cines.api.rest.db.general.HerramientaDB;
 import com.ronaldo.gestor.cines.api.rest.db.peliculas.PeliculasDB;
 import com.ronaldo.gestor.cines.api.rest.dtos.peliculas.PeliculaRequest;
+import com.ronaldo.gestor.cines.api.rest.dtos.peliculas.PeliculaResponse;
 import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionAdminSistema;
+import com.ronaldo.gestor.cines.api.rest.enums.query.RangoBusquedaElemento;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.EntityAlreadyExistsException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
@@ -20,16 +22,16 @@ import java.util.List;
  *
  * @author ronaldo
  */
-public class CRUDPeliculas  extends CRUD{
+public class CRUDPeliculas extends CRUD {
 
        /**
-        * 
+        *
         * @param entidadRequest
         * @return
         * @throws UserDataInvalidException
         * @throws EntityAlreadyExistsException
         * @throws DataBaseException
-        * @throws EntityNotFoundException 
+        * @throws EntityNotFoundException
         */
        @Override
        public Editable crear(EntidadRequest entidadRequest) throws UserDataInvalidException,
@@ -50,10 +52,10 @@ public class CRUDPeliculas  extends CRUD{
        }
 
        /**
-        * 
+        *
         * @param entidadRequest
         * @return
-        * @throws UserDataInvalidException 
+        * @throws UserDataInvalidException
         */
        @Override
        protected Editable extraer(EntidadRequest entidadRequest) throws UserDataInvalidException {
@@ -123,14 +125,50 @@ public class CRUDPeliculas  extends CRUD{
               }
        }
 
+       public List<PeliculaResponse> obtenerPeliculas(int inicio) throws DataBaseException, UserDataInvalidException {
+              List<PeliculaResponse> peliculasResponse = new ArrayList<>();
+              PeliculasDB peliculasDB = new PeliculasDB();
+              try {
+                     int inicio1 = inicio;
+              } catch (NumberFormatException e) {
+                     throw new UserDataInvalidException();
+              }
+
+              List<Pelicula> peliculas = peliculasDB.obtenerPeliculasPorRango(
+                      inicio,
+                      inicio + RangoBusquedaElemento.PELICULAS.getRango()
+              );
+
+              crearResponse(peliculas, peliculasResponse);
+              return peliculasResponse;
+       }
+
+       /**
+        *
+        * @param peliculas
+        * @param peliculasResponse
+        * @throws DataBaseException
+        */
+       private void crearResponse(List<Pelicula> peliculas, List<PeliculaResponse> peliculasResponse) throws DataBaseException {
+              PeliculasDB peliculasDB = new PeliculasDB();
+              for (int i = 0; i < peliculas.size(); i++) {
+                     peliculasResponse.add(
+                             new PeliculaResponse(
+                                     peliculas.get(i),
+                                     peliculasDB.obtenerCategoriasPelicula(peliculas.get(i).getCodigo())
+                             )
+                     );
+              }
+       }
+
        @Override
        protected EntidadResponse actualizar(EntidadRequest entidadRequest) throws DataBaseException, EntityNotFoundException, UserDataInvalidException {
               throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
        }
-       
+
        @Override
        protected void eliminar(String codigo) throws DataBaseException, EntityNotFoundException, UserDataInvalidException {
               throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
        }
-       
+
 }

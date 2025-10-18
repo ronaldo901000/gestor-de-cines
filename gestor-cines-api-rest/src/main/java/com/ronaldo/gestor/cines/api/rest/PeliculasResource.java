@@ -7,10 +7,13 @@ import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.UserDataInvalidException;
 import com.ronaldo.gestor.cines.api.rest.services.peliculas.CRUDPeliculas;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -39,6 +42,21 @@ public class PeliculasResource {
                      return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
               } catch (EntityNotFoundException ex) {
                      return Response.status(Response.Status.NOT_FOUND).build();
+              }
+       }
+
+       @GET
+       @Path("paginacion/{inicio}")
+       @Produces(MediaType.APPLICATION_JSON)
+       public Response getPeliculas(@PathParam("inicio") int inicio) {
+              CRUDPeliculas crudPeliculas = new CRUDPeliculas();
+
+              try {
+                     return Response.ok(crudPeliculas.obtenerPeliculas(inicio)).build();
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+              } catch (UserDataInvalidException ex) {
+                     return Response.status(Response.Status.BAD_REQUEST).build();
               }
        }
 }

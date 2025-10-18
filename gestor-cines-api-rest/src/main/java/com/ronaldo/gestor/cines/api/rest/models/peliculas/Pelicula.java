@@ -24,6 +24,23 @@ public class Pelicula implements Editable {
        private LocalDate fechaEstreno;
        private List<String> idsCategorias;
 
+       public Pelicula() {
+       }
+
+       public Pelicula(String codigo, String titulo, String sinopsis, int duracion, String director, String cast, String clasificacion, LocalDate fechaEstreno) {
+              this.codigo = codigo;
+              this.titulo = titulo;
+              this.sinopsis = sinopsis;
+              this.duracion = duracion;
+              this.director = director;
+              this.cast = cast;
+              this.clasificacion = clasificacion;
+              this.fechaEstreno = fechaEstreno;
+       }
+
+       
+       
+       
        public String getCodigo() {
               return codigo;
        }

@@ -18,9 +18,9 @@ export class PeliculaServices {
     }
 
 
-    
-    public traerCinesPorPagina(inicio: number): Observable<Cine[]> {
-        return this.httpClient.get<Cine[]>(`${this.restConstants.getApiURL()}cines/pagina/${inicio}`);
+
+    public traerPeliculasPorPagina(inicio: number): Observable<Pelicula[]> {
+        return this.httpClient.get<Pelicula[]>(`${this.restConstants.getApiURL()}peliculas/paginacion/${inicio}`);
     }
 
     public traerCinesPorPalabraClave(palabraClave: String): Observable<Cine[]> {

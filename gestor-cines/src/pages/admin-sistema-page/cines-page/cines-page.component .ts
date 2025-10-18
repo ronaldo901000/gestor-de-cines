@@ -6,6 +6,7 @@ import { Cine } from '../../../models/cine/cine';
 import { CineServices } from '../../../services/cine/cine.services';
 import { BuscadorCineComponent } from "../../../components/cine/buscador-cine-component/buscador-cine.component";
 import { ToastComponent } from '../../../components/toast/toast.component';
+import { Status } from '../../../shared/status/status';
 @Component({
   selector: 'app-cines-page',
   imports: [HeaderAdminSistemaComponent, RouterLink, CineCardComponent, CineCardComponent, BuscadorCineComponent, ToastComponent],
@@ -58,9 +59,9 @@ export class CinesPage implements OnInit {
           this.toast.titulo = 'Error';
           this.toast.tipo = 'danger';
           console.error(error);
-          if (error.status === 400) {
+          if (error.status === Status.NOT_FOUND) {
             this.toast.mensaje = 'Error en los datos enviados, datos nullos o caracteres invalidos';
-          } else if (error.status === 500) {
+          } else if (error.status === Status.INTERNAL_SERVER_ERROR) {
             this.toast.mensaje = 'Error interno del servidor.';
           } else {
             this.toast.mensaje = 'Ocurrio un error desconocido';

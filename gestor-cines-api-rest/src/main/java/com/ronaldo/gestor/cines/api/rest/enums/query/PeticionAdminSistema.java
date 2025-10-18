@@ -38,6 +38,9 @@ public enum PeticionAdminSistema {
                + "values (?, ?, ?, ?, ?, ?, ?, ?)"),
        CREAR_REGISTRO_CATEGORIAS_PELICULA("insert into registro_categoria_pelicula (id_categoria, codigo_pelicula)"
                + "values (?,?)"),
+       OBTENER_PELICULAS("select * from pelicula where activa=1"),
+       OBTENER_CATEGORIAS_PELICULA("select * from registro_categoria_pelicula join categoria_pelicula "
+               + "on id_categoria=id where codigo_pelicula=?"),
        ;
        
        private String peticion;
