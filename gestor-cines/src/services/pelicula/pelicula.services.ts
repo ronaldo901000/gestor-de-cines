@@ -31,9 +31,9 @@ export class PeliculaServices {
         return this.httpClient.put<Pelicula>(`${this.restConstants.getApiURL()}peliculas`,pelicula);
     }
 
-    eliminarCine(codigo: string): Observable<void> {
+    public eliminarPelicula(codigo: string): Observable<void> {
         return this.httpClient.delete<void>(
-            `${this.restConstants.getApiURL()}cines/${codigo}`);
+            `${this.restConstants.getApiURL()}peliculas/${codigo}`);
     }
 
 }

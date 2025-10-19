@@ -44,6 +44,7 @@ public enum PeticionAdminSistema {
        ACTUALIZAR_PELICULA("UPDATE pelicula SET titulo = ?, sinopsis = ?, duracion = ?, director = ?, cast = ?,"
                + " clasificacion = ?, fecha_estreno = ? WHERE codigo = ?"),
        ELIMINAR_REGISTRO_CATEGORIAS_PELICULA("delete from registro_categoria_pelicula where codigo_pelicula=?"),
+       ELIMINAR_PELICULA("delete from pelicula where codigo=?"),
        ;
        
        private String peticion;

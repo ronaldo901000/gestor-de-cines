@@ -1,5 +1,5 @@
+<app-toast-component #toast></app-toast-component>
 <div class="text-center" id="tabla">
-  <app-toast-component #toast></app-toast-component>
   <nav aria-label="Paginación">
     <ul class="pagination justify-content-center">
       <li class="page-item" [class.disabled]="inicio === 0">
@@ -31,24 +31,27 @@
     <tbody>
       @for (pelicula of peliculas; track $index) {
       <tr>
-        <td><strong>{{ pelicula.codigo }}</strong></td>
+        <td>
+          <strong>{{ pelicula.codigo }}</strong>
+        </td>
         <td>{{ pelicula.titulo }}</td>
-        <td>{{ pelicula.duracion | duracion}}</td>
+        <td>{{ pelicula.duracion | duracion }}</td>
         <td>{{ pelicula.director }}</td>
         <td>{{ pelicula.cast }}</td>
         <td>{{ pelicula.clasificacion }}</td>
-        <td>{{ pelicula.fechaEstreno | date : 'MMMM,dd yyyy'}}</td>
+        <td>{{ pelicula.fechaEstreno | date : 'MMMM,dd yyyy' }}</td>
         <td>{{ pelicula.idsCategorias }}</td>
         <td>
-      <a
-        routerLink='/peliculas/actualizar'
-        [state]="{codigoPelicula: pelicula.codigo}"
-        class="btn btn-warning me-3">
-        <i class="bi bi-pencil"></i>
-      </a>
+          <a
+            routerLink="/peliculas/actualizar"
+            [state]="{ codigoPelicula: pelicula.codigo }"
+            class="btn btn-warning me-3"
+          >
+            <i class="bi bi-pencil"></i>
+          </a>
         </td>
         <td>
-          <button class="btn btn-danger">
+          <button class="btn btn-danger" (click)="confirmarEliminacion(pelicula.codigo)">
             <i class="bi bi-trash"></i>
           </button>
         </td>

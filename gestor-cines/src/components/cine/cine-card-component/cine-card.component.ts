@@ -4,6 +4,7 @@ import { DatePipe } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { CineServices } from "../../../services/cine/cine.services";
 import { ToastComponent } from "../../toast/toast.component";
+import { Status } from "../../../shared/status/status";
 @Component({
   selector: 'app-cine-card',
   imports: [DatePipe, RouterLink, ToastComponent],
@@ -25,7 +26,7 @@ export class CineCardComponent {
 
   }
   confirmarEliminacion(): void {
-    const confirmado = confirm('¿Estás seguro de que deseas eliminar este cine?');
+    const confirmado = confirm('¿Estas seguro de que deseas eliminar este cine?');
     if (confirmado) {
       this.eliminarCine();
     }
@@ -44,10 +45,10 @@ export class CineCardComponent {
       error: (error) => {
         this.toast.titulo = 'Error al Eliminar';
         this.toast.tipo = 'danger';
-        if (error.status == 404) {
+        if (error.status == Status.NOT_FOUND) {
           this.toast.mensaje = 'No se encontro ninguno cine con el codigo: ' + this.cineSeleccionado.codigo;
         }
-        else if (error.status == 500) {
+        else if (error.status == Status.INTERNAL_SERVER_ERROR) {
           this.toast.mensaje = 'Error en el servidor al intentar eliminar';
         }
         else {
