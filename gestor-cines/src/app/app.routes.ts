@@ -15,6 +15,7 @@ import { ConfigPeliculasPage } from '../pages/admin-sistema-page/config-pelicula
 import { CategoriasPage } from '../pages/admin-sistema-page/categorias-page/categorias-page.componet';
 import { CategoriaFormPage } from '../pages/admin-sistema-page/categorias-form-page/categorias-form-page.component';
 import { CrearPeliculaPage } from '../pages/admin-sistema-page/crear-pelicula-page/crear-pelicula-page.component';
+import { ActualizarPeliculaComponentPage } from '../pages/admin-sistema-page/actualizar-pelicula-page/actualizar-pelicula-page.component';
 
 export const routes: Routes = [
     {
@@ -75,5 +76,9 @@ export const routes: Routes = [
     {
         path:'peliculas/nueva',
         component:CrearPeliculaPage
+    },
+    {
+        path: 'peliculas/actualizar',
+        component:ActualizarPeliculaComponentPage
     }
 ];

@@ -5,9 +5,10 @@ import { PeliculaServices } from '../../../services/pelicula/pelicula.services';
 import { Pelicula } from '../../../models/pelicula/pelicula';
 import { DatePipe } from '@angular/common';
 import { DuracionPipe } from '../../../shared/duracion-pipe/durarion-pipe';
+import { RouterLink } from '@angular/router';
 @Component({
     selector: 'app-peliculas-table-component',
-    imports: [ToastComponent, DatePipe,DuracionPipe],
+    imports: [ToastComponent, DatePipe,DuracionPipe, RouterLink],
     templateUrl: './pelicula-table.component.html',
     styleUrl: './pelicula-table.component.css'
 })

@@ -4,6 +4,7 @@ import com.ronaldo.gestor.cines.api.rest.db.general.HerramientaDB;
 import com.ronaldo.gestor.cines.api.rest.db.peliculas.PeliculasDB;
 import com.ronaldo.gestor.cines.api.rest.dtos.peliculas.PeliculaRequest;
 import com.ronaldo.gestor.cines.api.rest.dtos.peliculas.PeliculaResponse;
+import com.ronaldo.gestor.cines.api.rest.dtos.peliculas.PeliculaUpdateResponse;
 import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionAdminSistema;
 import com.ronaldo.gestor.cines.api.rest.enums.query.RangoBusquedaElemento;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
@@ -17,13 +18,15 @@ import com.ronaldo.gestor.cines.api.rest.models.peliculas.Pelicula;
 import com.ronaldo.gestor.cines.api.rest.services.CRUD;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
  * @author ronaldo
  */
 public class CRUDPeliculas extends CRUD {
-
+       private static final String NOMBRE="nombre";
+       private static final String ID="id";
        /**
         *
         * @param entidadRequest
@@ -91,6 +94,11 @@ public class CRUDPeliculas extends CRUD {
                      throw new UserDataInvalidException("Error, se se enviaron las categorias");
               }
               String idsTexto = peliculaRequest.getIdsCategorias();
+              
+              if(idsTexto.charAt(0)==','){
+                     throw new UserDataInvalidException("Por favor ingresa ids de categorias validas");
+              }
+              
               String[] idsArray = idsTexto.split(",");
               for (String idElemento : idsArray) {
                      if (seAgregaCategoria(ids, idElemento)) {
@@ -120,7 +128,7 @@ public class CRUDPeliculas extends CRUD {
               HerramientaDB herramientaDB = new HerramientaDB();
               for (int i = 0; i < idsCategorias.size(); i++) {
                      if (!herramientaDB.existeCategoria(idsCategorias.get(i))) {
-                            throw new EntityNotFoundException("La categoria indicada no esta registrada en el sistema");
+                            throw new EntityNotFoundException("El id '"+idsCategorias.get(i)+"' no esta registrado como una categoria en el sistema");
                      }
               }
        }
@@ -155,17 +163,71 @@ public class CRUDPeliculas extends CRUD {
                      peliculasResponse.add(
                              new PeliculaResponse(
                                      peliculas.get(i),
-                                     peliculasDB.obtenerCategoriasPelicula(peliculas.get(i).getCodigo())
+                                     peliculasDB.obtenerCategoriasPelicula(peliculas.get(i).getCodigo(),NOMBRE)
                              )
                      );
               }
        }
 
-       @Override
-       protected EntidadResponse actualizar(EntidadRequest entidadRequest) throws DataBaseException, EntityNotFoundException, UserDataInvalidException {
-              throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       /**
+        * 
+        * @param codigo
+        * @return
+        * @throws DataBaseException
+        * @throws EntityNotFoundException 
+        */
+       public PeliculaUpdateResponse obtenerPelicula(String codigo) throws DataBaseException, EntityNotFoundException {
+              PeliculasDB peliculasDB = new PeliculasDB();
+              Optional<PeliculaUpdateResponse> pelicula = peliculasDB.obtenerPelicula(codigo);
+              if (pelicula.isEmpty()) {
+                     throw new EntityNotFoundException("No se encontró la pelicula en la db");
+              }
+              //se cargan los id
+              String ids = peliculasDB.obtenerCategoriasPelicula(codigo, ID);
+              pelicula.get().setIdsCategorias(ids.substring(0, ids.length() - 1));
+              return pelicula.get();
        }
 
+       /**
+        * 
+        * @param entidadRequest
+        * @return
+        * @throws DataBaseException
+        * @throws EntityNotFoundException
+        * @throws UserDataInvalidException 
+        */
+       @Override
+       public EntidadResponse actualizar(EntidadRequest entidadRequest) throws DataBaseException, EntityNotFoundException, UserDataInvalidException {
+              HerramientaDB herramientaDB = new HerramientaDB();
+              PeliculasDB peliculasDB = new PeliculasDB();
+
+              Pelicula pelicula = (Pelicula) extraer(entidadRequest);
+
+              if (!pelicula.datosValidos()) {
+                     throw new UserDataInvalidException("Error en los datos enviados");
+              }
+              if (!herramientaDB.existeEntidad(pelicula.getCodigo(), PeticionAdminSistema.OBTENER_PELICULA.get())) {
+                     throw new EntityNotFoundException("Error, no se encontro ninguna pelicula con ese codigo");
+              }
+              existenSusCategorias(pelicula.getIdsCategorias());
+              //se actualiza la pelicula en la db
+              peliculasDB.actualizar(pelicula);
+              
+              return obtenerResponse(pelicula);
+       }
+
+       /**
+        * 
+        * @param pelicula
+        * @return
+        * @throws DataBaseException 
+        */
+       private PeliculaResponse obtenerResponse(Pelicula pelicula) throws DataBaseException {
+              PeliculasDB peliculasDB = new PeliculasDB();
+              return new PeliculaResponse(pelicula, peliculasDB.obtenerCategoriasPelicula(pelicula.getCodigo(),NOMBRE));
+       }
+       
+       
        @Override
        protected void eliminar(String codigo) throws DataBaseException, EntityNotFoundException, UserDataInvalidException {
               throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
