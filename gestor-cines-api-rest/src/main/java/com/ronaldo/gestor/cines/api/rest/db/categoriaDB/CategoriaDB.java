@@ -57,4 +57,20 @@ public class CategoriaDB {
               return categorias;
        }
 
+       /**
+        * 
+        * @param codigoPelicula
+        * @throws DataBaseException 
+        */
+       public void eliminarRegistroCategoriaPelicula(String codigoPelicula) throws DataBaseException {
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement delete = connection.
+                             prepareStatement(PeticionAdminSistema.ELIMINAR_REGISTRO_CATEGORIAS_PELICULA.get())) {
+                            delete.setString(1, codigoPelicula);
+                            delete.executeUpdate();
+                     }
+              } catch (SQLException e) {
+                     throw new DataBaseException("Error al crear categoria en la db");
+              }
+       }
 }

@@ -1,6 +1,8 @@
 package com.ronaldo.gestor.cines.api.rest.db.peliculas;
 
 import com.ronaldo.gestor.cines.api.rest.db.DataSourceDBSingleton;
+import com.ronaldo.gestor.cines.api.rest.db.categoriaDB.CategoriaDB;
+import com.ronaldo.gestor.cines.api.rest.dtos.peliculas.PeliculaUpdateResponse;
 import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionAdminSistema;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.models.peliculas.Pelicula;
@@ -12,6 +14,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -47,7 +50,6 @@ public class PeliculasDB {
                             connection.setAutoCommit(true);
 
                      } catch (SQLException e) {
-                            e.printStackTrace();
                             try {
                                    connection.rollback();
                                    connection.setAutoCommit(true);
@@ -57,7 +59,6 @@ public class PeliculasDB {
                             throw new DataBaseException("Error al crear pelicula en la db");
                      }
               } catch (SQLException e) {
-                     e.printStackTrace();
                      throw new DataBaseException("Error al crear pelicula en la db");
               }
 
@@ -109,13 +110,15 @@ public class PeliculasDB {
               return peliculas;
        }
 
+
        /**
         * 
         * @param codigoPelicula
+        * @param dato
         * @return
         * @throws DataBaseException 
         */
-       public String obtenerCategoriasPelicula(String codigoPelicula) throws DataBaseException {
+       public String obtenerCategoriasPelicula(String codigoPelicula,String dato) throws DataBaseException {
               String categorias = "";
               try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
                      
@@ -124,7 +127,7 @@ public class PeliculasDB {
                             query.setString(1, codigoPelicula);
                             ResultSet resultSet = query.executeQuery();
                             while (resultSet.next()) {
-                                   categorias += resultSet.getString("nombre")+", ";
+                                   categorias += resultSet.getString(dato)+",";
                             }
                      }
               } catch (SQLException e) {
@@ -133,4 +136,74 @@ public class PeliculasDB {
               }
               return categorias;
        }
+
+       public void actualizar(Pelicula pelicula) throws DataBaseException {
+              CategoriaDB categoriaDB= new CategoriaDB();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+
+                     connection.setAutoCommit(false);
+                     try (PreparedStatement update = connection.prepareStatement(PeticionAdminSistema.ACTUALIZAR_PELICULA.get())) {
+
+                            update.setString(1, pelicula.getTitulo());
+                            update.setString(2, pelicula.getSinopsis());
+                            update.setInt(3, pelicula.getDuracion());
+                            update.setString(4, pelicula.getDirector());
+                            update.setString(5, pelicula.getCast());
+                            update.setString(6, pelicula.getClasificacion());
+                            update.setDate(7, Date.valueOf(pelicula.getFechaEstreno()));
+                            update.setString(8, pelicula.getCodigo());
+                            update.executeUpdate();
+                            //se eliminan los registros anteriores de categorias de la pelicula
+                            categoriaDB.eliminarRegistroCategoriaPelicula(pelicula.getCodigo());
+                            //se registran sus categorias y posters
+                            insertarCategorias(connection, pelicula.getCodigo(), pelicula.getIdsCategorias());
+                            //si no suceden excepciones se confirma la creacion
+                            connection.commit();
+                            connection.setAutoCommit(true);
+
+                     } catch (SQLException e) {
+                            try {
+                                   connection.rollback();
+                                   connection.setAutoCommit(true);
+                            } catch (SQLException e2) {
+                                   System.out.println("Error en rollback");
+                            }
+                            throw new DataBaseException("Error al actualizar pelicula en la db");
+                     }
+              } catch (SQLException e) {
+                     throw new DataBaseException("Error al actualizar pelicula en la db");
+              }
+
+       }
+       
+       /**
+        * 
+        * @param codigo
+        * @return
+        * @throws DataBaseException 
+        */
+       public Optional<PeliculaUpdateResponse> obtenerPelicula(String codigo) throws DataBaseException {
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement query = connection.prepareStatement(PeticionAdminSistema.OBTENER_PELICULA.get());) {
+                            query.setString(1, codigo);
+                            ResultSet resultSet = query.executeQuery();
+                            if (resultSet.next()) {
+                                   return Optional.of(new PeliculaUpdateResponse(
+                                           resultSet.getString("codigo"),
+                                           resultSet.getString("titulo"),
+                                           resultSet.getString("sinopsis"),
+                                           resultSet.getInt("duracion"),
+                                           resultSet.getString("director"),
+                                           resultSet.getString("cast"),
+                                           resultSet.getString("clasificacion"),
+                                           LocalDate.parse(resultSet.getString("fecha_estreno"))));
+                            }
+                     }
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al obtener cines en la db");
+              }
+              return Optional.empty();
+       }
+
 }

@@ -41,6 +41,9 @@ public enum PeticionAdminSistema {
        OBTENER_PELICULAS("select * from pelicula where activa=1"),
        OBTENER_CATEGORIAS_PELICULA("select * from registro_categoria_pelicula join categoria_pelicula "
                + "on id_categoria=id where codigo_pelicula=?"),
+       ACTUALIZAR_PELICULA("UPDATE pelicula SET titulo = ?, sinopsis = ?, duracion = ?, director = ?, cast = ?,"
+               + " clasificacion = ?, fecha_estreno = ? WHERE codigo = ?"),
+       ELIMINAR_REGISTRO_CATEGORIAS_PELICULA("delete from registro_categoria_pelicula where codigo_pelicula=?"),
        ;
        
        private String peticion;

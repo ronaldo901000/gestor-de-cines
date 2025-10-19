@@ -23,15 +23,12 @@ export class PeliculaServices {
         return this.httpClient.get<Pelicula[]>(`${this.restConstants.getApiURL()}peliculas/paginacion/${inicio}`);
     }
 
-    public traerCinesPorPalabraClave(palabraClave: String): Observable<Cine[]> {
-        return this.httpClient.get<Cine[]>(`${this.restConstants.getApiURL()}cines/palabraClave/${palabraClave}`);
+    public traerPeliculaPorCodigo(codigo: String): Observable<Pelicula> {
+        return this.httpClient.get<Pelicula>(`${this.restConstants.getApiURL()}peliculas/pelicula/${codigo}`);
     }
 
-    public actualizarCine(cine: Cine): Observable<Cine> {
-        return this.httpClient.put<Cine>(
-            `${this.restConstants.getApiURL()}cines`,
-            cine
-        );
+    public actualizarPelicula(pelicula: Pelicula): Observable<Pelicula> {
+        return this.httpClient.put<Pelicula>(`${this.restConstants.getApiURL()}peliculas`,pelicula);
     }
 
     eliminarCine(codigo: string): Observable<void> {
