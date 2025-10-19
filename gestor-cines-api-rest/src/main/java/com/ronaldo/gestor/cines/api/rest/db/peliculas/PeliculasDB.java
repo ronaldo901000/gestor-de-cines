@@ -206,4 +206,20 @@ public class PeliculasDB {
               return Optional.empty();
        }
 
+       /**
+        * 
+        * @param codigo
+        * @throws DataBaseException 
+        */
+       public void eliminar(String codigo) throws DataBaseException {
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement delete = connection.prepareStatement(PeticionAdminSistema.ELIMINAR_PELICULA.get())) {
+                            delete.setString(1, codigo);
+                            delete.executeUpdate();
+                     }
+              } catch (Exception e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al eliminar pelicula en la db");
+              }
+       }
 }

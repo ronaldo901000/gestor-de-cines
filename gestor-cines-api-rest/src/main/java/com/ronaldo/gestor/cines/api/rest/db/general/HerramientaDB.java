@@ -22,8 +22,8 @@ public class HerramientaDB {
         * @throws DataBaseException 
         */
        public boolean existeEntidad(String llavePrimaria, String peticion) throws DataBaseException {
-              try {
-                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
+                     
                      try (PreparedStatement query = connection.prepareStatement(peticion)) {
                             query.setString(1, llavePrimaria);
                             ResultSet resultSet = query.executeQuery();
@@ -37,8 +37,8 @@ public class HerramientaDB {
        }
        
        public boolean existeCategoria(String id) throws DataBaseException {
-              try {
-                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
+                     
                      try (PreparedStatement query = connection.prepareStatement(PeticionAdminSistema.OBTENER_CATEGORIA.get())) {
                             query.setString(1, id);
                             ResultSet resultSet = query.executeQuery();

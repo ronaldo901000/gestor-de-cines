@@ -8,7 +8,7 @@ import { DuracionPipe } from '../../../shared/duracion-pipe/durarion-pipe';
 import { RouterLink } from '@angular/router';
 @Component({
     selector: 'app-peliculas-table-component',
-    imports: [ToastComponent, DatePipe,DuracionPipe, RouterLink],
+    imports: [ToastComponent, DatePipe, DuracionPipe, RouterLink],
     templateUrl: './pelicula-table.component.html',
     styleUrl: './pelicula-table.component.css'
 })
@@ -22,7 +22,7 @@ export class PeliculasTableComponent implements OnInit {
     peliculas: Pelicula[] = []
 
     constructor(private peliculasService: PeliculaServices) {
-        
+
     }
 
     ngOnInit(): void {
@@ -46,6 +46,39 @@ export class PeliculasTableComponent implements OnInit {
                 this.toast.mostrar();
             }
         })
+    }
+
+    confirmarEliminacion(codigoPelicula: string): void {
+        const confirmado = confirm('¿Estas seguro de que deseas eliminar esta pelicula?');
+        if (confirmado) {
+            this.eliminarPelicula(codigoPelicula);
+        }
+    }
+
+    eliminarPelicula(codigoPelicula: string) {
+        this.peliculasService.eliminarPelicula(codigoPelicula).subscribe({
+            next: () => {
+                this.traerPeliculas();
+                this.toast.titulo = 'Eliminacion';
+                this.toast.tipo = 'success';
+                this.toast.mensaje = 'Elimacion exitosa';
+                this.toast.mostrar();
+            },
+            error: (error) => {
+                this.toast.titulo = 'Error';
+                this.toast.tipo = 'danger';
+                if(error.status==Status.INTERNAL_SERVER_ERROR){
+                    this.toast.mensaje=error.error;
+                }
+                else if(error.status==Status.NOT_FOUND){
+                    this.toast.mensaje=error.error;
+                }
+                else if(error.status==Status.BAD_REQUEST){
+                    this.toast.mensaje=error.error;
+                }
+                this.toast.mostrar();
+            }
+        });
     }
 
     avanzarUnaPagina() {

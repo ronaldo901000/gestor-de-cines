@@ -8,6 +8,7 @@ import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.UserDataInvalidException;
 import com.ronaldo.gestor.cines.api.rest.services.peliculas.CRUDPeliculas;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -95,4 +96,21 @@ public class PeliculasResource {
               }
        }
 
+       @DELETE
+       @Path("{codigoPelicula}")
+       @Consumes(MediaType.APPLICATION_JSON)
+       public Response deletePelicula(@PathParam("codigoPelicula") String codigo) {
+              CRUDPeliculas crudPeliculas = new CRUDPeliculas();
+
+              try {
+                     crudPeliculas.eliminar(codigo);
+                     return Response.ok().build();
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+              } catch (EntityNotFoundException ex) {
+                     return Response.status(Response.Status.NOT_FOUND).entity(ex.getMessage()).build();
+              } catch (UserDataInvalidException ex) {
+                     return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+              }
+       }
 }

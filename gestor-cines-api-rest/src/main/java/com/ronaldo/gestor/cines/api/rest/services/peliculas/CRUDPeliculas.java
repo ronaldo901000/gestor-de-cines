@@ -227,10 +227,21 @@ public class CRUDPeliculas extends CRUD {
               return new PeliculaResponse(pelicula, peliculasDB.obtenerCategoriasPelicula(pelicula.getCodigo(),NOMBRE));
        }
        
-       
+       /**
+        * 
+        * @param codigo
+        * @throws DataBaseException
+        * @throws EntityNotFoundException
+        * @throws UserDataInvalidException 
+        */
        @Override
-       protected void eliminar(String codigo) throws DataBaseException, EntityNotFoundException, UserDataInvalidException {
-              throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       public void eliminar(String codigo) throws DataBaseException, EntityNotFoundException, UserDataInvalidException {
+              PeliculasDB peliculasDB = new PeliculasDB();
+              HerramientaDB herramientaDB = new HerramientaDB();
+              if (!herramientaDB.existeEntidad(codigo, PeticionAdminSistema.OBTENER_PELICULA.get())) {
+                     throw new EntityNotFoundException("No se encontro la pelicula con codigo " + codigo + " en el sistema");
+              }
+              peliculasDB.eliminar(codigo);
        }
-
+       
 }
