@@ -7,20 +7,19 @@
       placeholder="Ingresa un codigo o nombre para buscar"
       [(ngModel)]="palabra"
     />
-    <button type="button" class="btn btn-outline-primary" (click)="traerHistorialCostos()">
-      Buscar
-    </button>
+    <button type="button" class="btn btn-primary" (click)="traerHistorialCostos()">Buscar</button>
   </div>
 </div>
 <br />
 <br />
+
 @if(costos.length==0){
 <h2>Ingresa un codigo o nombre de cine en el buscador</h2>
 } @if(costos.length>0){
+<h1>HISTORIAL DE COSTOS</h1>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th scope="col">ID</th>
       <th scope="col">Codigo del cine</th>
       <th scope="col">Nombre del Cine</th>
       <th scope="col">Fecha de Registro</th>
@@ -31,7 +30,6 @@
   <tbody>
     @for (costo of costos; track $index) {
     <tr>
-      <td>{{ costo.id }}</td>
       <td>{{ costo.codigoCine }}</td>
       <td>{{ costo.nombreCine }}</td>
       <td>{{ costo.fechaRegistro | date : 'dd MMMM yyyy' }}</td>

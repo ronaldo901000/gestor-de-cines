@@ -9,9 +9,6 @@ import { Observable } from 'rxjs';
 })
 export class CineServices {
     restConstants = new RestConstants();
-    private inicio: number = 0;
-    private rango: number = 5;
-    protected esSiguiente!: boolean;
 
     constructor(private httpClient: HttpClient) { }
 

@@ -4,7 +4,6 @@ import { DatePipe } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { CineServices } from "../../../services/cine/cine.services";
 import { ToastComponent } from "../../toast/toast.component";
-import { Status } from "../../../shared/status/status";
 @Component({
   selector: 'app-cine-card',
   imports: [DatePipe, RouterLink, ToastComponent],
@@ -14,7 +13,7 @@ import { Status } from "../../../shared/status/status";
 export class CineCardComponent {
 
 
-  @Input({ required: true })
+  @Input()
   cineSeleccionado!: Cine;
 
   @ViewChild('toast') toast!: ToastComponent;

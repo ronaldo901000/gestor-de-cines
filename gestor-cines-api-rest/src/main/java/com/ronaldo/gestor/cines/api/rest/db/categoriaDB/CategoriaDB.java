@@ -18,8 +18,8 @@ import java.util.List;
 public class CategoriaDB {
 
        public void crear(Categoria categoria) throws DataBaseException {
-              try {
-                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
+                     
                      try (PreparedStatement insert = connection.
                              prepareStatement(PeticionAdminSistema.CREAR_CATEGORIA.get())) {
                             insert.setString(1, categoria.getNombre());
@@ -38,8 +38,8 @@ public class CategoriaDB {
        public List<Categoria> obtener() throws DataBaseException {
               List<Categoria> categorias = new ArrayList<>();
               
-              try {
-                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
+                     
                      try (PreparedStatement query = connection.
                              prepareStatement(PeticionAdminSistema.OBTENER_CATEGORIAS.get())) {
                             ResultSet resultSet = query.executeQuery();

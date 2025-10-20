@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import {
     FormBuilder,
     FormGroup,
@@ -25,6 +25,7 @@ export class ActualizarPeliculaFormComponent implements OnInit {
     peliculaForm!: FormGroup;
     categoriasString!: String
     peliculaActualizada!: Pelicula;
+    @Input()
     codigoPelicula!: string;
     eventTypeOptions: string[] = Object.values(ClasificacionTypeEnum);
 
@@ -36,7 +37,6 @@ export class ActualizarPeliculaFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.codigoPelicula = history.state['codigoPelicula'];
         this.inicializarRestriccionesForm();
         this.traerPelicula();
         this.cargarListaCategorias();

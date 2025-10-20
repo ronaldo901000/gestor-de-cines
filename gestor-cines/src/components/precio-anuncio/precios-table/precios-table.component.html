@@ -18,8 +18,7 @@
       <td>{{ precio.precioBloqueoPorDia| currency:'Q.' }}</td>
       <td>
         <a  
-        routerLink="/preciosCines/actualizar" 
-        [state]="{idPrecioAnuncio: precio.id}"
+        routerLink="/preciosCines/actualizar/{{precio.id}}"
         class="btn btn-warning">
           <i class="bi bi-pencil"></i>
         </a>

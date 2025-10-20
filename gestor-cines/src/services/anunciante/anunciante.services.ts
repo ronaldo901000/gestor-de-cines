@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RestConstants } from '../../shared/rest-api/rest-constants';
-import { Cine } from '../../models/cine/cine';
 import { Observable } from 'rxjs';
 import { Anunciante } from '../../models/anunciante/anunciante';
 import { Usuario } from '../../models/usuario/usuario';

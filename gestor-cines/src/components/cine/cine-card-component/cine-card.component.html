@@ -16,17 +16,13 @@
       </h5>
       <h5 class="card-subtitle mb-2 text-body-secondary">
       </h5>
-      <a
-        [routerLink]="['/cine/actualizar']"
-        [state]="{codigoCine: cineSeleccionado.codigo}"
-        class="btn btn-primary me-3">
+      <a routerLink="/cine/actualizar/{{ cineSeleccionado.codigo }}" class="btn btn-primary me-3">
         Actualizar Cine
       </a>
       
       <a 
       class="btn btn-success me-3" 
-      routerLink="/cine/admins"
-      [state]="{cine: cineSeleccionado}"
+      routerLink="/cine/admins/{{cineSeleccionado.codigo}}"
       >Ver Admins Cine</a>
 
      <a class="btn btn-danger" (click)="confirmarEliminacion()">Eliminar</a>

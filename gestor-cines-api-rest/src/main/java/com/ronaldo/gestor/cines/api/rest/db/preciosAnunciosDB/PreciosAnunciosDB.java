@@ -24,8 +24,8 @@ public class PreciosAnunciosDB {
         */
        public List<PrecioAnuncio> obtenerPrecios() throws DataBaseException {
               List<PrecioAnuncio> precios = new ArrayList<>();
-              try {
-                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
+                     
                      try (PreparedStatement query = connection.
                              prepareStatement(PeticionAdminSistema.OBTENER_PRECIOS_ANUNCIOS.get())) {
                             ResultSet resultSet = query.executeQuery();
@@ -51,8 +51,8 @@ public class PreciosAnunciosDB {
         * @throws DataBaseException 
         */
        public void actualizar(PrecioAnuncio precioAnuncio) throws DataBaseException {
-              try {
-                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
+                     
                      try (PreparedStatement update = connection.
                              prepareStatement(PeticionAdminSistema.ACTUALIZAR_PRECIOS_ANUNCIO.get())) {
                             update.setDouble(1, precioAnuncio.getPrecioVentaPorDia());

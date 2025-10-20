@@ -24,8 +24,8 @@ public class AdminCineDB {
         * @throws DataBaseException 
         */
        public void crearAdmin(AdminCine adminCine) throws DataBaseException {
-              try {
-                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
+                     
                      try (PreparedStatement insert = connection.prepareStatement(PeticionAdminSistema.CREAR_ADMIN_CINE.get())) {
                             insert.setString(1, adminCine.getId());
                             insert.setString(2, adminCine.getCodigoCine());
@@ -45,8 +45,8 @@ public class AdminCineDB {
         */
        public List<Usuario> obtenerAdminsCine(String codigoCine) throws DataBaseException {
               List<Usuario> admins = new ArrayList<>();
-              try {
-                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
+                     
                      try (PreparedStatement query = connection.prepareStatement(PeticionAdminSistema.OBTENER_TODOS_ADMINS_DE_CINE.get())) {
                             query.setString(1, codigoCine);
                             ResultSet resultSet = query.executeQuery();
@@ -71,8 +71,8 @@ public class AdminCineDB {
         * @throws DataBaseException
         */
        public void eliminar(String id) throws DataBaseException {
-              try {
-                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
+                     
                      try (PreparedStatement delete = connection.prepareStatement(PeticionAdminSistema.ELIMINAR_ADMIN_CINE.get())) {
                             delete.setString(1, id);
                             delete.executeUpdate();
