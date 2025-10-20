@@ -1,6 +1,7 @@
 package com.ronaldo.gestor.cines.api.rest.services.cines;
 
 import com.ronaldo.gestor.cines.api.rest.db.cines.CinesDB;
+import com.ronaldo.gestor.cines.api.rest.db.costosFuncionamiento.CostosFuncionamientoDB;
 import com.ronaldo.gestor.cines.api.rest.db.general.HerramientaDB;
 import com.ronaldo.gestor.cines.api.rest.dtos.cines.CineResponse;
 import com.ronaldo.gestor.cines.api.rest.dtos.cines.CineRequest;
@@ -11,6 +12,7 @@ import com.ronaldo.gestor.cines.api.rest.exceptions.EntityAlreadyExistsException
 import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.UserDataInvalidException;
 import com.ronaldo.gestor.cines.api.rest.models.cines.Cine;
+import com.ronaldo.gestor.cines.api.rest.models.costosFuncionamiento.CostoFuncionamiento;
 import com.ronaldo.gestor.cines.api.rest.models.herencia.EntidadRequest;
 import com.ronaldo.gestor.cines.api.rest.services.CRUD;
 import com.ronaldo.gestor.cines.api.rest.verificacion.caracter.VerificadorCaracteres;
@@ -45,8 +47,22 @@ public class CRUDCines extends CRUD {
                      throw new EntityAlreadyExistsException(
                              String.format("El Cine con codigo %s ya existe", cine.getCodigo()));
               }
-              cinesDB.crearCine(cine);
+              //se crea una instancia de costo para registrar el costo inicial
+              
+              cinesDB.crearCine(cine,crearCostoInicial(cine));
               return cine;
+       }
+
+       private CostoFuncionamiento crearCostoInicial(Cine cine) throws DataBaseException {
+              CostosFuncionamientoDB costosFuncionamientoDB= new CostosFuncionamientoDB();
+              CostoFuncionamiento costoFuncionamiento = new CostoFuncionamiento();
+              costoFuncionamiento.setCodigoCine(cine.getCodigo());
+              costoFuncionamiento.setFechaRegistro(cine.getFechaCreacion());
+              costoFuncionamiento.setCosto(costosFuncionamientoDB.obtenerCostoGlobal().getCosto());
+              //se obtiene el costo global y se le asigna al costo inicial
+              
+              
+              return costoFuncionamiento;
        }
 
        /**

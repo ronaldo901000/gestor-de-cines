@@ -16,6 +16,9 @@ import { CategoriasPage } from '../pages/admin-sistema-page/categorias-page/cate
 import { CategoriaFormPage } from '../pages/admin-sistema-page/categorias-form-page/categorias-form-page.component';
 import { CrearPeliculaPage } from '../pages/admin-sistema-page/crear-pelicula-page/crear-pelicula-page.component';
 import { ActualizarPeliculaComponentPage } from '../pages/admin-sistema-page/actualizar-pelicula-page/actualizar-pelicula-page.component';
+import { CostoFuncionamientoPage } from '../pages/admin-sistema-page/costo-funcionamiento-page/costo-funcionamiento-page-component';
+import { CrearCostoCinePage } from '../pages/admin-sistema-page/crear-costo-cine-page/crear-costo-cine-page.component';
+import { CostoGlobalPage } from '../pages/admin-sistema-page/costo-global-page/costo-global-page.component';
 
 export const routes: Routes = [
     {
@@ -80,5 +83,17 @@ export const routes: Routes = [
     {
         path: 'peliculas/actualizar',
         component:ActualizarPeliculaComponentPage
+    },
+    {
+        path: 'costosFuncinamiento',
+        component:CostoFuncionamientoPage
+    },
+    {
+        path: 'costosFuncionamiento/nuevo',
+        component:CrearCostoCinePage
+    },
+    {
+        path: 'costoGlobal',
+        component:CostoGlobalPage
     }
 ];

@@ -1,9 +1,11 @@
 package com.ronaldo.gestor.cines.api.rest.db.cines;
 
 import com.ronaldo.gestor.cines.api.rest.db.DataSourceDBSingleton;
+import com.ronaldo.gestor.cines.api.rest.db.costosFuncionamiento.CostosFuncionamientoDB;
 import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionAdminSistema;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.models.cines.Cine;
+import com.ronaldo.gestor.cines.api.rest.models.costosFuncionamiento.CostoFuncionamiento;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -20,20 +22,35 @@ import java.util.Optional;
  */
 public class CinesDB {
 
+
        /**
         * 
         * @param cine
+        * @param costo
         * @throws DataBaseException 
         */
-       public void crearCine(Cine cine) throws DataBaseException {
-              try {
-                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+       public void crearCine(Cine cine, CostoFuncionamiento costo) throws DataBaseException {
+              CostosFuncionamientoDB costosFuncionamientoDB = new CostosFuncionamientoDB();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     connection.setAutoCommit(false);
                      try (PreparedStatement insert = connection.prepareStatement(PeticionAdminSistema.CREAR_CINE.get());) {
                             insert.setString(1, cine.getCodigo());
                             insert.setString(2, cine.getNombre());
                             insert.setString(3, cine.getUbicacion());
-                            insert.setDate(4, Date.valueOf(cine.getFechaCreacion()));
+                            insert.setDate(4, Date.valueOf(cine.getFechaCreacion()));     
                             insert.executeUpdate();
+                            //se crea el registro de costo, con el costo global
+                            costosFuncionamientoDB.crearRegistroInicialPelicula(costo,connection);
+                            connection.commit();
+                            connection.setAutoCommit(true);
+                     } catch (SQLException ex) {
+                            try {
+                                   connection.rollback();
+                                   connection.setAutoCommit(true);
+                            } catch (SQLException e2) {
+                                   System.out.println("Error en rollback");
+                            }
+                            throw new DataBaseException("Error al crear pelicula en la db");
                      }
 
               } catch (SQLException e) {
@@ -52,8 +69,8 @@ public class CinesDB {
        public List<Cine> obtenerCinesPaginacion(int inicio, int fin) throws DataBaseException {
               List<Cine> cines = new ArrayList<>();
               int contador = 0;
-              try {
-                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
+                     
                      try (PreparedStatement query = connection.prepareStatement(PeticionAdminSistema.OBTENER_CINES.get());) {
                             ResultSet resultSet = query.executeQuery();
                             while (resultSet.next()) {
@@ -156,8 +173,8 @@ public class CinesDB {
         * @throws DataBaseException 
         */
        public void eliminarCine(String codigo) throws DataBaseException {
-              try {
-                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection();){
+                     
                      try (PreparedStatement query = connection.prepareStatement(PeticionAdminSistema.ELIMINAR_CINE.get())) {
                             query.setString(1, codigo);
                             query.executeUpdate();
