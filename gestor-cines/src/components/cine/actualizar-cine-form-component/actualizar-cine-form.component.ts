@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CineServices } from "../../../services/cine/cine.services";
@@ -14,7 +14,9 @@ import { ToastComponent } from "../../toast/toast.component";
 export class ActualizarCineFormComponent implements OnInit {
     @ViewChild('toast') toast!: ToastComponent;
     cineActualizarForm!: FormGroup;
+    @Input()
     codigoCine!: String
+    
     cineActualizado!: Cine
     cineUpdateServer!: Cine
     constructor(
@@ -25,11 +27,7 @@ export class ActualizarCineFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.codigoCine = history.state['codigoCine'];
-        if (!this.codigoCine) {
-            console.error('No se recibio ningun codigo del cine');
-            return;
-        }
+        
         this.cineActualizarForm = this.formBuilder.group({
             codigo: ['', [Validators.required, Validators.maxLength(25)]],
             nombre: ['', [Validators.required, Validators.maxLength(100)]],

@@ -1,12 +1,10 @@
 <app-header-admin-sistema></app-header-admin-sistema>
+      @if(cine!=undefined){
 <div id="contenedor" class="text-black">
+
   <div class="container text-center">
     <br>
-    <a 
-    [state]="{cine:cine}"
-    routerLink="/cine/admins" 
-    class="btn btn-success"
-    >
+    <a routerLink="/cine/admins/{{cine.codigo}}" class="btn btn-success">
       <i class="bi bi-arrow-left-square-fill"></i>
       Ir a listado de  AdminsCines
     </a>
@@ -17,7 +15,9 @@
     <br />
     <div class="row">
         <app-crear-admin-cine-form-component [cine]="cine"></app-crear-admin-cine-form-component>
+       
     </div>
   </div>
   <br>
 </div>
+ }

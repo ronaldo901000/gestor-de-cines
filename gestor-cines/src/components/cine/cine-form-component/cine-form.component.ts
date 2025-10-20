@@ -51,7 +51,6 @@ export class CineFormComponent implements OnInit {
                     this.toast.mostrar();
                 },
             });
-            console.log(this.newCine);
         }
     }
 

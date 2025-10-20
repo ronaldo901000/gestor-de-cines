@@ -6,7 +6,6 @@ import { Cine } from '../../../models/cine/cine';
 import { CineServices } from '../../../services/cine/cine.services';
 import { BuscadorComponent } from "../../../components/cine/buscador-cine-component/buscador-cine.component";
 import { ToastComponent } from '../../../components/toast/toast.component';
-import { Status } from '../../../shared/status/status';
 @Component({
   selector: 'app-cines-page',
   imports: [HeaderAdminSistemaComponent, RouterLink, CineCardComponent, CineCardComponent, BuscadorComponent, ToastComponent],

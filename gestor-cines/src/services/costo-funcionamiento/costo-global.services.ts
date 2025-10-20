@@ -2,8 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RestConstants } from '../../shared/rest-api/rest-constants';
 import { Observable } from 'rxjs';
-import { CostoFuncionamiento } from '../../models/costo-funcionamiento/costo-funcionamiento';
-import { CostoFuncionamientoResponse } from '../../models/costo-funcionamiento/costo-funcionamiento-response';
 import { CostoGlobal } from '../../models/costo-funcionamiento/costo-global';
 
 @Injectable({

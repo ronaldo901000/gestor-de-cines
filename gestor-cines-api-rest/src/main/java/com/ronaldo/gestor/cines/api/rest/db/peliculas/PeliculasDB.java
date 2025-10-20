@@ -29,8 +29,8 @@ public class PeliculasDB {
         */
        public void crear(Pelicula pelicula) throws DataBaseException {
               
-              try {
-                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
+                     
                      connection.setAutoCommit(false);
                      try (PreparedStatement insert = connection.prepareStatement(PeticionAdminSistema.CREAR_PELICULA.get())) {
 

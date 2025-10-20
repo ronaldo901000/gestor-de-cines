@@ -96,8 +96,8 @@ public class CinesDB {
         */
        public List<Cine> obtenerCinePorCodigoONombre(String elementoDeBusqueda) throws DataBaseException {
               List<Cine> cines = new ArrayList<>();
-              try {
-                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
+                     
                      try (PreparedStatement query = connection.prepareStatement(PeticionAdminSistema.OBTENER_CINES_POR_CODIGO_NOMBRE.get())) {
                             query.setString(1, elementoDeBusqueda);
                             query.setString(2, elementoDeBusqueda);
@@ -122,8 +122,8 @@ public class CinesDB {
         * @throws DataBaseException 
         */
        public Optional<Cine> obtenerCinePorCodigo(String codigo) throws DataBaseException {
-              try {
-                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
+                     
                      try (PreparedStatement query = connection.prepareStatement(PeticionAdminSistema.OBTENER_CINE_POR_CODIGO.get())) {
                             query.setString(1, codigo);
                             ResultSet resultSet = query.executeQuery();
@@ -144,8 +144,8 @@ public class CinesDB {
         * @throws DataBaseException 
         */
        public void updateCine(Cine cine) throws DataBaseException {
-              try {
-                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
+                     
                      try (PreparedStatement query = connection.prepareStatement(PeticionAdminSistema.ACTUALIZAR_CINE.get())) {
                             query.setString(1, cine.getNombre());
                             query.setString(2, cine.getUbicacion());

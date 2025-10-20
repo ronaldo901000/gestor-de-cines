@@ -38,15 +38,15 @@ export const routes: Routes = [
         component: CrearCineComponentPage
     },
     {
-        path:'cine/actualizar',
+        path:'cine/actualizar/:codigoCine',
         component:ActualizarCineComponentPage
     },
     {
-        path:'cine/admins',
+        path:'cine/admins/:codigoCine',
         component:AdminsCinePage
     },
     {
-        path: 'adminCine/nuevo',
+        path: 'adminCine/nuevo/:codigoCine',
         component:CrearAdminCineComponentPage
     },
     {
@@ -62,7 +62,7 @@ export const routes: Routes = [
         component:ConfigPreciosAnunciosPage
     },
     {
-        path:'preciosCines/actualizar',
+        path:'preciosCines/actualizar/:id',
         component: ActualizarPreciosAnunciosPageComponent
     },
     {
@@ -81,7 +81,7 @@ export const routes: Routes = [
         component:CrearPeliculaPage
     },
     {
-        path: 'peliculas/actualizar',
+        path: 'peliculas/actualizar/:codigoPelicula',
         component:ActualizarPeliculaComponentPage
     },
     {

@@ -27,7 +27,7 @@ export class CrearAdminCineFormComponet implements OnInit {
   ngOnInit(): void {
     this.adminCineForm = this.formBuilder.group({
       codigoCine: [this.cine.codigo, [Validators.required, Validators.maxLength(25)]],
-      id: ['', [Validators.required, Validators.maxLength(25),Validators.minLength(1)]],
+      id: ['', [Validators.required, Validators.maxLength(25), Validators.minLength(1)]],
     });
   }
 
@@ -38,7 +38,7 @@ export class CrearAdminCineFormComponet implements OnInit {
         next: () => {
           this.toast.titulo = 'Creacion exitosa';
           this.toast.tipo = 'success';
-          this.toast.mensaje = 'Creacion del admin con ID:"'+this.adminCine.id+'" exitoso';
+          this.toast.mensaje = 'Creacion del admin con ID:"' + this.adminCine.id + '" exitoso';
           this.toast.mostrar();
           this.reset();
 
@@ -46,14 +46,14 @@ export class CrearAdminCineFormComponet implements OnInit {
         error: (error: any) => {
           this.toast.titulo = 'Error de creacion';
           this.toast.tipo = 'danger';
-          if(error.status==Status.BAD_REQUEST){
-            this.toast.mensaje='Error con los datos enviados';
+          if (error.status == Status.BAD_REQUEST) {
+            this.toast.mensaje = 'Error con los datos enviados';
           }
-          else if(error.status==Status.CONFLICT){
-            this.toast.mensaje='El usuario no esta disponible';
+          else if (error.status == Status.CONFLICT) {
+            this.toast.mensaje = 'El usuario no esta disponible';
           }
-          else if(error.status==Status.NOT_FOUND){
-            this.toast.mensaje='El ID del usuario no esta registrado en el sistema';
+          else if (error.status == Status.NOT_FOUND) {
+            this.toast.mensaje = 'El ID del usuario no esta registrado en el sistema';
           }
           this.toast.mostrar();
         }
@@ -64,7 +64,7 @@ export class CrearAdminCineFormComponet implements OnInit {
 
   reset(): void {
     this.adminCineForm.reset({
-      codigoCine:this.cine.codigo
+      codigoCine: this.cine.codigo
     });
   }
 }

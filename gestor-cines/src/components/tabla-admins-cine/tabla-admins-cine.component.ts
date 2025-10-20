@@ -46,7 +46,6 @@ export class TablaAdminsCine implements OnInit {
     }
 
     eliminarAdmin(idAdmin: string) {
-        console.log('eliminando');
         this.adminsService.eliminarAdminCine(idAdmin).subscribe({
             next: () => {
                 this.toast.titulo = 'Eliminacion exitosa';

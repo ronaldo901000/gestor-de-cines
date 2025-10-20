@@ -23,8 +23,8 @@ public class AnunciantesDB {
         * @throws DataBaseException 
         */
        public void crearAnunciante(String idUsuario) throws DataBaseException {
-              try {
-                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
+                     
                      try (PreparedStatement insert = connection.
                              prepareStatement(PeticionAdminSistema.CREAR_ANUNCIANTE.get())) {
                             
@@ -44,8 +44,8 @@ public class AnunciantesDB {
         */
        public List<Usuario> obtenerAnunciantes() throws DataBaseException {
               List<Usuario> anunciantes = new ArrayList<>();
-              try {
-                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
+                     
                      try (PreparedStatement query = connection.
                              prepareStatement(PeticionAdminSistema.OBTENER_ANUNCIANTES.get())) {
                             ResultSet resultSet = query.executeQuery();
@@ -70,8 +70,8 @@ public class AnunciantesDB {
         * @throws DataBaseException 
         */
        public void eliminar(String idUsuario) throws DataBaseException {
-              try {
-                     Connection connection = DataSourceDBSingleton.getInstance().getConnection();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
+                     
                      try (PreparedStatement delete = connection.
                              prepareStatement(PeticionAdminSistema.ELIMINAR_ANUNCIANTE.get())) {
                             delete.setString(1, idUsuario);
