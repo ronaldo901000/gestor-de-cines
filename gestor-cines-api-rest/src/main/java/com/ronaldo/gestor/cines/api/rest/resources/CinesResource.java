@@ -39,11 +39,11 @@ public class CinesResource {
                      creadorCines.crear(cineRequest);
                      return Response.status(Response.Status.CREATED).build();
               } catch (UserDataInvalidException e) {
-                     return Response.status(Response.Status.BAD_REQUEST).build();
+                     return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
               } catch (EntityAlreadyExistsException e) {
-                     return Response.status(Response.Status.CONFLICT).build();
+                     return Response.status(Response.Status.CONFLICT).entity(e.getMessage()).build();
               } catch (DataBaseException e) {
-                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
               }
        }
 
@@ -56,9 +56,9 @@ public class CinesResource {
                      List<CineResponse> cines = crudCine.obtenerCines(inicio);
                      return Response.ok(cines).build();
               } catch (DataBaseException e) {
-                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
               } catch (UserDataInvalidException e) {
-                     return Response.status(Response.Status.BAD_REQUEST).build();
+                     return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
               }
        }
 
@@ -103,9 +103,9 @@ public class CinesResource {
                      crudCines.eliminar(codigo);
                      return Response.ok().build();
               } catch (DataBaseException e) {
-                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
               } catch (EntityNotFoundException e) {
-                     return Response.status(Response.Status.NOT_FOUND).build();
+                     return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
               }
        }
 

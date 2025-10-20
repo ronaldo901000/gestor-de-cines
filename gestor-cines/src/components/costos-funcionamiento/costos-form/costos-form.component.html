@@ -1,0 +1,57 @@
+<app-toast-component #toast></app-toast-component>
+<form [formGroup]="costoForm" (submit)="crear()">
+  <div class="row g-3" id="contenedor">
+    <div class="col-6">
+      <label for="codigoCine" class="form-label">Codigo del Cine:</label>
+      <input
+        type="text"
+        placeholder="ingresa el codigo del cine ej CN-001"
+        class="form-control"
+        id="codigoCine"
+        name="codigoCine"
+        formControlName="codigoCine"
+        [class.is-invalid]="
+          costoForm.controls['codigoCine'].dirty && costoForm.controls['codigoCine'].invalid
+        "
+      />
+    </div>
+
+    <div class="col-6">
+      <label for="fechaRegistro" class="form-label">Fecha de Registro:</label>
+      <input
+        type="date"
+        class="form-control"
+        id="fechaRegistro"
+        name="fechaRegistro"
+        formControlName="fechaRegistro"
+        [class.is-invalid]="
+          costoForm.controls['fechaRegistro'].dirty && costoForm.controls['fechaRegistro'].invalid
+        "
+      />
+    </div>
+
+    <div class="col-6">
+      <label for="costo" class="form-label">Costo Q.</label>
+      <input
+        placeholder="ingresa un costo ej: Q.100"
+        min="0"
+        max="100000000"
+        type="number"
+        class="form-control"
+        id="costo"
+        name="costo"
+        formControlName="costo"
+        [class.is-invalid]="
+          costoForm.controls['costo'].dirty && costoForm.controls['costo'].invalid
+        "
+      />
+    </div>
+  </div>
+  <hr class="my-4" />
+  <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
+    <button class="btn btn-secondary me-md-2" type="button" (click)="reset()">Limpiar</button>
+    <button class="btn btn-success" [disabled]="costoForm.invalid">
+      <strong>Crear Nuevo Costo</strong>
+    </button>
+  </div>
+</form>

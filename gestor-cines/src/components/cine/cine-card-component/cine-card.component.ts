@@ -35,25 +35,16 @@ export class CineCardComponent {
   eliminarCine(): void {
     this.cineService.eliminarCine(this.cineSeleccionado.codigo).subscribe({
       next: () => {
-        this.cineService.traerCinesPorPagina(0);
         this.toast.titulo = 'Eliminacion exitosa';
         this.toast.tipo = 'info';
         this.toast.mensaje = 'Eliminacion realizada con exito'
-        this.cineEliminado.emit();
         this.toast.mostrar();
+        this.cineEliminado.emit();
       },
       error: (error) => {
         this.toast.titulo = 'Error al Eliminar';
         this.toast.tipo = 'danger';
-        if (error.status == Status.NOT_FOUND) {
-          this.toast.mensaje = 'No se encontro ninguno cine con el codigo: ' + this.cineSeleccionado.codigo;
-        }
-        else if (error.status == Status.INTERNAL_SERVER_ERROR) {
-          this.toast.mensaje = 'Error en el servidor al intentar eliminar';
-        }
-        else {
-          this.toast.mensaje = 'Sucedio un error desconocido';
-        }
+        this.toast.mensaje = error.error;
         this.toast.mostrar();
       }
     });

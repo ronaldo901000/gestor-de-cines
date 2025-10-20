@@ -67,17 +67,10 @@ export class PeliculasTableComponent implements OnInit {
             error: (error) => {
                 this.toast.titulo = 'Error';
                 this.toast.tipo = 'danger';
-                if(error.status==Status.INTERNAL_SERVER_ERROR){
-                    this.toast.mensaje=error.error;
-                }
-                else if(error.status==Status.NOT_FOUND){
-                    this.toast.mensaje=error.error;
-                }
-                else if(error.status==Status.BAD_REQUEST){
-                    this.toast.mensaje=error.error;
-                }
+                this.toast.mensaje = error.error;
                 this.toast.mostrar();
             }
+
         });
     }
 

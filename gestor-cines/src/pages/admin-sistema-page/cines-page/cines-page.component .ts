@@ -4,12 +4,12 @@ import { RouterLink } from '@angular/router';
 import { CineCardComponent } from '../../../components/cine/cine-card-component/cine-card.component';
 import { Cine } from '../../../models/cine/cine';
 import { CineServices } from '../../../services/cine/cine.services';
-import { BuscadorCineComponent } from "../../../components/cine/buscador-cine-component/buscador-cine.component";
+import { BuscadorComponent } from "../../../components/cine/buscador-cine-component/buscador-cine.component";
 import { ToastComponent } from '../../../components/toast/toast.component';
 import { Status } from '../../../shared/status/status';
 @Component({
   selector: 'app-cines-page',
-  imports: [HeaderAdminSistemaComponent, RouterLink, CineCardComponent, CineCardComponent, BuscadorCineComponent, ToastComponent],
+  imports: [HeaderAdminSistemaComponent, RouterLink, CineCardComponent, CineCardComponent, BuscadorComponent, ToastComponent],
   templateUrl: './cines-page.component.html',
   styleUrl: './cines-page.component.css'
 })
@@ -30,8 +30,14 @@ export class CinesPage implements OnInit {
       next: (cinesServer: Cine[]) => {
         this.cines = cinesServer;
       },
-      error: (error) =>
-        console.error('Error al cargar cines:', error)
+      error: (error) => {
+        this.toast.titulo = 'Error';
+        this.toast.tipo = 'danger';
+        console.error(error);
+        this.toast.mensaje = error.error;
+        this.toast.mostrar();
+      }
+
     });
   }
 
@@ -59,14 +65,7 @@ export class CinesPage implements OnInit {
           this.toast.titulo = 'Error';
           this.toast.tipo = 'danger';
           console.error(error);
-          if (error.status === Status.NOT_FOUND) {
-            this.toast.mensaje = 'Error en los datos enviados, datos nullos o caracteres invalidos';
-          } else if (error.status === Status.INTERNAL_SERVER_ERROR) {
-            this.toast.mensaje = 'Error interno del servidor.';
-          } else {
-            this.toast.mensaje = 'Ocurrio un error desconocido';
-          }
-
+          this.toast.mensaje = error.error;
           this.toast.mostrar();
 
         }

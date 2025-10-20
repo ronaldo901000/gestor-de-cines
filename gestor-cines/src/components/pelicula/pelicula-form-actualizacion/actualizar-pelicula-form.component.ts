@@ -54,21 +54,11 @@ export class ActualizarPeliculaFormComponent implements OnInit {
                     this.toast.mostrar();
                 },
                 error: (error) => {
+                    console.log(error);
                     this.toast.titulo = 'Error';
                     this.toast.tipo = 'danger';
-                    console.log(error);
-                    if (error.status == Status.CONFLICT) {
-                        this.toast.mensaje = 'Ya existe una pelicula con el codigo: "' + this.peliculaActualizada.codigo + '" usa otro';
-                    } else if (error.status == Status.BAD_REQUEST) {
-                        this.toast.mensaje = 'Error en los datos enviados, por favor ingresa datos correctos';
-                    } else if (error.status == Status.INTERNAL_SERVER_ERROR) {
-                        this.toast.mensaje = error.error;
-                    } else if (error.status == Status.NOT_FOUND) {
-                        this.toast.mensaje = error.error;
-                    }
-                    else {
-                        this.toast.mensaje = 'Error desconocido';
-                    }
+                    this.toast.mensaje = error.error;
+                    this.toast.mostrar();
                     this.toast.mostrar();
                 }
             });
@@ -128,10 +118,10 @@ export class ActualizarPeliculaFormComponent implements OnInit {
                 console.log(error);
                 this.toast.titulo = 'Error';
                 this.toast.tipo = 'danger';
-                if(error.status==Status.INTERNAL_SERVER_ERROR){
+                if (error.status == Status.INTERNAL_SERVER_ERROR) {
                     this.toast.mensaje = 'Error al traer pelicula';
                 }
-                
+
                 this.toast.mostrar();
             }
         });

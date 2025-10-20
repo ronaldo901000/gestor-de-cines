@@ -45,6 +45,17 @@ public enum PeticionAdminSistema {
                + " clasificacion = ?, fecha_estreno = ? WHERE codigo = ?"),
        ELIMINAR_REGISTRO_CATEGORIAS_PELICULA("delete from registro_categoria_pelicula where codigo_pelicula=?"),
        ELIMINAR_PELICULA("delete from pelicula where codigo=?"),
+       CREAR_COSTO_FUNCIONAMIENTO_CINE("insert into costo_funcionamiento (codigo_cine, fecha_registro, costo_dia)"
+               + "values(?, ?, ?)"),
+       SOBREESCRIBIR_COSTO_FUNCIO_CINE("update costo_funcionamiento set fecha_registro=?, costo_dia=? where codigo_cine=? and fecha_registro=?"),
+       BUSCAR_COSTO_EN_FECHA("select * from costo_funcionamiento where codigo_cine=? and fecha_registro=?"),
+       OBTENER_COSTOS_CINE_POR_CODIGO_O_NOMBRE("select * from costo_funcionamiento join cine on codigo_cine=codigo "
+               + "where codigo=? or nombre=?"),
+       ELIMINAR_COSTO_CINE("delete from costo_funcionamiento where id=?"),
+       BUSCAR_COSTO_POR_ID("select * from costo_funcionamiento where id=?"),
+       
+       OBTENER_COSTO_GLOBAL("select * from costo_global"),
+       ACTUALIZAR_COSTO_GLOBAL("update costo_global set costo=? where id=1"),
        ;
        
        private String peticion;

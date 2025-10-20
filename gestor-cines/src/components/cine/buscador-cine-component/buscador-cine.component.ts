@@ -1,19 +1,21 @@
-import { Component, EventEmitter, Output} from "@angular/core";
-import { CineServices } from "../../../services/cine/cine.services";
-import { Cine } from "../../../models/cine/cine";
+import { Component, EventEmitter, Output } from "@angular/core";
 import { FormsModule } from '@angular/forms';
 @Component({
-    imports:[FormsModule],
-  selector: 'app-buscador-cine-component',
+  imports: [FormsModule],
+  selector: 'app-buscador-component',
   templateUrl: './buscador-cine.component.html',
 })
-export class BuscadorCineComponent {
+export class BuscadorComponent {
 
- palabra: string = '';
+  palabra: string = '';
   @Output()
-   palabraBuscada = new EventEmitter<string>();
+  palabraBuscada = new EventEmitter<string>();
 
   enviarPalabra() {
-    this.palabraBuscada.emit(this.palabra);
+    this.palabra = this.palabra.trim();
+    if (this.palabra !== '') {
+      this.palabraBuscada.emit(this.palabra);
+    }
   }
+
 }
