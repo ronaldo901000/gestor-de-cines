@@ -1,27 +1,25 @@
 <app-header-admin-sistema></app-header-admin-sistema>
 
-@if(cine!=undefined){
+@if(adminsSistema!=undefined){
 <div class="container text-center">
   <br />
 
-  <a routerLink="/adminCine/nuevo/{{ cine.codigo }}" class="btn btn-success">
+  <a routerLink="/adminSistema/nuevo" class="btn btn-success">
     <i class="bi bi-file-earmark-plus"></i>
     <h6>Crear Admin</h6>
   </a>
 </div>
 <br />
 <div class="container text-black text-center">
-  <h1>LISTA DE ADMINS DEL CINE: "{{ cine.nombre }}"</h1>
-  <br />
+  <h1>LISTA DE ADMINS DEL SISTEMA:</h1>
   <div class="container text-center">
-    <a routerLink="/cines" class="btn btn-primary">
+    <a routerLink="/home/admin-sistema" class="btn btn-primary">
       <i class="bi bi-arrow-left-square-fill"></i>
-      Ir a listado de Cines
+      Regresar Al Menu Principal
     </a>
   </div>
   <br />
-  @if(cine!=undefined){
-  <app-tabla-admins-cine-component [cine]="cine"></app-tabla-admins-cine-component>
-  }
+  <br />
+  <app-admins-sistema-table-component [admins]="adminsSistema"></app-admins-sistema-table-component>
 </div>
 }

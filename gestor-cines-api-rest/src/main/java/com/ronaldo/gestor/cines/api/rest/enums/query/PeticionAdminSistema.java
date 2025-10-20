@@ -56,6 +56,9 @@ public enum PeticionAdminSistema {
        
        OBTENER_COSTO_GLOBAL("select * from costo_global"),
        ACTUALIZAR_COSTO_GLOBAL("update costo_global set costo=? where id=1"),
+       CREAR_ADMIN_SISTEMA("insert into admin_sistema (id_usuario) values(?)"),
+       OBTENER_ADMINS_SISTEMA("select * from admin_sistema join usuario on id_usuario=id where activo=1"),
+       ELIMINAR_ADMINS_SISTEMA("delete from admin_sistema where id_usuario=?"),
        ;
        
        private String peticion;

@@ -1,0 +1,27 @@
+<app-toast-component #toast></app-toast-component>
+
+<div class="container text-center align-content-center mt-4">
+  <form [formGroup]="adminSistemaForm" (submit)="crear()" class="mx-auto col-md-6">
+    <div id="contenedor" class="d-flex flex-column gap-3 text-start">
+      <div>
+        <label for="id" class="form-label">ID del Usuario:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="id"
+          name="id"
+          formControlName="id"
+          [class.is-invalid]="
+            adminSistemaForm.controls['id']?.dirty && adminSistemaForm.controls['id']?.invalid
+          "
+        />
+      </div>
+    </div>
+    <hr class="my-4" />
+    <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
+      <button class="btn btn-success" [disabled]="adminSistemaForm.invalid">
+        <strong>Crear Admin Cine</strong>
+      </button>
+    </div>
+  </form>
+</div>
