@@ -37,13 +37,13 @@ public class AdminsCinesResource {
                      crudAdminCine.crear(adminCineRequest);
                      return Response.status(Response.Status.CREATED).build();
               } catch (DataBaseException e) {
-                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
               } catch (UserDataInvalidException e) {
-                     return Response.status(Response.Status.BAD_REQUEST).build();
+                     return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
               } catch (EntityAlreadyExistsException e) {
-                     return Response.status(Response.Status.CONFLICT).build();
+                     return Response.status(Response.Status.CONFLICT).entity(e.getMessage()).build();
               } catch (EntityNotFoundException e) {
-                     return Response.status(Response.Status.NOT_FOUND).build();
+                     return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
               }
        }
        

@@ -19,6 +19,8 @@ import { ActualizarPeliculaComponentPage } from '../pages/admin-sistema-page/act
 import { CostoFuncionamientoPage } from '../pages/admin-sistema-page/costo-funcionamiento-page/costo-funcionamiento-page-component';
 import { CrearCostoCinePage } from '../pages/admin-sistema-page/crear-costo-cine-page/crear-costo-cine-page.component';
 import { CostoGlobalPage } from '../pages/admin-sistema-page/costo-global-page/costo-global-page.component';
+import { AdminsSistemaPage } from '../pages/admin-sistema-page/admins-sistema-page/admin-sistema-page.component';
+import { CrearAdminSistemaComponentPage } from '../pages/admin-sistema-page/crear-admin-sistema-page/crear-admin-sistema-page.component';
 
 export const routes: Routes = [
     {
@@ -95,5 +97,13 @@ export const routes: Routes = [
     {
         path: 'costoGlobal',
         component:CostoGlobalPage
+    },
+    {
+        path: 'adminsSistema',
+        component:AdminsSistemaPage
+    },
+    {
+        path: 'adminSistema/nuevo',
+        component:CrearAdminSistemaComponentPage
     }
 ];

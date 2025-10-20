@@ -22,7 +22,7 @@
       >
         Cines
       </a>
-            <a
+      <a
         routerLink="/costosFuncinamiento"
         routerLinkActive="active"
         class="btn btn-outline-light me-1 btn-lg"
@@ -39,7 +39,17 @@
         Anunciantes
       </a>
 
-      <a routerLink="/faqs" routerLinkActive="active" class="btn btn-outline-light me-2 btn-lg">
+      <a
+        routerLink="/adminsSistema"
+        class="btn btn-outline-light me-1 btn-lg"
+        routerLinkActive="active"
+        aria-current="page"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Admins Sistema
+      </a>
+
+      <a routerLink="/dde" routerLinkActive="active" class="btn btn-outline-light me-2 btn-lg">
         FAQs
       </a>
       <h2>ID: - - - -</h2>
