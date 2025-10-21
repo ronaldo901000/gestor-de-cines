@@ -90,7 +90,7 @@ public class Cine implements Editable{
               VerificadorCaracteres verificador = new VerificadorCaracteres();
 
               return !(!verificador.numeroCaracteresValido(codigo, LimiteCaracter.CODIGO.get())
-                      || !verificador.numeroCaracteresValido(nombre, LimiteCaracter.NOMBRE_CINE.get())
+                      || !verificador.numeroCaracteresValido(nombre, LimiteCaracter.NOMBRE.get())
                       || !verificador.numeroCaracteresValido(ubicacion, LimiteCaracter.UBICACION_CINE.get()));
        }
 

@@ -6,7 +6,7 @@ package com.ronaldo.gestor.cines.api.rest.enums.caracter;
  */
 public enum LimiteCaracter {
        CODIGO(25),
-       NOMBRE_CINE(100),
+       NOMBRE(100),
        UBICACION_CINE(150),
        TITULO_PELICULA(100),
        SINOPSIS(300),

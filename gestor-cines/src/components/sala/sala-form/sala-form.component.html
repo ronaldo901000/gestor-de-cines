@@ -1,0 +1,87 @@
+<app-toast-component #toast></app-toast-component>
+<form [formGroup]="salaForm" (submit)="crear()">
+  <div class="row g-3" id="contenedor">
+
+    <div class="col-6">
+      <label for="codigo" class="form-label">Codigo de la Sala:</label>
+      <input
+        placeholder="ingresa un codigo ej: SL-00"
+        type="text"
+        class="form-control"
+        id="codigo"
+        name="codigo"
+        formControlName="codigo"
+        [class.is-invalid]="
+          salaForm.controls['codigo'].dirty && salaForm.controls['codigo'].invalid
+        "
+      />
+    </div>
+
+    <div class="col-6">
+      <label for="nombre" class="form-label">Nombre:</label>
+      <input
+        placeholder="Ingresa el nombre de la sala"
+        type="text"
+        class="form-control"
+        id="nombre"
+        name="nombre"
+        formControlName="nombre"
+        [class.is-invalid]="
+          salaForm.controls['nombre'].dirty && salaForm.controls['nombre'].invalid
+        "
+      />
+    </div>
+
+    <div class="col-6">
+      <label for="filas" class="form-label">Filas</label>
+      <input
+        min="1"
+        max="25"
+        placeholder="ingresa el numero de filas de la sala"
+        type="number"
+        class="form-control"
+        id="filas"
+        name="filas"
+        formControlName="filas"
+        [class.is-invalid]="salaForm.controls['filas'].dirty && salaForm.controls['filas'].invalid"
+      />
+    </div>
+
+    <div class="col-6">
+      <label for="columnas" class="form-label">Columnas</label>
+      <input
+        min="1"
+        max="25"
+        placeholder="ingresa el numero de columnas de la sala"
+        type="number"
+        class="form-control"
+        id="columnas"
+        name="columnas"
+        formControlName="columnas"
+        [class.is-invalid]="
+          salaForm.controls['columnas'].dirty && salaForm.controls['columnas'].invalid
+        "
+      />
+      
+    </div>
+
+        <div class="col-6">
+      <input
+        type="hidden"
+        readonly
+        class="form-control"
+        id="codigoCine"
+        name="codigoCine"
+        formControlName="codigoCine"
+      />
+    </div>
+
+  </div>
+  <hr class="my-4" />
+  <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
+    <button class="btn btn-secondary me-md-2" type="button" (click)="reset()">Limpiar</button>
+    <button class="btn btn-success" [disabled]="salaForm.invalid">
+      <strong>Crear Sala</strong>
+    </button>
+  </div>
+</form>

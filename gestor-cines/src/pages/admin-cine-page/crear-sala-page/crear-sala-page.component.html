@@ -1,0 +1,19 @@
+<app-header-admin-sistema></app-header-admin-sistema>
+<div id="contenedor" class="text-black">
+  <div class="container text-center">
+    <br>
+    <a routerLink="/salas" class="btn btn-success">
+      <i class="bi bi-arrow-left-square-fill"></i>
+      Ir a listado de Salas
+    </a>
+  </div>
+  <div class="container text-center">
+    <br />
+    <h1>Nueva Sala</h1>
+    <br />
+    <div class="row">
+     <app-sala-form [codigoCineRecibido]="codigoCine"></app-sala-form>
+    </div>
+  </div>
+  <br>
+</div>

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
- */
 package com.ronaldo.gestor.cines.api.rest.enums.query;
 
 /**
@@ -11,6 +7,7 @@ package com.ronaldo.gestor.cines.api.rest.enums.query;
 public enum RangoBusquedaElemento {
        CINES(5),
        PELICULAS(6),
+       SALAS(5),
        ;
        private int rango;
 

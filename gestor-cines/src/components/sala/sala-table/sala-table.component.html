@@ -1,0 +1,64 @@
+<app-toast-component #toast></app-toast-component>
+<div class="text-center" id="tabla">
+  <nav aria-label="Paginación">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="inicio === 0">
+        <button class="page-link" (click)="retrocederUnaPagina()">Anterior</button>
+      </li>
+      <li class="page-item" [class.disabled]="!hayMasCines()">
+        <button class="page-link" (click)="avanzarUnaPagina()">Siguiente</button>
+      </li>
+    </ul>
+  </nav>
+  @if(salas.length==0){
+  <h2>No hay Salas</h2>
+  } @if(salas.length>0){
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Codigo</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Nombre del cine</th>
+        <th scope="col">Filas</th>
+        <th scope="col">Columnas</th>
+        <th scope="col">Capacidad</th>
+        <th scope="col">Habilitado para comentarios y Calificaciones</th>
+        <th scope="col">Visible</th>
+        <th scope="col">Actualizar</th>
+        <th scope="col">Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (sala of salas; track $index) {
+      <tr>
+        <td>
+          <strong>{{ sala.codigo }}</strong>
+        </td>
+        <td>{{ sala.nombre }}</td>
+        <td>{{ sala.nombreCine }}</td>
+        <td>{{ sala.filas }}</td>
+        <td>{{ sala.columnas  }}</td>
+        <td>{{ sala.capacidad  }}</td>
+        <td>{{ sala.comentariosYCalificacionesHabilitados }}</td>
+        <td>{{ sala.activo  }}</td>
+        
+        <td>
+          <a
+            routerLink="/peliculas/actualizar/{{sala.codigo}}"
+            
+            class="btn btn-warning me-3"
+          >
+            <i class="bi bi-pencil"></i>
+          </a>
+        </td>
+        <td>
+          <button class="btn btn-danger" (click)="confirmarEliminacion(sala.codigo)">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  }
+</div>
