@@ -24,6 +24,7 @@ import { CrearAdminSistemaComponentPage } from '../pages/admin-sistema-page/crea
 import { HomeAdminCine } from '../pages/admin-cine-page/home-page/home-admin-cine-page.component';
 import { SalasPageComponent } from '../pages/admin-cine-page/salas-page/salas-page.component';
 import { CrearSalaComponentPage } from '../pages/admin-cine-page/crear-sala-page/crear-sala-page.component';
+import { ActualizarSalaComponentPage } from '../pages/admin-cine-page/actualizar-sala-page/actualizar-sala-page.component';
 
 export const routes: Routes = [
     {
@@ -120,5 +121,9 @@ export const routes: Routes = [
     {
         path: 'salas/nuevo',
         component:CrearSalaComponentPage
+    },
+    {
+        path: 'salas/actualizar/:codigoSala',
+        component:ActualizarSalaComponentPage
     }
 ];

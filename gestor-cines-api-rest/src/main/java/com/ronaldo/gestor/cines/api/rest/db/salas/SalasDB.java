@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -77,6 +78,45 @@ public class SalasDB {
               sala.setComentariosYCalificacionesHabilitados(resultSet.getBoolean("s.habilitado_com_y_cal"));
               sala.setActivo(resultSet.getBoolean("s.activo"));
               return sala;
+       }
+
+       /**
+        * 
+        * @param codigo
+        * @return
+        * @throws DataBaseException 
+        */
+       public Optional<Sala> obtenerSala(String codigo) throws DataBaseException {
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement query = connection.
+                             prepareStatement(PeticionesAdminCine.OBTENER_SALA.get())) {
+                            query.setString(1, codigo);
+                            ResultSet resultSet = query.executeQuery();
+                            if (resultSet.next()) {
+                                   return Optional.of(construirSala(resultSet));
+                            }
+
+                     }
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al obtener sala en la base de datos");
+              }
+              return Optional.empty();
+       }
+
+       public void updateSala(Sala sala) throws DataBaseException {
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement insert = connection.
+                             prepareStatement(PeticionesAdminCine.ACTUALIZAR_SALA.get())) {
+                            insert.setString(1, sala.getNombre());
+                            insert.setInt(2, sala.getFilas());
+                            insert.setInt(3, sala.getColumnas());
+                            insert.setString(4, sala.getCodigo());
+                            insert.executeUpdate();
+                     }
+              } catch (SQLException e) {
+                     throw new DataBaseException("Error al actualizar sala en la base de datos");
+              }
        }
 
 }

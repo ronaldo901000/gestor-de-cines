@@ -80,7 +80,7 @@ public class CinesResource {
        @PUT
        @Consumes(MediaType.APPLICATION_JSON)
        @Produces(MediaType.APPLICATION_JSON)
-       public Response updateEvent(CineRequest cineRequest) {
+       public Response actualizarCine(CineRequest cineRequest) {
               CRUDCines crudCines = new CRUDCines();
               try {
                      CineResponse cineActualizado = crudCines.actualizar(cineRequest);

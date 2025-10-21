@@ -37,17 +37,13 @@
         <td>{{ sala.nombre }}</td>
         <td>{{ sala.nombreCine }}</td>
         <td>{{ sala.filas }}</td>
-        <td>{{ sala.columnas  }}</td>
-        <td>{{ sala.capacidad  }}</td>
+        <td>{{ sala.columnas }}</td>
+        <td>{{ sala.capacidad }}</td>
         <td>{{ sala.comentariosYCalificacionesHabilitados }}</td>
-        <td>{{ sala.activo  }}</td>
-        
+        <td>{{ sala.activo }}</td>
+
         <td>
-          <a
-            routerLink="/peliculas/actualizar/{{sala.codigo}}"
-            
-            class="btn btn-warning me-3"
-          >
+          <a routerLink="/salas/actualizar/{{ sala.codigo }}" class="btn btn-warning me-3">
             <i class="bi bi-pencil"></i>
           </a>
         </td>
