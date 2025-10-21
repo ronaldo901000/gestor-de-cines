@@ -21,6 +21,9 @@ import { CrearCostoCinePage } from '../pages/admin-sistema-page/crear-costo-cine
 import { CostoGlobalPage } from '../pages/admin-sistema-page/costo-global-page/costo-global-page.component';
 import { AdminsSistemaPage } from '../pages/admin-sistema-page/admins-sistema-page/admin-sistema-page.component';
 import { CrearAdminSistemaComponentPage } from '../pages/admin-sistema-page/crear-admin-sistema-page/crear-admin-sistema-page.component';
+import { HomeAdminCine } from '../pages/admin-cine-page/home-page/home-admin-cine-page.component';
+import { SalasPageComponent } from '../pages/admin-cine-page/salas-page/salas-page.component';
+import { CrearSalaComponentPage } from '../pages/admin-cine-page/crear-sala-page/crear-sala-page.component';
 
 export const routes: Routes = [
     {
@@ -105,5 +108,17 @@ export const routes: Routes = [
     {
         path: 'adminSistema/nuevo',
         component:CrearAdminSistemaComponentPage
+    },
+    {
+        path: 'home/admin-cine',
+        component:HomeAdminCine
+    },
+    {
+        path: 'salas',
+        component:SalasPageComponent
+    },
+    {
+        path: 'salas/nuevo',
+        component:CrearSalaComponentPage
     }
 ];

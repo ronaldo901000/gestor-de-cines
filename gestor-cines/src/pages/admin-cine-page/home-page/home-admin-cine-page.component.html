@@ -1,0 +1,99 @@
+<app-header-admin-cine></app-header-admin-cine>
+
+<div class="container align-content-sm-center text-black">
+  <div class="text-center text-black">
+    <h1>BIENVENIDO ADMIN DE CINE</h1>
+  </div>
+
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-4 text-center border rounded-3 p-3 shadow-sm bg-gradient">
+        <svg class="bi" width="2em" height="2em">
+          <use xlink:href="#toggles2"></use>
+        </svg>
+        <h2>Salas</h2>
+        <h5 class="text-muted">
+          Apartado para ver el listado de salas, o crear una nueva
+        </h5>
+        <a routerLink="/salas" class="btn btn-success">
+          <i class="bi bi-toggles2"></i> Ir a Salas Registradas
+        </a>
+      </div>
+
+      <div class="col-md-4 text-center border rounded-3 p-3 shadow-sm bg-gradient">
+        <svg class="bi" width="2em" height="2em">
+          <use xlink:href="#toggles2"></use>
+        </svg>
+
+        <h2>Anunciantes</h2>
+        <h5 class="text-muted">
+          Apartado para ver el listado de anunciantes, o crear un nuevo anunciante por medio de su
+          ID, o eliminar
+        </h5>
+        <a routerLink="/anunciantes" class="btn btn-success">
+          <i class="bi bi-toggles2"></i> Ir a Anunciantes Registrados
+        </a>
+      </div>
+
+      <div class="col-md-4 text-center border rounded-3 p-3 shadow-sm bg-gradient">
+        <svg class="bi" width="2em" height="2em">
+          <use xlink:href="#toggles2"></use>
+        </svg>
+
+        <h2>Configuracion de Precios de anuncios</h2>
+        <h5 class="text-muted">
+          Apartado para ver, o actualizar precios de todos los tipos de anuncios existentes en el
+          sistema
+        </h5>
+        <a routerLink="/preciosAnuncios" class="btn btn-success">
+          <i class="bi bi-toggles2"></i> Ir a Configuracion de Precios
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-4 text-center border rounded-3 p-3 shadow-sm bg-gradient">
+        <svg class="bi" width="2em" height="2em">
+          <use xlink:href="#toggles2"></use>
+        </svg>
+        <h2>Configuracion de Peliculas Registradas</h2>
+        <h5 class="text-muted">
+          Apartado para ver, crear y eliminar peliculas. Crear categorias y asignarselo a cada
+          pelicula
+        </h5>
+        <a routerLink="/peliculas/config" class="btn btn-success">
+          <i class="bi bi-toggles2"></i> Ir a Cifig Peliculas
+        </a>
+      </div>
+
+      <div class="col-md-4 text-center border rounded-3 p-3 shadow-sm bg-gradient">
+        <svg class="bi" width="2em" height="2em">
+          <use xlink:href="#toggles2"></use>
+        </svg>
+
+        <h2>Configuracion de Costos de Funcionamiento</h2>
+        <h5 class="text-muted">
+          Ver o actualizar costos para cada cine, o actualizar el costo global para nuevos cines
+        </h5>
+        <a routerLink="/costosFuncinamiento" class="btn btn-success">
+          <i class="bi bi-toggles2"></i> Ir a Configuracion de costos
+        </a>
+      </div>
+
+      <div class="col-md-4 text-center border rounded-3 p-3 shadow-sm bg-gradient">
+        <svg class="bi" width="2em" height="2em">
+          <use xlink:href="#toggles2"></use>
+        </svg>
+
+        <h2>Administradores De sistemas</h2>
+        <h5 class="text-muted">
+          Apartado para ver, agregar o eliminar a los admins que van a controlar el gestor de cines
+        </h5>
+        <a routerLink="/adminsSistema" class="btn btn-success">
+          <i class="bi bi-toggles2"></i> Ir a lista de admins de sistema
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
