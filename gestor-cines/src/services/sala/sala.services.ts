@@ -20,24 +20,21 @@ export class SalasServices {
 
     public traerSalasPorPagina(codigoCine: string, inicio: number): Observable<SalaResponse[]> {
         return this.httpClient.get<SalaResponse[]>
-        (`${this.restConstants.getApiURL()}salas/${codigoCine}/${inicio}`
-        );
+            (`${this.restConstants.getApiURL()}salas/${codigoCine}/${inicio}`);
     }
 
-    public traerCinesPorPalabraClave(palabraClave: String): Observable<Cine[]> {
-        return this.httpClient.get<Cine[]>(`${this.restConstants.getApiURL()}cines/palabraClave/${palabraClave}`);
+    public obtenerSala(codigo: String): Observable<SalaResponse> {
+        return this.httpClient.get<SalaResponse>(`${this.restConstants.getApiURL()}salas/${codigo}`);
     }
 
-    public actualizarCine(cine: Cine): Observable<Cine> {
-        return this.httpClient.put<Cine>(
-            `${this.restConstants.getApiURL()}cines`,
-            cine
-        );
+    public actualizarSala(sala: Sala): Observable<SalaResponse> {
+        return this.httpClient.put<SalaResponse>(
+            `${this.restConstants.getApiURL()}salas`,sala);
     }
 
     eliminarCine(codigo: string): Observable<void> {
         return this.httpClient.delete<void>(
-            `${this.restConstants.getApiURL()}cines/${codigo}`);
+            `${this.restConstants.getApiURL()}salas/${codigo}`);
     }
 
 }
