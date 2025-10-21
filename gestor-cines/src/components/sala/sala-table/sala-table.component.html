@@ -40,11 +40,14 @@
         <td>{{ sala.columnas }}</td>
         <td>{{ sala.capacidad }}</td>
         <td>{{ sala.comentariosYCalificacionesHabilitados }}</td>
-        <td>{{ sala.activo }}</td>
-
+        <td>
+          <a class="btn btn-info">
+            <i class="bi bi-pencil">{{ sala.activo }} </i></a
+          >
+        </td>
         <td>
           <a routerLink="/salas/actualizar/{{ sala.codigo }}" class="btn btn-warning me-3">
-            <i class="bi bi-pencil"></i>
+            <i class="bi bi-pencil"> </i>
           </a>
         </td>
         <td>

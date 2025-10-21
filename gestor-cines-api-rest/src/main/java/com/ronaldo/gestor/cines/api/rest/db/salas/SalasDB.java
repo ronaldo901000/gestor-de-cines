@@ -119,4 +119,20 @@ public class SalasDB {
               }
        }
 
+       /**
+        * 
+        * @param codigo
+        * @throws DataBaseException 
+        */
+       public void eliminarSala(String codigo) throws DataBaseException {
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement delete = connection.
+                             prepareStatement(PeticionesAdminCine.ELIMINAR_SALA.get())) {
+                            delete.setString(1, codigo);
+                            delete.executeUpdate();
+                     }
+              } catch (SQLException e) {
+                     throw new DataBaseException("Error al eliminar sala en la base de datos");
+              }
+       }
 }

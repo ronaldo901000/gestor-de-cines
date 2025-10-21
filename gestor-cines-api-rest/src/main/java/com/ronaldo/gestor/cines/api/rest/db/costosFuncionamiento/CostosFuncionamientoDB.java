@@ -76,7 +76,7 @@ public class CostosFuncionamientoDB {
                             return resultSet.next();
                      }
               } catch (SQLException e) {
-                     throw new DataBaseException("Error al sobreescribir costo de funcionamiento en la db");
+                     throw new DataBaseException("Error al obtemer respuesta en la db");
               }
        }
 
@@ -107,6 +107,7 @@ public class CostosFuncionamientoDB {
               return costos;
        }
 
+       
        public void eliminar(String id) throws DataBaseException {
               try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
                      try (PreparedStatement insert
@@ -163,5 +164,27 @@ public class CostosFuncionamientoDB {
               } catch (SQLException e) {
                      throw new DataBaseException("Error al crear nuevo costo de funcionamiento en la db");
               }
+       }
+
+       public boolean esCostoInicial(String id) throws DataBaseException {
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement query
+                             = connection.prepareStatement(PeticionAdminSistema.OBTENER_FECHAS_REGISTRO_COSTO.get())) {
+                            query.setString(1, id);
+                            ResultSet resultSet = query.executeQuery();
+                            if (resultSet.next()) {
+                                   String fechaRegistro = resultSet.getString("fecha_registro");
+                                   String fechaCreacion = resultSet.getString("fecha_creacion");
+                                   
+                                   if(fechaRegistro.equals(fechaCreacion)){
+                                          return true;
+                                   }
+                            }
+                     }
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al comparar fechas del costo de cine en la db");
+              }
+              return false;
        }
 }

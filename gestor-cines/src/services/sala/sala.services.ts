@@ -32,7 +32,7 @@ export class SalasServices {
             `${this.restConstants.getApiURL()}salas`,sala);
     }
 
-    eliminarCine(codigo: string): Observable<void> {
+    eliminarSala(codigo: string): Observable<void> {
         return this.httpClient.delete<void>(
             `${this.restConstants.getApiURL()}salas/${codigo}`);
     }

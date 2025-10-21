@@ -30,7 +30,7 @@ export class SalasTableComponent implements OnInit {
         this.salasService.traerSalasPorPagina(this.codigoCine, this.inicio).subscribe({
             next: (salasServer: SalaResponse[]) => {
                 this.salas = salasServer;
-                
+
             },
             error: (error) => {
                 console.log(error.error);
@@ -42,16 +42,30 @@ export class SalasTableComponent implements OnInit {
     confirmarEliminacion(codigoPelicula: string): void {
         const confirmado = confirm('¿Estas seguro de que deseas eliminar esta sala?');
         if (confirmado) {
-            this.eliminarPelicula(codigoPelicula);
+            this.eliminarSala(codigoPelicula);
         }
     }
 
-    eliminarPelicula(codigoSala: string) {
+    eliminarSala(codigoSala: string) {
+        this.salasService.eliminarSala(codigoSala).subscribe({
+            next: () => {
+                this.toast.titulo = 'Sala Eliminada';
+                this.toast.tipo = 'warning';
+                this.toast.mensaje = 'Sala Eliminada exitosamante';
+                this.toast.mostrar();
+                this.traerSalas();
+            },
+            error: (error: any) => {
+                this.toast.titulo = 'Error de Eliminacion';
+                this.toast.tipo = 'danger';
+                this.toast.mensaje = error.error;
+                this.toast.mostrar();
+            }
+        });
     }
 
     avanzarUnaPagina() {
         this.inicio += this.rango;
-        console.log('inicio: '+ this.inicio)
         this.traerSalas();
     }
     retrocederUnaPagina() {

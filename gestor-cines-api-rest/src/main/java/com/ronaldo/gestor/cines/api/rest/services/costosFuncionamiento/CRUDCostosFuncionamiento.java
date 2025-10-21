@@ -28,13 +28,13 @@ import java.util.Optional;
 public class CRUDCostosFuncionamiento extends CRUD {
 
        /**
-        * 
+        *
         * @param entidadRequest
         * @return
         * @throws UserDataInvalidException
         * @throws EntityAlreadyExistsException
         * @throws DataBaseException
-        * @throws EntityNotFoundException 
+        * @throws EntityNotFoundException
         */
        @Override
        public Editable crear(EntidadRequest entidadRequest) throws UserDataInvalidException,
@@ -42,10 +42,19 @@ public class CRUDCostosFuncionamiento extends CRUD {
               HerramientaDB herramientaDB = new HerramientaDB();
               CostosFuncionamientoDB db = new CostosFuncionamientoDB();
               CostoFuncionamiento costo = (CostoFuncionamiento) extraer(entidadRequest);
+              CinesDB cinesDB = new CinesDB();
 
               if (!herramientaDB.existeEntidad(costo.getCodigoCine(), PeticionAdminSistema.BUSCAR_CINE.get())) {
                      throw new EntityNotFoundException("El codigo '" + costo.getCodigoCine() + "' no pertenece a ningun cine, verifica");
               }
+
+              Optional<Cine> cine = cinesDB.obtenerCinePorCodigo(costo.getCodigoCine());
+              //se vetifica que la fecha de registro del costo, no sea anterior a la creacion del cine
+              if (cine.get().getFechaCreacion().isAfter(costo.getFechaRegistro())) {
+                     throw new UserDataInvalidException(
+                             "La fecha no puede ser antes de la creacion del cine, fecha minima: " + cine.get().getFechaCreacion());
+              }
+
               // si ya existe registro de costo en la fecha indicada, se sobreescribe
               if (db.existeRegistroCostoEnFecha(costo)) {
                      db.sobreEscribir(costo);
@@ -73,12 +82,12 @@ public class CRUDCostosFuncionamiento extends CRUD {
        }
 
        public List<CostoFuncionamientoCineResponse> obtenerCinesPorNombreOCodigo(String palabra) throws DataBaseException, UserDataInvalidException {
-             if(palabra==null){
-                    throw new UserDataInvalidException("Por favor ingresa una palabra");
-             }
+              if (palabra == null) {
+                     throw new UserDataInvalidException("Por favor ingresa una palabra");
+              }
               List<CostoFuncionamientoCineResponse> costosResponse = new ArrayList<>();
               VerificadorCaracteres verificadorCaracteres = new VerificadorCaracteres();
-              
+
               if (!verificadorCaracteres.caracteresPermitidosNombre(palabra)) {
                      throw new UserDataInvalidException("Error en los datos enviados");
               }
@@ -92,9 +101,9 @@ public class CRUDCostosFuncionamiento extends CRUD {
        private void crearResponse(
                List<CostoFuncionamiento> costos,
                List<CostoFuncionamientoCineResponse> costosResponse) throws DataBaseException {
-              
+
               CinesDB cinesDB = new CinesDB();
-              if(costos.isEmpty()){
+              if (costos.isEmpty()) {
                      return;
               }
               Optional<Cine> cine = cinesDB.obtenerCinePorCodigo(costos.get(0).getCodigoCine());
@@ -105,9 +114,9 @@ public class CRUDCostosFuncionamiento extends CRUD {
                      costosResponse.add(new CostoFuncionamientoCineResponse(costos.get(i)));
                      costosResponse.get(i).setNombreCine(cine.get().getNombre());
               }
-              
+
        }
-       
+
        @Override
        protected EntidadResponse actualizar(EntidadRequest entidadRequest) throws DataBaseException, EntityNotFoundException, UserDataInvalidException {
               throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -120,6 +129,12 @@ public class CRUDCostosFuncionamiento extends CRUD {
               if (!herramientaDB.existeEntidad(id, PeticionAdminSistema.BUSCAR_COSTO_POR_ID.get())) {
                      throw new EntityNotFoundException("No se encontro el costo con id " + id + " en el sistema");
               }
+
+              //se verifica que el costo de funcionamiento no sea el inicial 
+              if (costosDB.esCostoInicial(id)) {
+                     throw new UserDataInvalidException("No es permitido eliminar el coste inicial");
+              }
+
               costosDB.eliminar(id);
        }
 }

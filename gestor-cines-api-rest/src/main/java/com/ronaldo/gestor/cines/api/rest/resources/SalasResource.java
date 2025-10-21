@@ -9,6 +9,7 @@ import com.ronaldo.gestor.cines.api.rest.services.salas.CRUDSalas;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -89,6 +90,24 @@ public class SalasResource {
                      return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
               } catch (UserDataInvalidException e) {
                      return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+              }
+       }
+
+       @DELETE
+       @Path("{codigo}")
+       @Consumes(MediaType.APPLICATION_JSON)
+       public Response eliminarSala(@PathParam("codigo") String codigo) {
+              CRUDSalas crud = new CRUDSalas();
+
+              try {
+                     crud.eliminar(codigo);
+                     return Response.ok().build();
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+              } catch (EntityNotFoundException ex) {
+                     return Response.status(Response.Status.NOT_FOUND).entity(ex.getMessage()).build();
+              } catch (UserDataInvalidException ex) {
+                     return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
               }
        }
 }

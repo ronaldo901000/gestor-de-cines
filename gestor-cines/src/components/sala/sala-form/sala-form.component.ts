@@ -38,14 +38,14 @@ export class SalaFormComponent implements OnInit {
     crear(): void {
         if (this.salaForm.valid) {
             this.nuevaSala = this.salaForm.value as Sala
-            console.log("Datos a enviar al backend:", this.nuevaSala);
-
+        
             this.salasServices.crearSala(this.nuevaSala).subscribe({
                 next: () => {
                     this.toast.titulo = 'Sala creada';
                     this.toast.tipo = 'success';
                     this.toast.mensaje = 'Sala creada exitosamante';
                     this.toast.mostrar();
+                    this.reset();
                 },
                 error: (error: any) => {
                     this.toast.titulo = 'Error en creacion';

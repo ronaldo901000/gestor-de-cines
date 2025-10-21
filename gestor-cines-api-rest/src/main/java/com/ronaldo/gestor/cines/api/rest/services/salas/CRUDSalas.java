@@ -19,6 +19,7 @@ import com.ronaldo.gestor.cines.api.rest.services.CRUD;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -139,10 +140,19 @@ public class CRUDSalas extends CRUD {
               return new SalaResponse(salaUpdate);
 
        }
-       
+
        @Override
        public void eliminar(String codigo) throws DataBaseException, EntityNotFoundException, UserDataInvalidException {
-             
+              SalasDB salasDB = new SalasDB();
+              if (StringUtils.isBlank(codigo)) {
+                     throw new UserDataInvalidException("Error en los datos enviados");
+              }
+
+              HerramientaDB herramientaDB = new HerramientaDB();
+              if (!herramientaDB.existeEntidad(codigo, PeticionesAdminCine.OBTENER_SALA.get())) {
+                     throw new EntityNotFoundException("No se encontró ninguna sala con el codigo: " + codigo);
+              }
+              salasDB.eliminarSala(codigo);
        }
 
 }

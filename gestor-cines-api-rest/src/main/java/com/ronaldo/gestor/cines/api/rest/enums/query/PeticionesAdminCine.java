@@ -13,6 +13,7 @@ public enum PeticionesAdminCine {
        OBTENER_SALA("select * from sala s join cine c on s.codigo_cine = c.codigo where s.codigo=?"),
        VERIFICAR_SALA_OCUPADA("select * from proyeccion where codigo_sala=?"),
        ACTUALIZAR_SALA("update sala set nombre = ?, filas = ?, columnas = ? where codigo = ?"),
+       ELIMINAR_SALA("delete from sala where codigo=?"),
        
        ;
        private String peticion;
