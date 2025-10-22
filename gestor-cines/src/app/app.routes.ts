@@ -25,6 +25,7 @@ import { HomeAdminCine } from '../pages/admin-cine-page/home-page/home-admin-cin
 import { SalasPageComponent } from '../pages/admin-cine-page/salas-page/salas-page.component';
 import { CrearSalaComponentPage } from '../pages/admin-cine-page/crear-sala-page/crear-sala-page.component';
 import { ActualizarSalaComponentPage } from '../pages/admin-cine-page/actualizar-sala-page/actualizar-sala-page.component';
+import { PeliculasPageComponent } from '../pages/admin-cine-page/peliculas-page/peliculas-page.component';
 
 export const routes: Routes = [
     {
@@ -125,5 +126,9 @@ export const routes: Routes = [
     {
         path: 'salas/actualizar/:codigoSala',
         component:ActualizarSalaComponentPage
+    },
+    {
+        path: 'peliculas',
+            component:PeliculasPageComponent
     }
 ];
