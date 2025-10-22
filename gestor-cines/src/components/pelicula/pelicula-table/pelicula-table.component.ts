@@ -18,6 +18,9 @@ export class PeliculasTableComponent implements OnInit {
         ('toast') toast!: ToastComponent;
     protected inicio: number = 0;
     protected rango: number = 6;
+    
+    @Input()
+    editable!:boolean
 
     peliculas: Pelicula[] = []
 

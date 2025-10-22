@@ -24,8 +24,10 @@
         <th scope="col">Clasificacion</th>
         <th scope="col">Fecha de estreno</th>
         <th scope="col">Categorias</th>
+        @if (editable) {
         <th scope="col">Actualizar</th>
         <th scope="col">Eliminar</th>
+        }
       </tr>
     </thead>
     <tbody>
@@ -41,12 +43,9 @@
         <td>{{ pelicula.clasificacion }}</td>
         <td>{{ pelicula.fechaEstreno | date : 'MMMM,dd yyyy' }}</td>
         <td>{{ pelicula.idsCategorias }}</td>
+        @if(editable){ 
         <td>
-          <a
-            routerLink="/peliculas/actualizar/{{pelicula.codigo}}"
-            
-            class="btn btn-warning me-3"
-          >
+          <a routerLink="/peliculas/actualizar/{{ pelicula.codigo }}" class="btn btn-warning me-3">
             <i class="bi bi-pencil"></i>
           </a>
         </td>
@@ -55,6 +54,7 @@
             <i class="bi bi-trash"></i>
           </button>
         </td>
+        }
       </tr>
       }
     </tbody>
