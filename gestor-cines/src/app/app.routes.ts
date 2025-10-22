@@ -26,6 +26,8 @@ import { SalasPageComponent } from '../pages/admin-cine-page/salas-page/salas-pa
 import { CrearSalaComponentPage } from '../pages/admin-cine-page/crear-sala-page/crear-sala-page.component';
 import { ActualizarSalaComponentPage } from '../pages/admin-cine-page/actualizar-sala-page/actualizar-sala-page.component';
 import { PeliculasPageComponent } from '../pages/admin-cine-page/peliculas-page/peliculas-page.component';
+import { ProyeccionessPageComponent } from '../pages/admin-cine-page/proyeccion-page/proyeccion-page.component';
+import { CrearProyeccionComponentPage } from '../pages/admin-cine-page/crear-proyeccion/crear-proyeccion-page.component';
 
 export const routes: Routes = [
     {
@@ -130,5 +132,13 @@ export const routes: Routes = [
     {
         path: 'peliculas',
             component:PeliculasPageComponent
+    },
+    {
+        path:'proyecciones',
+            component:ProyeccionessPageComponent
+    },
+    {
+        path:'proyecciones/nueva',
+        component:CrearProyeccionComponentPage
     }
 ];

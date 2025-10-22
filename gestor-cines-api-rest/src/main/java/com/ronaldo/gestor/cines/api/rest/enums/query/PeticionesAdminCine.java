@@ -14,8 +14,12 @@ public enum PeticionesAdminCine {
        VERIFICAR_SALA_OCUPADA("select * from proyeccion where codigo_sala=?"),
        ACTUALIZAR_SALA("update sala set nombre = ?, filas = ?, columnas = ? where codigo = ?"),
        ELIMINAR_SALA("delete from sala where codigo=?"),
-       
-       ;
+       OBTENER_PROYECCION("select * from proyeccion where codigo=?"),
+       BUSCAR_PELICULA("select * from pelicula where codigo=?"),
+       VERIFICAR_DISPONIBILIDAD_SALA("select * from proyeccion where codigo_sala = ? and fecha = ? "
+               + "and hora_inicio < ? and hora_fin > ?"),
+       CREAR_PROYECCION("insert into proyeccion (codigo, codigo_pelicula, codigo_sala, fecha, hora_inicio, hora_fin, precio) "
+               + "values(?, ?, ?, ?, ?, ?, ?)"),;
        private String peticion;
 
        private PeticionesAdminCine(String peticion) {
