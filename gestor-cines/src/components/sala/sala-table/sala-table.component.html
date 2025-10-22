@@ -22,10 +22,12 @@
         <th scope="col">Filas</th>
         <th scope="col">Columnas</th>
         <th scope="col">Capacidad</th>
+        @if(editable){
         <th scope="col">Habilitado para comentarios y Calificaciones</th>
         <th scope="col">Visible</th>
         <th scope="col">Actualizar</th>
         <th scope="col">Eliminar</th>
+        }
       </tr>
     </thead>
     <tbody>
@@ -39,6 +41,7 @@
         <td>{{ sala.filas }}</td>
         <td>{{ sala.columnas }}</td>
         <td>{{ sala.capacidad }}</td>
+        @if(editable){
         <td>{{ sala.comentariosYCalificacionesHabilitados }}</td>
         <td>
           <a class="btn btn-info">
@@ -55,6 +58,7 @@
             <i class="bi bi-trash"></i>
           </button>
         </td>
+      }
       </tr>
       }
     </tbody>

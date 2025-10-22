@@ -11,6 +11,9 @@ import { SalaResponse } from '../../../models/sala/sala-response';
 export class SalasTableComponent implements OnInit {
     @Input()
     codigoCine!: string
+
+    @Input()
+    editable!:boolean
     @ViewChild
         ('toast') toast!: ToastComponent;
     protected inicio: number = 0;

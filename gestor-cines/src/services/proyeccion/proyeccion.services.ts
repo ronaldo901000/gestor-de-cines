@@ -4,17 +4,18 @@ import { RestConstants } from '../../shared/rest-api/rest-constants';
 import { Observable } from 'rxjs';
 import { Sala } from '../../models/sala/sala';
 import { SalaResponse } from '../../models/sala/sala-response';
+import { Proyeccion } from '../../models/proyeccion/proyeccion';
 
 @Injectable({
     providedIn: 'root',
 })
-export class SalasServices {
+export class ProyeccionesServices {
     restConstants = new RestConstants();
 
     constructor(private httpClient: HttpClient) { }
 
-    public crearSala(sala: Sala): Observable<void> {
-        return this.httpClient.post<void>(`${this.restConstants.getApiURL()}salas`, sala);
+    public crearProyeccion(proyeccion: Proyeccion): Observable<void> {
+        return this.httpClient.post<void>(`${this.restConstants.getApiURL()}proyecciones`, proyeccion);
     }
 
     public traerSalasPorPagina(codigoCine: string, inicio: number): Observable<SalaResponse[]> {
@@ -28,7 +29,7 @@ export class SalasServices {
 
     public actualizarSala(sala: Sala): Observable<SalaResponse> {
         return this.httpClient.put<SalaResponse>(
-            `${this.restConstants.getApiURL()}salas`,sala);
+            `${this.restConstants.getApiURL()}salas`, sala);
     }
 
     eliminarSala(codigo: string): Observable<void> {
