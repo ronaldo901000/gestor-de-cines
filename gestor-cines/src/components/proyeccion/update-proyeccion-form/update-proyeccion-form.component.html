@@ -1,0 +1,111 @@
+<app-toast-component #toast></app-toast-component>
+@if(proyeccionActual!=undefined){
+<form [formGroup]="proyeccionForm" (submit)="actualizar()">
+  <div class="row g-3">
+    <div class="col-6">
+      <label for="codigo" class="form-label tex">Codigo:</label>
+      <input 
+
+        readonly
+        placeholder="Ej: PYC-00"
+        type="text"
+        class="form-control text-bg-info"
+        id="codigo"
+        name="codigo"
+        formControlName="codigo"
+        [class.is-invalid]="
+          proyeccionForm.controls['codigo'].dirty && proyeccionForm.controls['codigo'].invalid
+        "
+      />
+    </div>
+
+    <div class="col-6">
+      <label for="codigoPelicula" class="form-label">Codigo de la pelicula:</label>
+      <input
+        placeholder="Puedes consultar abajo"
+        type="text"
+        class="form-control"
+        id="codigoPelicula"
+        name="codigoPelicula"
+        formControlName="codigoPelicula"
+        [class.is-invalid]="
+          proyeccionForm.controls['codigoPelicula'].dirty &&
+          proyeccionForm.controls['codigoPelicula'].invalid
+        "
+      />
+    </div>
+
+    <div class="col-6">
+      <label for="codigoSala" class="form-label">Codigo de la sala:</label>
+      <input
+        placeholder="Puedes consultar abajo"
+        type="text"
+        class="form-control"
+        id="codigoSala"
+        name="codigoSala"
+        formControlName="codigoSala"
+        [class.is-invalid]="
+          proyeccionForm.controls['codigoSala'].dirty &&
+          proyeccionForm.controls['codigoSala'].invalid
+        "
+      />
+    </div>
+
+    <div class="col-6">
+      <label for="fecha" class="form-label">Fecha:</label>
+      <input
+        type="date"
+        [min]="fechaMinima"
+        class="form-control"
+        id="fecha"
+        name="fecha"
+        formControlName="fecha"
+      />
+    </div>
+
+    <div class="col-6">
+      <label for="horaInicio" class="form-label">Hora de Inicio:</label>
+      <input
+        type="time"
+        class="form-control"
+        id="horaInicio"
+        name="horaInicio"
+        formControlName="horaInicio"
+      />
+    </div>
+
+    <div class="col-6">
+      <label for="horaFin" class="form-label">Hora de Finalizacion:</label>
+      <input
+        type="time"
+        class="form-control"
+        id="horaFin"
+        name="horaFin"
+        formControlName="horaFin"
+      />
+    </div>
+
+    <div class="col-6">
+      <label for="precio" class="form-label">Precio del Boleto Q:</label>
+      <input
+        min="0"
+        max="100000000"
+        type="number"
+        class="form-control"
+        id="precio"
+        name="precio"
+        formControlName="precio"
+        [class.is-invalid]="
+          proyeccionForm.controls['precio'].dirty && proyeccionForm.controls['precio'].invalid
+        "
+      />
+    </div>
+  </div>
+  <hr class="my-4" />
+  <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
+    <button class="btn btn-success" [disabled]="proyeccionForm.invalid">
+      <strong>Actualizar Proyeccion</strong>
+    </button>
+  </div>
+</form>
+}

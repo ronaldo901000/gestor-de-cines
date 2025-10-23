@@ -28,6 +28,7 @@ import { ActualizarSalaComponentPage } from '../pages/admin-cine-page/actualizar
 import { PeliculasPageComponent } from '../pages/admin-cine-page/peliculas-page/peliculas-page.component';
 import { ProyeccionessPageComponent } from '../pages/admin-cine-page/proyeccion-page/proyeccion-page.component';
 import { CrearProyeccionComponentPage } from '../pages/admin-cine-page/crear-proyeccion/crear-proyeccion-page.component';
+import { ActualizarProyeccionComponentPage } from '../pages/admin-cine-page/actualizar-proyeccion-page/actualizar-proyeccion-page.component';
 
 export const routes: Routes = [
     {
@@ -140,5 +141,9 @@ export const routes: Routes = [
     {
         path:'proyecciones/nueva',
         component:CrearProyeccionComponentPage
+    },
+    {
+        path: 'proyecciones/actualizar/:codigoProyeccion',
+        component: ActualizarProyeccionComponentPage
     }
 ];

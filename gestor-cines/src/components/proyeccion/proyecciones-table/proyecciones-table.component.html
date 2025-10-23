@@ -1,0 +1,57 @@
+<app-toast-component #toast></app-toast-component>
+<div class="text-center" id="tabla">
+  <nav aria-label="Paginación">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="inicio === 0">
+        <button class="page-link" (click)="retrocederUnaPagina()">Anterior</button>
+      </li>
+      <li class="page-item" [class.disabled]="!hayMasProyecciones()">
+        <button class="page-link" (click)="avanzarUnaPagina()">Siguiente</button>
+      </li>
+    </ul>
+  </nav>
+  @if(proyecciones.length==0){
+  <h2>No hay Proyecciones de peliculas</h2>
+  } @if(proyecciones.length>0){
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Codigo</th>
+        <th scope="col">Pelicula</th>
+        <th scope="col">Sala</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Hora de Inicio</th>
+        <th scope="col">Hora de Finalizacion</th>
+        <th scope="col">Precio de boleto</th>
+        <th scope="col">Actualizar</th>
+        <th scope="col">Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (proyeccion of proyecciones; track $index) {
+      <tr>
+        <td>
+          <strong>{{ proyeccion.codigo }}</strong>
+        </td>
+        <td>{{ proyeccion.pelicula.titulo }}</td>
+        <td>{{ proyeccion.sala.nombre }}</td>
+        <td>{{ proyeccion.fecha | date : 'dd MMMM yyyy'}}</td>
+        <td>{{ proyeccion.horaInicio }}</td>
+        <td>{{ proyeccion.horaFin }}</td>
+        <td>{{ proyeccion.precio | currency:'Q.'}}</td>
+        <td>
+          <a routerLink="/proyecciones/actualizar/{{ proyeccion.codigo }}" class="btn btn-warning me-3">
+            <i class="bi bi-pencil"> </i>
+          </a>
+        </td>
+        <td>
+          <button class="btn btn-danger" (click)="confirmarEliminacion(proyeccion.codigo)">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  }
+</div>
