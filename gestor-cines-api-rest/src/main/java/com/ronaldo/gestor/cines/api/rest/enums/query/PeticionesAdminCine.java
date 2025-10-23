@@ -27,6 +27,7 @@ public enum PeticionesAdminCine {
        VERIFICAR_DISPONIBILIDAD_SALA_EN_ACTUALIZACION("select * from proyeccion where codigo_sala = ? and fecha = ? "
                + "and hora_inicio < ? and hora_fin > ? and codigo!=?"),
        ELIMINAR_PROYECCION("delete from proyeccion where codigo=?"),
+       CAMBIAR_VISIBILIDAD_SALA("update sala set activo=? where codigo=?"),
        ;
        private String peticion;
 

@@ -135,4 +135,45 @@ public class SalasDB {
                      throw new DataBaseException("Error al eliminar sala en la base de datos");
               }
        }
+
+       /**
+        * 
+        * @param codigo
+        * @return
+        * @throws DataBaseException 
+        */
+       public boolean obtenerVisibilidadActual(String codigo) throws DataBaseException {
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement query = connection.
+                             prepareStatement(PeticionesAdminCine.OBTENER_SALA.get())) {
+                            query.setString(1, codigo);
+                            ResultSet resultSet = query.executeQuery();
+                            if (resultSet.next()) {
+                                   return resultSet.getBoolean("s.activo");
+                            }
+                     }
+              } catch (SQLException e) {
+                     throw new DataBaseException("Error al obtener visibilidad de la sala en la base de datos");
+              }
+              return false;
+       }
+
+       /**
+        * 
+        * @param codigo
+        * @param nuevoEstado
+        * @throws DataBaseException 
+        */
+       public void cambiarVisibilidad(String codigo, boolean nuevoEstado) throws DataBaseException {
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement update = connection.
+                             prepareStatement(PeticionesAdminCine.CAMBIAR_VISIBILIDAD_SALA.get())) {
+                            update.setBoolean(1, nuevoEstado);
+                            update.setString(2, codigo);
+                            update.executeUpdate();
+                     }
+              } catch (SQLException e) {
+                     throw new DataBaseException("Error al eliminar sala en la base de datos");
+              }
+       }
 }

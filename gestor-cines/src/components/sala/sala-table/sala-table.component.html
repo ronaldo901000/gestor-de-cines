@@ -43,11 +43,13 @@
         <td>{{ sala.capacidad }}</td>
         @if(editable){
         <td>{{ sala.comentariosYCalificacionesHabilitados }}</td>
+
         <td>
-          <a class="btn btn-info">
-            <i class="bi bi-pencil">{{ sala.activo }} </i></a
-          >
-        </td>
+  <button class="btn btn-info" (click)="cambiarVisibilidad(sala.codigo)">
+    <i class="bi bi-eye">{{ sala.activo }} </i>
+  </button>
+</td>
+
         <td>
           <a routerLink="/salas/actualizar/{{ sala.codigo }}" class="btn btn-warning me-3">
             <i class="bi bi-pencil"> </i>
