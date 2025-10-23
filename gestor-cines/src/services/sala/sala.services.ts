@@ -28,7 +28,11 @@ export class SalasServices {
 
     public actualizarSala(sala: Sala): Observable<SalaResponse> {
         return this.httpClient.put<SalaResponse>(
-            `${this.restConstants.getApiURL()}salas`,sala);
+            `${this.restConstants.getApiURL()}salas`, sala);
+    }
+    public actualizarVisibilidadSala(codigoSala: string): Observable<void> {
+        return this.httpClient.put<void>(
+            `${this.restConstants.getApiURL()}salas/cambiarVisibilidad/${codigoSala}`,{});
     }
 
     eliminarSala(codigo: string): Observable<void> {

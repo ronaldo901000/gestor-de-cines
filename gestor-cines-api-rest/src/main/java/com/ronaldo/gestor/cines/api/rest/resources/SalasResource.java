@@ -93,6 +93,20 @@ public class SalasResource {
               }
        }
 
+       @PUT
+       @Path("cambiarVisibilidad/{codigo}")
+       public Response desactivarSala(@PathParam("codigo") String codigo) {
+              CRUDSalas crud = new CRUDSalas();
+              try {
+                     crud.cambiarVisibilidad(codigo);
+                     return Response.ok().build();
+              } catch (EntityNotFoundException e) {
+                     return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+              } catch (DataBaseException e) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+              }
+       }
+
        @DELETE
        @Path("{codigo}")
        @Consumes(MediaType.APPLICATION_JSON)

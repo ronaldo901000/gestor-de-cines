@@ -155,4 +155,20 @@ public class CRUDSalas extends CRUD {
               salasDB.eliminarSala(codigo);
        }
 
+       public void cambiarVisibilidad(String codigoSala) throws DataBaseException, EntityNotFoundException {
+              SalasDB salasDB = new SalasDB();
+              HerramientaDB herramientaDB = new HerramientaDB();
+              if (!herramientaDB.existeEntidad(codigoSala, PeticionesAdminCine.BUSCAR_SALA.get())) {
+                     throw new EntityNotFoundException("El codigo enviado no corresponde a ninguna sala");
+              }
+              boolean estaVisible = salasDB.obtenerVisibilidadActual(codigoSala);
+
+              boolean nuevoEstado = false;
+
+              if (!estaVisible) {
+                     nuevoEstado = true;
+              }
+              salasDB.cambiarVisibilidad(codigoSala, nuevoEstado);
+       }
+
 }

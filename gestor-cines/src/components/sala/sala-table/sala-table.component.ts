@@ -67,6 +67,17 @@ export class SalasTableComponent implements OnInit {
         });
     }
 
+    cambiarVisibilidad(codigoSala:string){
+        this.salasService.actualizarVisibilidadSala(codigoSala).subscribe({
+            next:()=>{
+                this.toast.titulo='Cambio correcto';
+                this.toast.tipo='info';
+                this.toast.mensaje='Cambio exitoso'
+                this.toast.mostrar();
+                this.traerSalas();
+            }
+        });
+    }
     avanzarUnaPagina() {
         this.inicio += this.rango;
         this.traerSalas();
