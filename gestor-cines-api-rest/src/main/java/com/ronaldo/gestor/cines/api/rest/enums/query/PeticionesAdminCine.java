@@ -19,7 +19,15 @@ public enum PeticionesAdminCine {
        VERIFICAR_DISPONIBILIDAD_SALA("select * from proyeccion where codigo_sala = ? and fecha = ? "
                + "and hora_inicio < ? and hora_fin > ?"),
        CREAR_PROYECCION("insert into proyeccion (codigo, codigo_pelicula, codigo_sala, fecha, hora_inicio, hora_fin, precio) "
-               + "values(?, ?, ?, ?, ?, ?, ?)"),;
+               + "values(?, ?, ?, ?, ?, ?, ?)"),
+       OBTENER_PROYECCIONES_POR_RANGO("select * from proyeccion p join sala s on p.codigo_sala=s.codigo where s.codigo_cine=?"),
+       OBTENER_PROYECCION_POR_CODIGO("select * from proyeccion p join sala s on p.codigo_sala=s.codigo where p.codigo=?"),
+       ACTUALIZAR_PROYECCION("update proyeccion set codigo_pelicula=?, codigo_sala=?, fecha=?, hora_inicio=?, hora_fin=?, "
+               + "precio=? where codigo=?"),
+       VERIFICAR_DISPONIBILIDAD_SALA_EN_ACTUALIZACION("select * from proyeccion where codigo_sala = ? and fecha = ? "
+               + "and hora_inicio < ? and hora_fin > ? and codigo!=?"),
+       ELIMINAR_PROYECCION("delete from proyeccion where codigo=?"),
+       ;
        private String peticion;
 
        private PeticionesAdminCine(String peticion) {

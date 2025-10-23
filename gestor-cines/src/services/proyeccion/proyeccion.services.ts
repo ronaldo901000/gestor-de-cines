@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Sala } from '../../models/sala/sala';
 import { SalaResponse } from '../../models/sala/sala-response';
 import { Proyeccion } from '../../models/proyeccion/proyeccion';
+import { ProyeccionResponse } from '../../models/proyeccion/proyeccion-response';
 
 @Injectable({
     providedIn: 'root',
@@ -18,23 +19,23 @@ export class ProyeccionesServices {
         return this.httpClient.post<void>(`${this.restConstants.getApiURL()}proyecciones`, proyeccion);
     }
 
-    public traerSalasPorPagina(codigoCine: string, inicio: number): Observable<SalaResponse[]> {
-        return this.httpClient.get<SalaResponse[]>
-            (`${this.restConstants.getApiURL()}salas/${codigoCine}/${inicio}`);
+    public obtenerProyeccionesPorPagina(codigoCine: string, inicio: number): Observable<ProyeccionResponse[]> {
+        return this.httpClient.get<ProyeccionResponse[]>
+            (`${this.restConstants.getApiURL()}proyecciones/${codigoCine}/${inicio}`);
     }
 
-    public obtenerSala(codigo: String): Observable<SalaResponse> {
-        return this.httpClient.get<SalaResponse>(`${this.restConstants.getApiURL()}salas/${codigo}`);
+    public obtenerProyecion(codigo: String): Observable<ProyeccionResponse> {
+        return this.httpClient.get<ProyeccionResponse>(`${this.restConstants.getApiURL()}proyecciones/${codigo}`);
     }
 
-    public actualizarSala(sala: Sala): Observable<SalaResponse> {
-        return this.httpClient.put<SalaResponse>(
-            `${this.restConstants.getApiURL()}salas`, sala);
+    public actualizarProyeccion(proyeccion: Proyeccion): Observable<ProyeccionResponse> {
+        return this.httpClient.put<ProyeccionResponse>(
+            `${this.restConstants.getApiURL()}proyecciones`, proyeccion);
     }
 
-    eliminarSala(codigo: string): Observable<void> {
+    eliminarProyeccion(codigo: string): Observable<void> {
         return this.httpClient.delete<void>(
-            `${this.restConstants.getApiURL()}salas/${codigo}`);
+            `${this.restConstants.getApiURL()}proyecciones/${codigo}`);
     }
 
 }
