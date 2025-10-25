@@ -1,5 +1,5 @@
 <header class="p-4 bg-black text-white">
-  <div class="container">
+  <div class="">
     <div
       class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
     >
@@ -37,7 +37,24 @@
       >
         Proyecciones
       </a>
+      <div class="m-4"></div>
+      <div class="m-4"></div>
+      <div class="m-4"></div>
+      <div class="m-4"></div>
+      <div class="m-4"></div>
+      <div class="m-4"></div>
+      <div class="m-4"></div>
+      @if (esAnunciante) {
+      <a
+        routerLink="/misAnuncios"
+        routerLinkActive="active"
+        class="btn btn-outline-light me-1 btn-lg"
+      >
+        <i class="bi bi-megaphone-fill me-1 fs-6"></i>
 
+        Mis Anuncios
+      </a>
+      }
       <a
         routerLink="/participacion"
         routerLinkActive="active"

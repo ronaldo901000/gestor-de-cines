@@ -3,7 +3,6 @@ import { Login } from '../pages/login/login-page.component';
 import { HomeAdminSistema } from '../pages/admin-sistema-page/home-page/home-admin-sistema-page.component ';
 import { CinesPage } from '../pages/admin-sistema-page/cines-page/cines-page.component ';
 import { CrearCineComponentPage } from '../pages/admin-sistema-page/crear-cine-page/crear-cine-page.component';
-import { ActualizarCineFormComponent } from '../components/cine/actualizar-cine-form-component/actualizar-cine-form.component';
 import { ActualizarCineComponentPage } from '../pages/admin-sistema-page/actualizar-cine-page/actualizar-cine-page.component';
 import { AdminsCinePage } from '../pages/admin-sistema-page/admins-cine-page/admins-cine-page.component ';
 import { CrearAdminCineComponentPage } from '../pages/admin-sistema-page/crear-admin-cine-page/crear-admin-cine-page.component';
@@ -29,7 +28,8 @@ import { PeliculasPageComponent } from '../pages/admin-cine-page/peliculas-page/
 import { ProyeccionessPageComponent } from '../pages/admin-cine-page/proyeccion-page/proyeccion-page.component';
 import { CrearProyeccionComponentPage } from '../pages/admin-cine-page/crear-proyeccion/crear-proyeccion-page.component';
 import { ActualizarProyeccionComponentPage } from '../pages/admin-cine-page/actualizar-proyeccion-page/actualizar-proyeccion-page.component';
-
+import { MisAnunciosPageComponent } from '../pages/anunciante-page/mis-anuncios-page/mis-anuncios-page.component';
+import { CrearAnunciosComponentPage } from '../pages/anunciante-page/crear-anuncios/crear-anuncios-page.component';
 export const routes: Routes = [
     {
         path: '',
@@ -145,5 +145,13 @@ export const routes: Routes = [
     {
         path: 'proyecciones/actualizar/:codigoProyeccion',
         component: ActualizarProyeccionComponentPage
+    },
+    {
+        path:'misAnuncios',
+        component:MisAnunciosPageComponent
+    },
+    {
+        path: 'misAnuncios/nuevo/:tipo',
+        component:CrearAnunciosComponentPage
     }
 ];

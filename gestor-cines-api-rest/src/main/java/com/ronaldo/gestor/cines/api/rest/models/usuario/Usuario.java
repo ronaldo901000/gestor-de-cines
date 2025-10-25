@@ -1,5 +1,7 @@
 package com.ronaldo.gestor.cines.api.rest.models.usuario;
 
+import com.ronaldo.gestor.cines.api.rest.db.usuarios.UsuariosDB;
+import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.models.interfaces.Editable;
 
 /**
@@ -16,14 +18,15 @@ public class Usuario implements Editable {
        private String InputStream;
        private boolean activo;
 
+       public Usuario() {
+       }
+
        public Usuario(String id, String nombre, String correo, String telefono) {
               this.id = id;
               this.nombre = nombre;
               this.correo = correo;
               this.telefono = telefono;
        }
-
-       
        
        public String getId() {
               return id;
@@ -81,4 +84,15 @@ public class Usuario implements Editable {
               this.activo = activo;
        }
 
+       public boolean cuentaConSaldoSuficiente(double costoTransaccion) throws DataBaseException {
+              UsuariosDB usuariosDB = new UsuariosDB();
+              double saldoExistente = usuariosDB.obtenerCreditos(id);
+              return saldoExistente >= costoTransaccion;
+       }
+
+       public double obtenerNuevoSaldo(double gasto) throws DataBaseException {
+              UsuariosDB usuariosDB = new UsuariosDB();
+              double saldoExistente = usuariosDB.obtenerCreditos(id);
+              return saldoExistente-gasto;
+       }
 }

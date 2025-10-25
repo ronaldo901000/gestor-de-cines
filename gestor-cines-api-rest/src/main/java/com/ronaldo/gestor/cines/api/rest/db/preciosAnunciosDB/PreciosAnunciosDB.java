@@ -2,6 +2,7 @@ package com.ronaldo.gestor.cines.api.rest.db.preciosAnunciosDB;
 
 import com.ronaldo.gestor.cines.api.rest.db.DataSourceDBSingleton;
 import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionAdminSistema;
+import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionesAnunciante;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.models.preciosAnuncios.PrecioAnuncio;
 import java.sql.Connection;
@@ -45,7 +46,54 @@ public class PreciosAnunciosDB {
               return precios;
        }
 
+       public double obtenerPrecio(int id) throws DataBaseException {
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+
+                     try (PreparedStatement query = connection.
+                             prepareStatement(PeticionesAnunciante.OBTENER_COSTO_ANUNCIO.get())) {
+                            query.setInt(1, id);
+                            ResultSet resultSet = query.executeQuery();
+                            if (resultSet.next()) {
+                                   return resultSet.getDouble("precio_venta_dia");
+                            }
+                     }
+              } catch (SQLException e) {
+                     throw new DataBaseException("Error al obtener precios de anuncios en la db");
+              }
+              return -1;
+       }
+
        /**
+        *
+        * @param precioAnuncio
+        * @throws DataBaseException
+        */
+       /**
+        * 
+        * @param precioAnuncio
+        * @throws DataBaseException 
+        */              /**
+               *
+        * @param precioAnuncio
+        * @throws DataBaseException 
+        */       /**
+        * 
+        * @param precioAnuncio
+        * @throws DataBaseException 
+        */       /**
+        *
+        * @param precioAnuncio
+        * @throws DataBaseException
+        */
+       /**
+        * 
+        * @param precioAnuncio
+        * @throws DataBaseException 
+        */              /**
+               *
+        * @param precioAnuncio
+        * @throws DataBaseException 
+        */       /**
         * 
         * @param precioAnuncio
         * @throws DataBaseException 

@@ -1,0 +1,130 @@
+<div id="contenedor">
+  <br />
+  <div class="container">
+    <app-toast-component #toast></app-toast-component>
+    <form [formGroup]="nuevoAnuncioForm" (submit)="crear()">
+      <div class="row">
+        <div class="col-6 justify-content-lg-center">
+          <label for="codigo" class="form-label"><h4>Codigo:</h4></label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Ingresa un codigo ej- AN-0001"
+            id="codigo"
+            name="codigo"
+            formControlName="codigo"
+            [class.is-invalid]="
+              nuevoAnuncioForm.controls['codigo'].dirty &&
+              nuevoAnuncioForm.controls['codigo'].invalid
+            "
+          />
+        </div>
+        <div class="col-6 justify-content-lg-center">
+          <label for="titulo" class="form-label"><h4>Titulo:</h4></label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Ingresa un titulo"
+            id="titulo"
+            name="titulo"
+            formControlName="titulo"
+            [class.is-invalid]="
+              nuevoAnuncioForm.controls['titulo'].dirty &&
+              nuevoAnuncioForm.controls['titulo'].invalid
+            "
+          />
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-6 justify-content-lg-center">
+          <label for="descripcion" class="form-label"><h4>Descripcion del anuncio:</h4></label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Ingresa informacion sobre tu anuncio"
+            id="descripcion"
+            name="descripcion"
+            formControlName="descripcion"
+            [class.is-invalid]="
+              nuevoAnuncioForm.controls['descripcion'].dirty &&
+              nuevoAnuncioForm.controls['descripcion'].invalid
+            "
+          />
+        </div>
+        @if(tipoAnuncio==='VIDEO'){
+        <div class="col-6 justify-content-lg-center">
+          <label for="linkVideo" class="form-label"><h4>Link del video:</h4></label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Ingresa el link del video"
+            id="linkVideo"
+            name="linkVideo"
+            formControlName="linkVideo"
+            [class.is-invalid]="
+              nuevoAnuncioForm.controls['linkVideo'].dirty &&
+              nuevoAnuncioForm.controls['linkVideo'].invalid
+            "
+          />
+        </div>
+        } @if(tipoAnuncio=='IMAGEN'){
+        <div class="col-6 justify-content-lg-center">
+          <label for="imagen" class="form-label"><h4>Imagen para el anuncio:</h4></label>
+          <input
+            type="file"
+            class="form-control"
+            placeholder="Selecciona la imagen para tu anuncio"
+            id="imagen"
+            name="imagen"
+            formControlName="imagen"
+            accept="image/*"
+            [class.is-invalid]="
+              nuevoAnuncioForm.controls['imagen'].dirty &&
+              nuevoAnuncioForm.controls['imagen'].invalid
+            "
+          />
+        </div>
+        }
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-6 justify-content-lg-center">
+          <label for="fechaRegistro" class="form-label"><h4>Fecha de Registro:</h4></label>
+          <input
+            type="date"
+            class="form-control"
+            placeholder="Ingresa la fecha de registro"
+            id="fechaRegistro"
+            name="fechaRegistro"
+            formControlName="fechaRegistro"
+          />
+        </div>
+
+        <div class="col-6 justify-content-lg-center">
+          <label for="duracion" class="form-label"><h4>Duracion en dias del anuncio :</h4></label>
+          <select class="form-control" id="duracion" name="duracion" formControlName="duracion">
+            <option value="1">1 dia</option>
+            <option value="3">3 dias</option>
+            <option value="7">1 semana</option>
+            <option value="14">2 semanas</option>
+          </select>
+        </div>
+
+        <input type="hidden" class="form-control" id="idAnunciante" name="idAnunciante" />
+
+        <input type="hidden" class="form-control" id="tipo" name="tipo" />
+        <input type="hidden" class="form-control" id="precio" name="precio" />
+      </div>
+      <hr class="my-4" />
+      <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
+        <button class="btn btn-success" [disabled]="nuevoAnuncioForm.invalid">
+          <strong>Comprar Anuncio</strong>
+        </button>
+      </div>
+    </form>
+    <br />
+    <button class="btn btn-secondary" (click)="reset()">Limpiar</button>
+  </div>
+  <br />
+</div>

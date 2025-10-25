@@ -12,6 +12,9 @@ public enum LimiteCaracter {
        SINOPSIS(300),
        DIRECTOR(100),
        CAST(200),
+       TITULO_ANUNCIO(50),
+       DESCRIPCION_ANUNCIO(300)
+       
        ;
        
        
