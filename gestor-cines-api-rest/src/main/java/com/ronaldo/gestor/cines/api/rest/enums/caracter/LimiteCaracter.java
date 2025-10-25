@@ -13,7 +13,11 @@ public enum LimiteCaracter {
        DIRECTOR(100),
        CAST(200),
        TITULO_ANUNCIO(50),
-       DESCRIPCION_ANUNCIO(300)
+       DESCRIPCION_ANUNCIO(300),
+       ID(25),
+       CORREO(100),
+       CONTRASEÑA(50),
+       TELEFONO(25),
        
        ;
        

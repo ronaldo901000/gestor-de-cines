@@ -5,7 +5,7 @@ import { AdminCineProperties } from '../../shared/user/admin-cine-properties';
 
 @Component({
   selector: 'app-login-page',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
 })

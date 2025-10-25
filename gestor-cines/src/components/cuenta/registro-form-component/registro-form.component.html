@@ -1,0 +1,98 @@
+<app-toast-component #toast></app-toast-component>
+<div id="formulario">
+  <div class="container">
+    <form [formGroup]="usuarioForm" (submit)="crear()">
+      <div class="row g-3" id="contenedor">
+        <div class="col-6">
+          <label for="id" class="form-label">ID:</label>
+          <input
+            placeholder="ingresa tu id"
+            type="text"
+            maxlength="25"
+            class="form-control"
+            id="id"
+            name="id"
+            formControlName="id"
+            [class.is-invalid]="
+              usuarioForm.controls['id'].dirty && usuarioForm.controls['id'].invalid
+            "
+          />
+        </div>
+
+        <div class="col-6">
+          <label for="nombre" class="form-label">Nombre:</label>
+          <input
+            maxlength="100"
+            placeholder="ingresa tu nombre completo"
+            type="text"
+            class="form-control"
+            id="nombre"
+            name="nombre"
+            formControlName="nombre"
+            [class.is-invalid]="
+              usuarioForm.controls['nombre'].dirty && usuarioForm.controls['nombre'].invalid
+            "
+          />
+        </div>
+
+        <div class="col-6">
+          <label for="correo" class="form-label">Correo:</label>
+          <input
+            maxlength="100"
+            placeholder="ingresa tu correo"
+            type="email"
+            class="form-control"
+            id="correo"
+            name="correo"
+            formControlName="correo"
+            [class.is-invalid]="
+              usuarioForm.controls['correo'].dirty && usuarioForm.controls['correo'].invalid
+            "
+          />
+        </div>
+
+        <div class="col-6">
+          <label for="contraseña" class="form-label">Contraseña:</label>
+          <input
+            maxlength="25"
+            placeholder="ingresa una contraseña"
+            type="password"
+            class="form-control"
+            id="contraseña"
+            name="contraseña"
+            formControlName="contraseña"
+            [class.is-invalid]="
+              usuarioForm.controls['contraseña'].dirty && usuarioForm.controls['contraseña'].invalid
+            "
+          />
+        </div>
+
+        <div class="col-6">
+          <label for="telefono" class="form-label">Telefono:</label>
+          <input
+            maxlength="25"
+            placeholder="ingresa tu telefono"
+            type="text"
+            class="form-control"
+            id="telefono"
+            name="telefono"
+            formControlName="telefono"
+            [class.is-invalid]="
+              usuarioForm.controls['telefono'].dirty && usuarioForm.controls['telefono'].invalid
+            "
+          />
+        </div>
+      </div>
+      <hr class="my-4" />
+      <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
+        <button class="btn btn-secondary me-md-2" type="button" (click)="reset()">Limpiar</button>
+        <button class="btn btn-success" [disabled]="usuarioForm.invalid">
+          <strong>Crear Usuario</strong>
+        </button>
+        
+      </div>
+    </form>
+    <br>
+    <br>
+  </div>
+</div>
