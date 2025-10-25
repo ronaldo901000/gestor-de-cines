@@ -13,7 +13,6 @@ export class MisAnunciosPageComponent implements OnInit{
 
     ngOnInit(): void {
         this.rol=localStorage.getItem('role');
-        console
     }
 
 

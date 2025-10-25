@@ -1,0 +1,36 @@
+<app-toast-component #toast></app-toast-component>
+
+<form [formGroup]="recargaForm" (submit)="recargar()">
+  <div class="text-center">
+    <div class="col-12">
+      <label for="monto" class="form-label"><h4>Monto a recargar (Maximo Q.50,000):</h4></label>
+      <input
+        min="1"
+        max="50000"
+        type="number"
+        class="form-control text-center"
+        id="monto"
+        name="monto"
+        formControlName="monto"
+        [class.is-invalid]="
+          recargaForm.controls['monto'].dirty && recargaForm.controls['monto'].invalid
+        "
+      />
+    </div>
+    <input
+      placeholder="Puedes consultar abajo"
+      type="hidden"
+      class="form-control"
+      id="idUsuario"
+      name="idUsuario"
+      formControlName="idUsuario"
+    />
+  </div>
+  <hr class="my-4" />
+  <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
+    <button class="btn btn-secondary me-md-2" type="button" (click)="reset()">Limpiar</button>
+    <button class="btn btn-success" [disabled]="recargaForm.invalid">
+      <strong>Realizar Recarga</strong>
+    </button>
+  </div>
+</form>

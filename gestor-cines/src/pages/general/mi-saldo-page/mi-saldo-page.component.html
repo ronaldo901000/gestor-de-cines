@@ -1,0 +1,22 @@
+@if (rol=='ADMIN-CINE') {
+<app-header-admin-cine></app-header-admin-cine>
+} @if (rol=='ADMIN-SISTEMA') {
+<app-header-admin-sistema></app-header-admin-sistema>
+}
+
+<div class="container text-center text-black">
+  <h1><strong>Mi Saldo Actual:</strong></h1>
+  <h1>{{ saldoActual | currency : 'Q.' }}</h1>
+  <br />
+  <div class="d-flex justify-content-center gap-3">
+    <br />
+  </div>
+
+  <div class="container text-center">
+    <h1><strong>RECARGAR</strong></h1>
+    <br />
+    @if (idUser) {
+    <app-recarga-form-component [idUsuario]="idUser" (actualizarVistaSaldo)="traerSaldoActual()"></app-recarga-form-component>
+    }
+  </div>
+</div>

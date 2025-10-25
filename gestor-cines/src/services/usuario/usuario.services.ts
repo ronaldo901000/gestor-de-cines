@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RestConstants } from '../../shared/rest-api/rest-constants';
 import { Observable } from 'rxjs';
+import { Recarga } from '../../models/recarga/recarga';
 
 @Injectable({
     providedIn: 'root',
@@ -14,5 +15,11 @@ export class UsuarioServices {
     public obtenerSaldoActual(idUsuario: string): Observable<number> {
         return this.httpClient.get<number>(`${this.restConstants.getApiURL()}usuarios/saldo/${idUsuario}`);
     }
+
+        public recargarCartera(recarga: Recarga): Observable<number> {
+            return this.httpClient.put<number>(
+                `${this.restConstants.getApiURL()}usuarios/recargas`,recarga
+            );
+        }
 
 }

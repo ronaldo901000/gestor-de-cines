@@ -1,16 +1,37 @@
 <div class="toast-container">
-  <div #toastEl class="toast toast-{{ tipo }}" role="alert" aria-live="assertive" aria-atomic="true">
+  <div
+    #toastEl
+    class="toast toast-{{ tipo }}"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
     <div class="toast-header">
       <strong class="me-auto">{{ titulo }}</strong>
       <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
     <div class="toast-body">
       <h4>{{ mensaje }}</h4>
-      <h5>{{ dato1 }}</h5><br>
-      <h5>{{ dato2 }}</h5><br>
-      <h5>{{ dato3 }}</h5><br>
-      <h5>{{ dato4 }}</h5><br>
-      <h5>{{ dato5 }}</h5><br>
+      @if(dato1!=''){
+      <h5>{{ dato1 }}</h5>
+      <br />
+      }
+       @if(dato2!=''){
+      <h5>{{ dato2 }}</h5>
+      <br />
+       }
+       @if(dato3!=''){
+      <h5>{{ dato3 }}</h5>
+      <br />
+       }
+       @if(dato4!=''){
+      <h5>{{ dato4 }}</h5>
+      <br />
+       }
+       @if(dato5!=''){
+      <h5>{{ dato5 }}</h5>
+      <br />
+       }
     </div>
   </div>
 </div>
