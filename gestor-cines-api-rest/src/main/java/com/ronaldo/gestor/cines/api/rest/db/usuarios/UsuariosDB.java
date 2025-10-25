@@ -55,7 +55,7 @@ public class UsuariosDB {
               try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
                      try (PreparedStatement update = connection.prepareStatement(PeticionUsuario.ACTUALIZAR_SALDO.get())) {
                             update.setDouble(1, recarga.getMonto());
-                            update.setString(2, recarga.getIdUsuario());
+                            update.setString(2, recarga.getLlavePrimaria());
                             update.executeUpdate();
                      }
               } catch (SQLException e) {

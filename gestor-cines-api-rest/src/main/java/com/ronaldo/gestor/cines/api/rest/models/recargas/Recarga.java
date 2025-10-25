@@ -10,15 +10,15 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class Recarga implements Editable {
 
-       private String idUsuario;
+       private String llavePrimaria;
        private double monto;
 
-       public String getIdUsuario() {
-              return idUsuario;
+       public String getLlavePrimaria() {
+              return llavePrimaria;
        }
 
-       public void setIdUsuario(String idUsuario) {
-              this.idUsuario = idUsuario;
+       public void setLlavePrimaria(String idUsuario) {
+              this.llavePrimaria = idUsuario;
        }
 
        public double getMonto() {
@@ -30,7 +30,7 @@ public class Recarga implements Editable {
        }
 
        public boolean datosValidos() {
-              return StringUtils.isNotBlank(idUsuario)
+              return StringUtils.isNotBlank(llavePrimaria)
                       && monto >= RangoMonto.RECARGA.getMinimo()
                       && monto <= RangoMonto.RECARGA.getMaximo();
 

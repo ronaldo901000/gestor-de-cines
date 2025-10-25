@@ -15,7 +15,7 @@ export class ActualizarCineFormComponent implements OnInit {
     @ViewChild('toast') toast!: ToastComponent;
     cineActualizarForm!: FormGroup;
     @Input()
-    codigoCine!: String
+    codigoCine!: string
     
     cineActualizado!: Cine
     cineUpdateServer!: Cine

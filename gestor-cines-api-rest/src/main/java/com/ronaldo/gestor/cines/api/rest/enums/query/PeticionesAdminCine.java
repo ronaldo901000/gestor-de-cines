@@ -28,6 +28,8 @@ public enum PeticionesAdminCine {
                + "and hora_inicio < ? and hora_fin > ? and codigo!=?"),
        ELIMINAR_PROYECCION("delete from proyeccion where codigo=?"),
        CAMBIAR_VISIBILIDAD_SALA("update sala set activo=? where codigo=?"),
+       OBTENER_SALDO_CINE("select * from cine where codigo=?"),
+       RECARGAR_CARTERA_CINE("update cine set creditos_cartera = creditos_cartera + ? where codigo=?"),
        ;
        private String peticion;
 

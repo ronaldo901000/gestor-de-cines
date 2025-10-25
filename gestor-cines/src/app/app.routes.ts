@@ -31,6 +31,7 @@ import { ActualizarProyeccionComponentPage } from '../pages/admin-cine-page/actu
 import { MisAnunciosPageComponent } from '../pages/anunciante-page/mis-anuncios-page/mis-anuncios-page.component';
 import { CrearAnunciosComponentPage } from '../pages/anunciante-page/crear-anuncios/crear-anuncios-page.component';
 import { MiSaldoPageComponent } from '../pages/general/mi-saldo-page/mi-saldo-page.component';
+import { SaldoCinePage } from '../pages/admin-cine-page/saldo-cine-page/saldo-cine-page';
 export const routes: Routes = [
     {
         path: '',
@@ -158,5 +159,9 @@ export const routes: Routes = [
     {
         path: 'miSaldo',
         component:MiSaldoPageComponent
+    },
+    {
+        path: 'saldo-cine',
+        component:SaldoCinePage
     }
 ];

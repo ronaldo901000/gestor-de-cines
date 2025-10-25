@@ -3,10 +3,12 @@ package com.ronaldo.gestor.cines.api.rest.resources;
 import com.ronaldo.gestor.cines.api.rest.dtos.cines.CineResponse;
 import com.ronaldo.gestor.cines.api.rest.exceptions.UserDataInvalidException;
 import com.ronaldo.gestor.cines.api.rest.dtos.cines.CineRequest;
+import com.ronaldo.gestor.cines.api.rest.dtos.recargas.RecargaCineRequest;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.EntityAlreadyExistsException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
 import com.ronaldo.gestor.cines.api.rest.services.cines.CRUDCines;
+import com.ronaldo.gestor.cines.api.rest.services.cines.CarteraCineServices;
 import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -106,6 +108,42 @@ public class CinesResource {
                      return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
               } catch (EntityNotFoundException e) {
                      return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+              }
+       }
+
+       @GET
+       @Path("saldo-actual/{codigoCine}")
+       @Produces(MediaType.APPLICATION_JSON)
+       public Response getSaldoActual(@PathParam("codigoCine") String codigoCine) {
+              CarteraCineServices service = new CarteraCineServices();
+
+              try {
+
+                     return Response.ok(service.obtenerSaldoActual(codigoCine)).build();
+              } catch (UserDataInvalidException ex) {
+                     return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+              } catch (EntityNotFoundException ex) {
+                     return Response.status(Response.Status.NOT_FOUND).entity(ex.getMessage()).build();
+              }
+       }
+       
+       @PUT
+       @Path("recargas")
+       @Consumes(MediaType.APPLICATION_JSON)
+       @Produces(MediaType.APPLICATION_JSON)
+       public Response recargarCartera(RecargaCineRequest request) {
+              CarteraCineServices service = new CarteraCineServices();
+
+              try {
+                     return Response.ok(service.recargarCartera(request)).build();
+              } catch (UserDataInvalidException ex) {
+                     return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+              } catch (EntityNotFoundException ex) {
+                     return Response.status(Response.Status.NOT_FOUND).entity(ex.getMessage()).build();
               }
        }
 

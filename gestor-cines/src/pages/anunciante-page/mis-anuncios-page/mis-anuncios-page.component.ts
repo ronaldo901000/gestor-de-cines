@@ -9,7 +9,7 @@ import { HeaderAdminCineComponent } from '../../../components/header/header-admi
     styleUrl: './mis-anuncios-page.component.css'
 })
 export class MisAnunciosPageComponent implements OnInit{
-    rol!:string | null
+    rol!:string | null;
 
     ngOnInit(): void {
         this.rol=localStorage.getItem('role');

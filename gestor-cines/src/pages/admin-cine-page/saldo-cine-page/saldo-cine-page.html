@@ -1,0 +1,21 @@
+<app-header-admin-cine></app-header-admin-cine>
+<div class="container text-center">
+  @if(cine!=undefined){
+  <h1>Codigo: {{ cine.codigo }}</h1>  
+  <h1>Nombre del cine: {{ cine.nombre }}</h1>
+  }
+  <br />
+  <br />
+  <br />
+  <br />
+
+  @if(codigoCine){
+    <h1><strong>SALDO ACTUAL: {{saldoActual | currency: 'Q.'}}</strong></h1>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  <app-recarga-cine-component [codigoCine]="codigoCine" (actualizarVistaSaldo)="obtenerSaldo()"></app-recarga-cine-component>
+  }
+</div>
