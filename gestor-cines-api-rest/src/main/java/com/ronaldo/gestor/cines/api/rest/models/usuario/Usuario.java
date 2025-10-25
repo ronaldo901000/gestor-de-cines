@@ -95,4 +95,9 @@ public class Usuario implements Editable {
               double saldoExistente = usuariosDB.obtenerCreditos(id);
               return saldoExistente-gasto;
        }
+
+       public double calcularNuevoSaldo(double montoRecarga) throws DataBaseException {
+              UsuariosDB usuariosDB = new UsuariosDB();
+              return usuariosDB.obtenerCreditos(id)+montoRecarga;
+       }
 }

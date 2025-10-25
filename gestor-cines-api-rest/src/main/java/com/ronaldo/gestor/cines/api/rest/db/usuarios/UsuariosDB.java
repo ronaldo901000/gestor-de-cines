@@ -3,6 +3,7 @@ package com.ronaldo.gestor.cines.api.rest.db.usuarios;
 import com.ronaldo.gestor.cines.api.rest.db.DataSourceDBSingleton;
 import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionUsuario;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
+import com.ronaldo.gestor.cines.api.rest.models.recargas.Recarga;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -48,5 +49,17 @@ public class UsuariosDB {
                      throw new DataBaseException("Error al obtener creditos del usuario en la db");
               }
               return -1;
+       }
+
+       public void recargarCartera(Recarga recarga) throws DataBaseException {
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement update = connection.prepareStatement(PeticionUsuario.ACTUALIZAR_SALDO.get())) {
+                            update.setDouble(1, recarga.getMonto());
+                            update.setString(2, recarga.getIdUsuario());
+                            update.executeUpdate();
+                     }
+              } catch (SQLException e) {
+                     throw new DataBaseException("Error al realiza recarga de cartera en la base de datos");
+              }
        }
 }

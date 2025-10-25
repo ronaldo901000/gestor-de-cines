@@ -1,14 +1,16 @@
 package com.ronaldo.gestor.cines.api.rest;
 
+import com.ronaldo.gestor.cines.api.rest.dtos.recargas.RecargaRequest;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
-import com.ronaldo.gestor.cines.api.rest.services.usuarios.CRUDUsuarios;
+import com.ronaldo.gestor.cines.api.rest.exceptions.UserDataInvalidException;
+import com.ronaldo.gestor.cines.api.rest.services.usuarios.ControladorAtributosUsuario;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.UriInfo;
-import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.MediaType;
@@ -29,10 +31,10 @@ public class UsuariosResource {
        @Path("saldo/{idUsuario}")
        @Produces(MediaType.APPLICATION_JSON)
        public Response obtenerSaldoActual(@PathParam("idUsuario") String idUsuario) {
-              CRUDUsuarios crud = new CRUDUsuarios();
+              ControladorAtributosUsuario controlador = new ControladorAtributosUsuario();
 
               try {
-                     return Response.ok(crud.obtenerSaldoActual(idUsuario)).build();
+                     return Response.ok(controlador.obtenerSaldoActual(idUsuario)).build();
               } catch (DataBaseException ex) {
                      return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
               } catch (EntityNotFoundException ex) {
@@ -40,5 +42,23 @@ public class UsuariosResource {
               }
        }
 
-       
+       @PUT
+       @Path("recargas")
+       @Consumes(MediaType.APPLICATION_JSON)
+       @Produces(MediaType.APPLICATION_JSON)
+       public Response realizarRecarga(RecargaRequest request) {
+              ControladorAtributosUsuario controlador = new ControladorAtributosUsuario();
+              try {
+                     return Response.ok(controlador.recargarCartera(request)).build();
+              } catch (UserDataInvalidException ex) {
+                     return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+
+              } catch (EntityNotFoundException ex) {
+                     return Response.status(Response.Status.NOT_FOUND).entity(ex.getMessage()).build();
+              }
+
+       }
+
 }

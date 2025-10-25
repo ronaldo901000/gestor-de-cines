@@ -30,6 +30,7 @@ import { CrearProyeccionComponentPage } from '../pages/admin-cine-page/crear-pro
 import { ActualizarProyeccionComponentPage } from '../pages/admin-cine-page/actualizar-proyeccion-page/actualizar-proyeccion-page.component';
 import { MisAnunciosPageComponent } from '../pages/anunciante-page/mis-anuncios-page/mis-anuncios-page.component';
 import { CrearAnunciosComponentPage } from '../pages/anunciante-page/crear-anuncios/crear-anuncios-page.component';
+import { MiSaldoPageComponent } from '../pages/general/mi-saldo-page/mi-saldo-page.component';
 export const routes: Routes = [
     {
         path: '',
@@ -153,5 +154,9 @@ export const routes: Routes = [
     {
         path: 'misAnuncios/nuevo/:tipo',
         component:CrearAnunciosComponentPage
+    },
+    {
+        path: 'miSaldo',
+        component:MiSaldoPageComponent
     }
 ];
