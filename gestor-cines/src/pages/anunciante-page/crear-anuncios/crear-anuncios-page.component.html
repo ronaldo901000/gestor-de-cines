@@ -1,0 +1,36 @@
+@if (rol=='ADMIN-SISTEMA') {
+<app-header-admin-sistema></app-header-admin-sistema>
+} @if(rol=='ADMIN-CINE'){
+<app-header-admin-cine></app-header-admin-cine>
+}
+<div id="contenedor" class="text-black">
+  <div class="container text-center">
+    <br />
+    <a routerLink="/misAnuncios" class="btn btn-success">
+      <i class="bi bi-arrow-left-square-fill"></i>
+      Ir a listado de mis anucios
+    </a>
+  </div>
+  <div class="container text-center">
+    <br />
+    <h1>NUEVO ANUNCIO DE {{tipoAnuncio}}</h1>
+    <br>
+    <br>
+    <br>
+  <div class="row text-center">
+    <div class="col">
+      <h2><strong>PRECIO POR DIA: {{precio | currency:'Q.'}}</strong></h2>
+    </div>
+    <div class="col">
+      <h2><strong>MI SALDO: {{miSaldo | currency:'Q.'}}</strong></h2>
+    </div>
+  </div>
+    <br />
+    <div class="row">
+      @if(tipoAnuncio!=undefined && precio!=undefined){
+      <app-anuncio-form-component [tipoAnuncio]="tipoAnuncio" [precio]="precio" (actualizarSaldo)="obtenerMiSaldoActual()"></app-anuncio-form-component>
+        }
+    </div>
+  </div>
+  <br />
+</div>

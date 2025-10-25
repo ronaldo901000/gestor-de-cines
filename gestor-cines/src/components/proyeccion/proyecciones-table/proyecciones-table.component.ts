@@ -50,9 +50,9 @@ export class ProyeccionesTableComponent implements OnInit {
     eliminarProyeccion(codigoProyeccion: string) {
         this.proyeccionesServices.eliminarProyeccion(codigoProyeccion).subscribe({
             next: () => {
-                this.toast.titulo='Eliminacion exitosa';
-                this.toast.tipo='warning';
-                this.toast.mensaje='Elimacion realizada con exito';
+                this.toast.titulo = 'Eliminacion exitosa';
+                this.toast.tipo = 'warning';
+                this.toast.mensaje = 'Elimacion realizada con exito';
                 this.toast.mostrar();
                 this.traerProyecciones();
             }

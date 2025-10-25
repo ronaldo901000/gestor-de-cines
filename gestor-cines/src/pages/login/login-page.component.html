@@ -31,12 +31,15 @@
                 Iniciar Sesion
               </button>
               -->
-              <a routerLink="home/admin-sistema"> iniciar como admin de sistema</a>
-              <br>
-              <br>
-              <a routerLink="home/admin-cine"> iniciar como admin de cine</a>
+              <button class="btn btn-primary" (click)="login('ADMIN-SISTEMA')">
+                Iniciar como Admin de Sistema
+              </button>
+
+              <button class="btn btn-success" (click)="login('ADMIN-CINE')">
+                Iniciar como Admin de Cine
+              </button>
             </div>
-            
+
             <div>
               <p class="mb-0">
                 No estas registrado? <a href="#!" class="text-white-50 fw-bold">Registrate</a>

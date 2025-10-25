@@ -9,4 +9,5 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class HeaderAdminCineComponent {
 
+  esAnunciante:boolean=true;
 }

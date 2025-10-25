@@ -4,7 +4,7 @@
     <input
       type="search"
       class="form-control"
-      placeholder="Ingresa un codigo o nombre para buscar"
+      placeholder="Ingresa un codigo"
       [(ngModel)]="palabra"
     />
     <button type="button" class="btn btn-primary" (click)="traerHistorialCostos()">Buscar</button>
@@ -14,7 +14,7 @@
 <br />
 
 @if(costos.length==0){
-<h2>Ingresa un codigo o nombre de cine en el buscador</h2>
+<h2>Ingresa un codigo de cine en el buscador</h2>
 } @if(costos.length>0){
 <h1>HISTORIAL DE COSTOS</h1>
 <table class="table table-striped">
