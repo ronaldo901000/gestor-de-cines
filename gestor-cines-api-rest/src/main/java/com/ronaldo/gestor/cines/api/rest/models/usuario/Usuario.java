@@ -1,8 +1,11 @@
 package com.ronaldo.gestor.cines.api.rest.models.usuario;
 
 import com.ronaldo.gestor.cines.api.rest.db.usuarios.UsuariosDB;
+import com.ronaldo.gestor.cines.api.rest.enums.caracter.LimiteCaracter;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.models.interfaces.Editable;
+import com.ronaldo.gestor.cines.api.rest.verificacion.caracter.VerificadorCaracteres;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -15,7 +18,7 @@ public class Usuario implements Editable {
        private String correo;
        private String contraseña;
        private String telefono;
-       private String InputStream;
+       private double creditos;
        private boolean activo;
 
        public Usuario() {
@@ -27,11 +30,43 @@ public class Usuario implements Editable {
               this.correo = correo;
               this.telefono = telefono;
        }
-       
+
+       public boolean datosValidos() {
+              VerificadorCaracteres verificador = new VerificadorCaracteres();
+              return StringUtils.isNotBlank(id)
+                      && StringUtils.isNotBlank(nombre)
+                      && StringUtils.isNotBlank(correo)
+                      && StringUtils.isNotBlank(contraseña)
+                      && StringUtils.isNotBlank(telefono)
+                      && caracteresValidos(id, verificador, LimiteCaracter.ID.get())
+                      && caracteresValidos(nombre, verificador, LimiteCaracter.NOMBRE.get())
+                      && limiteValido(correo, verificador, LimiteCaracter.CORREO.get())
+                      && limiteValido(contraseña, verificador, LimiteCaracter.CONTRASEÑA.get())
+                      && limiteValido(telefono, verificador, LimiteCaracter.TELEFONO.get());
+
+       }
+
+       private boolean caracteresValidos(String cadena, VerificadorCaracteres verificador, int limite) {
+              return limiteValido(cadena, verificador, limite)
+                      && verificador.caracteresPermitidosNombre(id);
+       }
+
+       private boolean limiteValido(String cadena, VerificadorCaracteres verificador, int limite) {
+              return verificador.numeroCaracteresValido(telefono, limite);
+       }
+
        public String getId() {
               return id;
        }
-       
+
+       public double getCreditos() {
+              return creditos;
+       }
+
+       public void setCreditos(double creditos) {
+              this.creditos = creditos;
+       }
+
        public void setId(String id) {
               this.id = id;
        }
@@ -68,14 +103,6 @@ public class Usuario implements Editable {
               this.telefono = telefono;
        }
 
-       public String getInputStream() {
-              return InputStream;
-       }
-
-       public void setInputStream(String InputStream) {
-              this.InputStream = InputStream;
-       }
-
        public boolean isActivo() {
               return activo;
        }
@@ -93,11 +120,12 @@ public class Usuario implements Editable {
        public double obtenerNuevoSaldo(double gasto) throws DataBaseException {
               UsuariosDB usuariosDB = new UsuariosDB();
               double saldoExistente = usuariosDB.obtenerCreditos(id);
-              return saldoExistente-gasto;
+              return saldoExistente - gasto;
        }
 
        public double calcularNuevoSaldo(double montoRecarga) throws DataBaseException {
               UsuariosDB usuariosDB = new UsuariosDB();
-              return usuariosDB.obtenerCreditos(id)+montoRecarga;
+              return usuariosDB.obtenerCreditos(id) + montoRecarga;
        }
+
 }

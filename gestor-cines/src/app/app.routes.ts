@@ -32,6 +32,7 @@ import { MisAnunciosPageComponent } from '../pages/anunciante-page/mis-anuncios-
 import { CrearAnunciosComponentPage } from '../pages/anunciante-page/crear-anuncios/crear-anuncios-page.component';
 import { MiSaldoPageComponent } from '../pages/general/mi-saldo-page/mi-saldo-page.component';
 import { SaldoCinePage } from '../pages/admin-cine-page/saldo-cine-page/saldo-cine-page';
+import { RegistroPage } from '../pages/general/registro-page/registro-page';
 export const routes: Routes = [
     {
         path: '',
@@ -163,5 +164,9 @@ export const routes: Routes = [
     {
         path: 'saldo-cine',
         component:SaldoCinePage
+    },
+    {
+        path: 'registro',
+        component:RegistroPage
     }
 ];

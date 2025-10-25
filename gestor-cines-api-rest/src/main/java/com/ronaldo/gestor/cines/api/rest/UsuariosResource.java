@@ -1,14 +1,18 @@
 package com.ronaldo.gestor.cines.api.rest;
 
 import com.ronaldo.gestor.cines.api.rest.dtos.recargas.RecargaRequest;
+import com.ronaldo.gestor.cines.api.rest.dtos.usuarios.UsuarioRequest;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
+import com.ronaldo.gestor.cines.api.rest.exceptions.EntityAlreadyExistsException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.UserDataInvalidException;
+import com.ronaldo.gestor.cines.api.rest.services.usuarios.CRUDUsuarios;
 import com.ronaldo.gestor.cines.api.rest.services.usuarios.ControladorAtributosUsuario;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.Path;
@@ -27,6 +31,27 @@ public class UsuariosResource {
        @Context
        private UriInfo context;
 
+       @POST
+       @Consumes(MediaType.APPLICATION_JSON)
+       public Response crearCuenta(UsuarioRequest usuarioRequest) {
+              CRUDUsuarios crud = new CRUDUsuarios();
+              try {
+                     crud.crear(usuarioRequest);
+                     return Response.status(Response.Status.CREATED).build();
+              } catch (UserDataInvalidException ex) {
+                     return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+              } catch (EntityAlreadyExistsException ex) {
+                     return Response.status(Response.Status.CONFLICT).entity(ex.getMessage()).build();
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+              } catch (EntityNotFoundException ex) {
+                     return Response.status(Response.Status.NOT_FOUND).entity(ex.getMessage()).build();
+              }
+       }
+
+
+       
+       
        @GET
        @Path("saldo/{idUsuario}")
        @Produces(MediaType.APPLICATION_JSON)

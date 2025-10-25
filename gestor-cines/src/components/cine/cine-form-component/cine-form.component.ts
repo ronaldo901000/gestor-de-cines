@@ -9,7 +9,6 @@ import {
 import { CineServices } from '../../../services/cine/cine.services';
 import { Cine } from '../../../models/cine/cine';
 import { ToastComponent } from '../../toast/toast.component';
-import { Status } from '../../../shared/status/status';
 @Component({
     selector: 'app-cine-form',
     imports: [FormsModule, ReactiveFormsModule, ToastComponent],
