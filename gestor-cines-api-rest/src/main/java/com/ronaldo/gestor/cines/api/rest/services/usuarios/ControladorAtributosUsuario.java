@@ -38,23 +38,23 @@ public class ControladorAtributosUsuario {
               HerramientaDB herramientaDB = new HerramientaDB();
               UsuariosDB usuariosDB = new UsuariosDB();
               Recarga recarga = extraer(recargaRequest);
-              if (!herramientaDB.existeEntidad(recarga.getIdUsuario(), PeticionAdminSistema.OBTENER_USUARIO.get())) {
+              if (!herramientaDB.existeEntidad(recarga.getLlavePrimaria(), PeticionAdminSistema.OBTENER_USUARIO.get())) {
                      throw new EntityNotFoundException("Usuario no encontrado en la base de datos");
               }
               Usuario usuario = new Usuario();
-              usuario.setId(recarga.getIdUsuario());
+              usuario.setId(recarga.getLlavePrimaria());
               
               recarga.setMonto(usuario.calcularNuevoSaldo(recarga.getMonto()));
               //se guarda el nuevo saldo del usuario
               usuariosDB.recargarCartera(recarga);
 
               //se obtiene y se envia el nuevo moto
-              return usuariosDB.obtenerCreditos(recarga.getIdUsuario());
+              return usuariosDB.obtenerCreditos(recarga.getLlavePrimaria());
        }
        
        private Recarga extraer(RecargaRequest recargaRequest) throws UserDataInvalidException {
               Recarga recarga = new Recarga();
-              recarga.setIdUsuario(recargaRequest.getIdUsuario());
+              recarga.setLlavePrimaria(recargaRequest.getIdUsuario());
               recarga.setMonto(recargaRequest.getMonto());
               
               if (!recarga.datosValidos()) {
