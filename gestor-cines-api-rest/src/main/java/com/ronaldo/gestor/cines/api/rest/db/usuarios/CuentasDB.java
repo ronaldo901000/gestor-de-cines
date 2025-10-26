@@ -65,4 +65,19 @@ public class CuentasDB {
               return Optional.empty();
        }
 
+       public void actualizarUsuario(Usuario usuario) throws DataBaseException {
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement insert = connection.
+                             prepareStatement(PeticionUsuario.ACTUALIZAR_CUENTA.get())) {
+                            insert.setString(1, usuario.getNombre());
+                            insert.setString(2, usuario.getCorreo());
+                            insert.setString(3, usuario.getTelefono());
+                            insert.setString(4, usuario.getId());
+                            insert.executeUpdate();
+                     }
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error en la actualizacion de la cuenta en la db");
+              }
+       }
 }

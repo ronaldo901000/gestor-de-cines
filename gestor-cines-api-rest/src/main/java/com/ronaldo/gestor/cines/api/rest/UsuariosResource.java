@@ -49,8 +49,20 @@ public class UsuariosResource {
               }
        }
 
+       @GET
+       @Path("usuario/{idUsuario}")
+       @Produces(MediaType.APPLICATION_JSON)
+       public Response obtenerUsuario(@PathParam("idUsuario") String idUsuario) {
+              CRUDUsuarios crud = new CRUDUsuarios();
+              try {
+                     return Response.ok(crud.obtenerUsuario(idUsuario)).build();
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+              } catch (EntityNotFoundException ex) {
+                     return Response.status(Response.Status.NOT_FOUND).entity(ex.getMessage()).build();
+              }
+       }
 
-       
        
        @GET
        @Path("saldo/{idUsuario}")
@@ -75,6 +87,25 @@ public class UsuariosResource {
               ControladorAtributosUsuario controlador = new ControladorAtributosUsuario();
               try {
                      return Response.ok(controlador.recargarCartera(request)).build();
+              } catch (UserDataInvalidException ex) {
+                     return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+
+              } catch (EntityNotFoundException ex) {
+                     return Response.status(Response.Status.NOT_FOUND).entity(ex.getMessage()).build();
+              }
+
+       }
+
+       @PUT
+       @Path("actualizacion")
+       @Consumes(MediaType.APPLICATION_JSON)
+       @Produces(MediaType.APPLICATION_JSON)
+       public Response actualizarDatos(UsuarioRequest request) {
+              CRUDUsuarios crud = new CRUDUsuarios();
+              try {
+                     return Response.ok(crud.actualizar(request)).build();
               } catch (UserDataInvalidException ex) {
                      return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
               } catch (DataBaseException ex) {

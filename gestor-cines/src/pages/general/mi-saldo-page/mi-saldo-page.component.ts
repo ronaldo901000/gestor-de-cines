@@ -12,9 +12,9 @@ import { RecargaFormComponent } from "../../../components/recarga-form-component
     templateUrl: './mi-saldo-page.component.html',
 })
 export class MiSaldoPageComponent implements OnInit {
-    rol!: string | null
-    idUser!: string | null
-    saldoActual!: number
+    rol!: string | null;
+    idUser!: string | null;
+    saldoActual!: number;
     constructor(private usuarioService: UsuarioServices) { }
 
     ngOnInit(): void {

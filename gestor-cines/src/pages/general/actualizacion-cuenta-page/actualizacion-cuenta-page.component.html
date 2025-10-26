@@ -1,0 +1,15 @@
+@if (rol=='ADMIN-SISTEMA') {
+<app-header-admin-sistema></app-header-admin-sistema>
+} @if(rol=='ADMIN-CINE'){
+<app-header-admin-cine></app-header-admin-cine>
+}
+<div class="container text-center">
+  <h1>ACTUALIZACION DE CUENTA</h1>
+  <br />
+  <br />
+  @if (usuarioActual!=undefined) {
+  <app-actualizacion-cuenta-form-component
+    [usuarioActual]="usuarioActual"
+  ></app-actualizacion-cuenta-form-component>
+  }
+</div>

@@ -46,6 +46,7 @@ public class Usuario implements Editable {
 
        }
 
+
        private boolean caracteresValidos(String cadena, VerificadorCaracteres verificador, int limite) {
               return limiteValido(cadena, verificador, limite)
                       && verificador.caracteresPermitidosNombre(id);
@@ -109,6 +110,18 @@ public class Usuario implements Editable {
 
        public void setActivo(boolean activo) {
               this.activo = activo;
+       }
+
+       public boolean datosValidosActualizacion() {
+              VerificadorCaracteres verificador = new VerificadorCaracteres();
+              return StringUtils.isNotBlank(id)
+                      && StringUtils.isNotBlank(nombre)
+                      && StringUtils.isNotBlank(correo)
+                      && StringUtils.isNotBlank(telefono)
+                      && caracteresValidos(id, verificador, LimiteCaracter.ID.get())
+                      && caracteresValidos(nombre, verificador, LimiteCaracter.NOMBRE.get())
+                      && limiteValido(correo, verificador, LimiteCaracter.CORREO.get())
+                      && limiteValido(telefono, verificador, LimiteCaracter.TELEFONO.get());
        }
 
        public boolean cuentaConSaldoSuficiente(double costoTransaccion) throws DataBaseException {
