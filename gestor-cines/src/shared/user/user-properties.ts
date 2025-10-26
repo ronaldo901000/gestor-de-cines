@@ -1,5 +1,6 @@
 export const UserProperties = {
   ID:'ID',
-  ROL:'role'
-
+  ROL:'ROLE',
+  ES_ANUNCIANTE:'ES-ANUNCIANTE',
+  CODIGO_CINE:'CODIGO-CINE'
 };

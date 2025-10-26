@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderAdminSistemaComponent } from '../../../components/header/header-admin-sistema/header-admin-sistema.component';
 import { RouterLink } from '@angular/router';
 import { HeaderAdminCineComponent } from '../../../components/header/header-admin-cine/header-admin-cine.component';
+import { UserProperties } from '../../../shared/user/user-properties';
 @Component({
     selector: 'app-mis-anuncios-admin-cine-page',
     imports: [RouterLink, HeaderAdminCineComponent, HeaderAdminSistemaComponent],
@@ -12,7 +13,7 @@ export class MisAnunciosPageComponent implements OnInit{
     rol!:string | null;
 
     ngOnInit(): void {
-        this.rol=localStorage.getItem('role');
+        this.rol=localStorage.getItem(UserProperties.ROL);
     }
 
 
