@@ -30,7 +30,7 @@ export class CrearAnunciosComponentPage implements OnInit {
 
   ngOnInit(): void {
     this.idUser = localStorage.getItem(UserProperties.ID);
-    this.rol = localStorage.getItem('role');
+    this.rol = localStorage.getItem(UserProperties.ROL);
     this.tipoAnuncio = this.router.snapshot.params['tipo'];
     this.obtenerPrecio();
     this.obtenerMiSaldoActual();

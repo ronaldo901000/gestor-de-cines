@@ -60,6 +60,7 @@ public enum PeticionAdminSistema {
        OBTENER_ADMINS_SISTEMA("select * from admin_sistema join usuario on id_usuario=id where activo=1"),
        ELIMINAR_ADMINS_SISTEMA("delete from admin_sistema where id_usuario=?"),
        OBTENER_FECHAS_REGISTRO_COSTO("select * from costo_funcionamiento join cine on codigo_cine=codigo where id=?"),
+       OBTENER_UN_ANUNCIANTE("select * from anunciante where id_usuario=?"),
        ;
        
        private String peticion;

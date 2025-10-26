@@ -19,6 +19,11 @@ public class Cine implements Editable{
        private double creditosCartera;
        private boolean activo;
 
+       public Cine() {
+       }
+
+       
+       
        public Cine(String codigo, String nombre, String ubicacion, LocalDate fechaCreacion) {
               this.codigo = codigo;
               this.nombre = nombre;

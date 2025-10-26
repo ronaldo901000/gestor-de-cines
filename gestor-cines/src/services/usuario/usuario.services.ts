@@ -4,6 +4,8 @@ import { RestConstants } from '../../shared/rest-api/rest-constants';
 import { Observable } from 'rxjs';
 import { Recarga } from '../../models/recarga/recarga';
 import { UsuarioRequest } from '../../models/usuario/usuario-request';
+import { Credencial } from '../../models/credencial/credencial';
+import { PropiedadesUsuario } from '../../models/propiedades-usuario/propiedades-usuario';
 
 @Injectable({
     providedIn: 'root',
@@ -29,4 +31,9 @@ export class UsuarioServices {
         );
     }
 
+    public iniciarSesion(credencial: Credencial): Observable<PropiedadesUsuario> {
+        return this.httpClient.post<PropiedadesUsuario>(
+            `${this.restConstants.getApiURL()}autenticaciones/login`, credencial
+        );
+    }
 }

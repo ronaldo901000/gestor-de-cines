@@ -37,12 +37,12 @@
       >
         Proyecciones
       </a>
-            <a
+      <a
         routerLink="/saldo-cine"
         routerLinkActive="active"
         class="btn btn-outline-light me-1 btn-lg"
       >
-      <i class="bi bi-coin fs-6"></i>
+        <i class="bi bi-coin fs-6"></i>
         Saldo Cine
       </a>
       <div class="m-4"></div>
@@ -52,7 +52,7 @@
       <div class="m-4"></div>
       <div class="m-4"></div>
       <div class="m-4"></div>
-      @if (esAnunciante) {
+      @if (esAnunciante=='true') {
       <a
         routerLink="/misAnuncios"
         routerLinkActive="active"
@@ -70,17 +70,15 @@
       >
         Participar
       </a>
-      <a
-        routerLink="/miSaldo"
-        routerLinkActive="active"
-        class="btn btn-outline-light me-1 btn-lg"
-      >
-      <i class="bi bi-coin fs-6"></i>
+      <a routerLink="/miSaldo" routerLinkActive="active" class="btn btn-outline-light me-1 btn-lg">
+        <i class="bi bi-coin fs-6"></i>
         Mi Saldo
       </a>
-      <h2>ID: {{idUsuario}}</h2>
+      <h2>ID: {{ idUsuario }}</h2>
       <div class="ms-auto text-end">
-        <a routerLink="/" class="btn btn-outline-light btn-lg"> Cerrar Sesión </a>
+        <button type="button" class="btn btn-outline-light btn-lg" (click)="logout()">
+          Cerrar Sesion
+        </button>
       </div>
     </div>
   </div>

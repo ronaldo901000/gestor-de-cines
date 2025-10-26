@@ -33,140 +33,206 @@ import { CrearAnunciosComponentPage } from '../pages/anunciante-page/crear-anunc
 import { MiSaldoPageComponent } from '../pages/general/mi-saldo-page/mi-saldo-page.component';
 import { SaldoCinePage } from '../pages/admin-cine-page/saldo-cine-page/saldo-cine-page';
 import { RegistroPage } from '../pages/general/registro-page/registro-page';
+import { RoleGuardService } from '../services/seguridad/role-guard.services';
+import { Roles } from '../shared/user/user-roles';
 export const routes: Routes = [
     {
         path: '',
         component: Login
     },
     {
-        path:'home/admin-sistema',
+        path: 'home/admin-sistema',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_SISTEMA },
         component: HomeAdminSistema
     },
     {
-        path:'cines',
+        path: 'cines',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_SISTEMA },
         component: CinesPage
     },
     {
-        path:'cine/nuevo',
+        path: 'cine/nuevo',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_SISTEMA },
         component: CrearCineComponentPage
     },
     {
-        path:'cine/actualizar/:codigoCine',
-        component:ActualizarCineComponentPage
+        path: 'cine/actualizar/:codigoCine',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_SISTEMA },
+        component: ActualizarCineComponentPage
     },
     {
-        path:'cine/admins/:codigoCine',
-        component:AdminsCinePage
+        path: 'cine/admins/:codigoCine',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_SISTEMA },
+        component: AdminsCinePage
     },
     {
         path: 'adminCine/nuevo/:codigoCine',
-        component:CrearAdminCineComponentPage
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_SISTEMA },
+        component: CrearAdminCineComponentPage
     },
     {
         path: 'anunciantes',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_SISTEMA },
         component: AnunciantesPageComponent
     },
     {
-        path:'anunciantes/nuevo',
+        path: 'anunciantes/nuevo',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_SISTEMA },
         component: CrearAnunciantePageComponent
     },
     {
-        path:'preciosAnuncios',
-        component:ConfigPreciosAnunciosPage
+        path: 'preciosAnuncios',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_SISTEMA },
+        component: ConfigPreciosAnunciosPage
     },
     {
-        path:'preciosCines/actualizar/:id',
+        path: 'preciosCines/actualizar/:id',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_SISTEMA },
         component: ActualizarPreciosAnunciosPageComponent
     },
     {
-        path:'peliculas/config',
-        component:ConfigPeliculasPage
+        path: 'peliculas/config',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_SISTEMA },
+        component: ConfigPeliculasPage
     },
     {
-        path:'categorias',
-        component:CategoriasPage
-    },{
-        path:'categorias/nuevo',
-        component:CategoriaFormPage
+        path: 'categorias',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_SISTEMA },
+        component: CategoriasPage
+    }, {
+        path: 'categorias/nuevo',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_SISTEMA },
+        component: CategoriaFormPage
     },
     {
-        path:'peliculas/nueva',
-        component:CrearPeliculaPage
+        path: 'peliculas/nueva',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_SISTEMA },
+        component: CrearPeliculaPage
     },
     {
         path: 'peliculas/actualizar/:codigoPelicula',
-        component:ActualizarPeliculaComponentPage
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_SISTEMA },
+        component: ActualizarPeliculaComponentPage
     },
     {
         path: 'costosFuncinamiento',
-        component:CostoFuncionamientoPage
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_SISTEMA },
+        component: CostoFuncionamientoPage
     },
     {
         path: 'costosFuncionamiento/nuevo',
-        component:CrearCostoCinePage
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_SISTEMA },
+        component: CrearCostoCinePage
     },
     {
         path: 'costoGlobal',
-        component:CostoGlobalPage
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_SISTEMA },
+        component: CostoGlobalPage
     },
     {
         path: 'adminsSistema',
-        component:AdminsSistemaPage
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_SISTEMA },
+        component: AdminsSistemaPage
     },
     {
         path: 'adminSistema/nuevo',
-        component:CrearAdminSistemaComponentPage
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_SISTEMA },
+        component: CrearAdminSistemaComponentPage
     },
     {
         path: 'home/admin-cine',
-        component:HomeAdminCine
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_CINE },
+        component: HomeAdminCine
     },
     {
         path: 'salas',
-        component:SalasPageComponent
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_CINE },
+        component: SalasPageComponent
     },
     {
         path: 'salas/nuevo',
-        component:CrearSalaComponentPage
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_CINE },
+        component: CrearSalaComponentPage
     },
     {
         path: 'salas/actualizar/:codigoSala',
-        component:ActualizarSalaComponentPage
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_CINE },
+        component: ActualizarSalaComponentPage
     },
     {
         path: 'peliculas',
-            component:PeliculasPageComponent
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_CINE },
+        component: PeliculasPageComponent
     },
     {
-        path:'proyecciones',
-            component:ProyeccionessPageComponent
+        path: 'proyecciones',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_CINE },
+        component: ProyeccionessPageComponent
     },
     {
-        path:'proyecciones/nueva',
-        component:CrearProyeccionComponentPage
+        path: 'proyecciones/nueva',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_CINE },
+        component: CrearProyeccionComponentPage
     },
     {
         path: 'proyecciones/actualizar/:codigoProyeccion',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_CINE },
         component: ActualizarProyeccionComponentPage
     },
     {
-        path:'misAnuncios',
-        component:MisAnunciosPageComponent
+        path: 'misAnuncios',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: [Roles.ADMIN_CINE, Roles.ADMIN_SISTEMA, Roles.USUARIO_NORMAL] },
+        component: MisAnunciosPageComponent
     },
     {
         path: 'misAnuncios/nuevo/:tipo',
-        component:CrearAnunciosComponentPage
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: [Roles.ADMIN_CINE, Roles.ADMIN_SISTEMA, Roles.USUARIO_NORMAL] },
+        component: CrearAnunciosComponentPage
     },
     {
         path: 'miSaldo',
-        component:MiSaldoPageComponent
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: [Roles.ADMIN_CINE, Roles.ADMIN_SISTEMA, Roles.USUARIO_NORMAL] },
+        component: MiSaldoPageComponent
     },
     {
         path: 'saldo-cine',
-        component:SaldoCinePage
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: Roles.ADMIN_CINE },
+        component: SaldoCinePage
     },
     {
         path: 'registro',
-        component:RegistroPage
+        component: RegistroPage
     }
 ];

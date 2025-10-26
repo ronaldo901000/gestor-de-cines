@@ -6,49 +6,56 @@
           <div class="card-body p-5 text-center">
             <div class="mb-md-5 mt-md-4 pb-5">
               <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+              @if (errorInicioSesion) {
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{mensaje}}
+              </div>
+              }
               <p class="text-white-50 mb-5">Por favor ingresa tu correo y contraseña</p>
+              <form [formGroup]="credencialesForm" (submit)="iniciarSesion()">
+                <div data-mdb-input-init class="form-outline form-white mb-4">
+                  <input
+                    type="email"
+                    id="typeEmailX"
+                    formControlName="correo"
+                    class="form-control form-control-lg"
+                  />
+                  <label class="form-label" for="typeEmailX">Correo</label>
+                </div>
 
-              <div data-mdb-input-init class="form-outline form-white mb-4">
-                <input type="email" id="typeEmailX" class="form-control form-control-lg" />
-                <label class="form-label" for="typeEmailX">Correo</label>
+                <div data-mdb-input-init class="form-outline form-white mb-4">
+                  <input
+                    type="password"
+                    formControlName="contraseña"
+                    id="typePasswordX"
+                    class="form-control form-control-lg"
+                  />
+                  <label class="form-label" for="typePasswordX">Contraseña</label>
+                </div>
+
+                <p class="small mb-5 pb-lg-2">
+                  <a class="text-white-50" href="#!">Olvidaste tu contraseña?</a>
+                </p>
+
+                <button
+                  [disabled]="credencialesForm.invalid"
+                  data-mdb-button-init
+                  data-mdb-ripple-init
+                  class="btn btn-outline-light btn-lg px-5"
+                >
+                  Iniciar Sesion
+                </button>
+              </form>
+
+              <div class="container">
+                <br />
               </div>
-
-              <div data-mdb-input-init class="form-outline form-white mb-4">
-                <input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                <label class="form-label" for="typePasswordX">Contraseña</label>
-              </div>
-
-              <p class="small mb-5 pb-lg-2">
-                <a class="text-white-50" href="#!">Olvidaste tu contraseña?</a>
-              </p>
-              <!--
-                            <button
-                data-mdb-button-init
-                data-mdb-ripple-init
-                class="btn btn-outline-light btn-lg px-5"
-                type="submit"
-              >
-                Iniciar Sesion
-              </button>
-              -->
-              <button class="btn btn-primary" (click)="login('ADMIN-SISTEMA')">
-                Iniciar como Admin de Sistema
-              </button>
-
-              <button class="btn btn-success" (click)="login('ADMIN-CINE')">
-                Iniciar como Admin de Cine
-              </button>
             </div>
 
             <div>
               <p class="mb-0">
-                No estas registrado? 
-                <a 
-                routerLink="/registro"
-                class="text-white-50 fw-bold"
-                > 
-                Registrate
-              </a>
+                No estas registrado?
+                <a routerLink="/registro" class="text-white-50 fw-bold"> Registrate </a>
               </p>
             </div>
           </div>

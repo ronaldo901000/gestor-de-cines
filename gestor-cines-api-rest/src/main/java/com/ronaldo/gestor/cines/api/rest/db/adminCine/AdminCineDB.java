@@ -2,15 +2,19 @@ package com.ronaldo.gestor.cines.api.rest.db.adminCine;
 
 import com.ronaldo.gestor.cines.api.rest.db.DataSourceDBSingleton;
 import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionAdminSistema;
+import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionesAdminCine;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.models.adminCine.AdminCine;
+import com.ronaldo.gestor.cines.api.rest.models.cines.Cine;
 import com.ronaldo.gestor.cines.api.rest.models.usuario.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -81,6 +85,33 @@ public class AdminCineDB {
                      throw new DataBaseException("Error al eliminar admin cine en la db");
               }
 
+       }
+
+       /**
+        * 
+        * @param idUsuario
+        * @return
+        * @throws DataBaseException 
+        */
+       public Optional<Cine> obtenerCine(String idUsuario) throws DataBaseException {
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+
+                     try (PreparedStatement query = connection.prepareStatement(PeticionesAdminCine.OBTENER_MI_CINE.get())) {
+                            query.setString(1, idUsuario);
+                            ResultSet resultSet = query.executeQuery();
+                            if (resultSet.next()) {
+                                   Cine cine = new Cine();
+                                   cine.setCodigo(resultSet.getString("codigo"));
+                                   cine.setNombre(resultSet.getString("nombre"));
+                                   cine.setUbicacion(resultSet.getString("ubicacion"));
+                                   cine.setFechaCreacion(LocalDate.parse(resultSet.getString("fecha_creacion")));
+                                   return Optional.of(cine);
+                            }
+                     }
+              } catch (SQLException e) {
+                     throw new DataBaseException("Error al obtener cine donde trabaja el admin en la db");
+              }
+              return Optional.empty();
        }
 
 }

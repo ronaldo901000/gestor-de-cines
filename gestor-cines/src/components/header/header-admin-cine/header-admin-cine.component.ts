@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { UserProperties } from '../../../shared/user/user-properties';
 
 @Component({
@@ -10,10 +10,19 @@ import { UserProperties } from '../../../shared/user/user-properties';
 })
 export class HeaderAdminCineComponent implements OnInit {
 
-  esAnunciante: boolean = true;
+  esAnunciante!: string | null;
   idUsuario!: string | null;
+  constructor(private router: Router){
 
+  }
   ngOnInit(): void {
-    this.idUsuario=localStorage.getItem(UserProperties.ID);
+    this.idUsuario = localStorage.getItem(UserProperties.ID);
+    this.esAnunciante=localStorage.getItem(UserProperties.ES_ANUNCIANTE)
+  }
+
+  logout(): void {
+    localStorage.clear();
+    this.router.navigate(['/']);
+    this.ngOnInit();
   }
 }
