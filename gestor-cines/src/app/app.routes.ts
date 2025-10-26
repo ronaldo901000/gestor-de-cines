@@ -35,6 +35,7 @@ import { SaldoCinePage } from '../pages/admin-cine-page/saldo-cine-page/saldo-ci
 import { RegistroPage } from '../pages/general/registro-page/registro-page';
 import { RoleGuardService } from '../services/seguridad/role-guard.services';
 import { Roles } from '../shared/user/user-roles';
+import { ActualizacionCuentaPageComponent } from '../pages/general/actualizacion-cuenta-page/actualizacion-cuenta-page.component';
 export const routes: Routes = [
     {
         path: '',
@@ -234,5 +235,11 @@ export const routes: Routes = [
     {
         path: 'registro',
         component: RegistroPage
+    },
+    {
+        path: 'cuenta/actualizacion',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: [Roles.ADMIN_CINE, Roles.ADMIN_SISTEMA, Roles.USUARIO_NORMAL] },
+        component: ActualizacionCuentaPageComponent
     }
 ];

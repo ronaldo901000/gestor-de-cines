@@ -35,7 +35,22 @@ public class HerramientaDB {
                      throw new DataBaseException("Error al buscar la existencia de la entidad");
               }
        }
-       
+
+       public boolean correoDisponibleActualizacion(String correo, String id, String peticion) throws DataBaseException {
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+
+                     try (PreparedStatement query = connection.prepareStatement(peticion)) {
+                            query.setString(1, correo);
+                            query.setString(2, id);
+                            ResultSet resultSet = query.executeQuery();
+                            return resultSet.next();
+                     }
+
+              } catch (SQLException e) {
+                     throw new DataBaseException("Error al buscar la disponibilidad del correo");
+              }
+       }
+
        public boolean existeCategoria(String id) throws DataBaseException {
               try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
                      

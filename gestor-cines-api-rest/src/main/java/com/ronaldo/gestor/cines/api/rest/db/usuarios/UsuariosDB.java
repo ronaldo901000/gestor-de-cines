@@ -88,4 +88,31 @@ public class UsuariosDB {
                      throw new DataBaseException("Error al realiza recarga de cartera en la base de datos");
               }
        }
+
+       /**
+        * 
+        * @param id
+        * @return
+        * @throws DataBaseException 
+        */
+       public Optional<Usuario> obteneUsuario(String id) throws DataBaseException {
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement query = connection.prepareStatement(PeticionUsuario.OBTENER_USUARIO.get())) {
+                            query.setString(1, id);
+                            ResultSet resultSet = query.executeQuery();
+                            if (resultSet.next()) {
+                                   Usuario usuario = new Usuario();
+                                   usuario.setId(resultSet.getString("id"));
+                                   usuario.setNombre(resultSet.getString("nombre"));
+                                   usuario.setCorreo(resultSet.getString("correo"));
+                                   usuario.setTelefono(resultSet.getString("telefono"));
+                                   return Optional.of(usuario);
+                            }
+                     }
+              } catch (SQLException e) {
+                     throw new DataBaseException("Error al obtener usuario en la base de datos");
+              }
+              return Optional.empty();
+       }
+       
 }
