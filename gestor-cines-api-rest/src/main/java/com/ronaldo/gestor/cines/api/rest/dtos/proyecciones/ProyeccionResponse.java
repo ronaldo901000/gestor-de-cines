@@ -29,6 +29,7 @@ public class ProyeccionResponse extends EntidadResponse{
        @JsonSerialize(using = LocalTimeSerializer.class)
        private LocalTime horaFin;
        private double precio;
+       private boolean disponible;
 
        public String getCodigo() {
               return codigo;
@@ -86,5 +87,15 @@ public class ProyeccionResponse extends EntidadResponse{
        public void setPrecio(double precio) {
               this.precio = precio;
        }
+
+       public boolean isDisponible() {
+              return disponible;
+       }
+
+       public void setDisponible(boolean disponible) {
+              this.disponible = disponible;
+       }
+       
+       
 
 }

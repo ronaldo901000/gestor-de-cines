@@ -9,5 +9,6 @@ export interface ProyeccionResponse{
     fecha:Date,
     horaInicio:Time,
     horaFin:Time,
-    precio:number
+    precio:number,
+    disponible:boolean
 }
