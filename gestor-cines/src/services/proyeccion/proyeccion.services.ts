@@ -24,6 +24,12 @@ export class ProyeccionesServices {
             (`${this.restConstants.getApiURL()}proyecciones/${codigoCine}/${inicio}`);
     }
 
+    public obtenerProyeccionesPorCodigoPelicula(codigoPelicula: string, inicio: number):
+        Observable<ProyeccionResponse[]> {
+        return this.httpClient.get<ProyeccionResponse[]>
+            (`${this.restConstants.getApiURL()}proyecciones/pelicula/${codigoPelicula}/${inicio}`);
+    }
+
     public obtenerProyecion(codigo: String): Observable<ProyeccionResponse> {
         return this.httpClient.get<ProyeccionResponse>(`${this.restConstants.getApiURL()}proyecciones/${codigo}`);
     }

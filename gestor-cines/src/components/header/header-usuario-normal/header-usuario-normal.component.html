@@ -5,7 +5,7 @@
     >
       <li class="me-0 list-unstyled d-flex align-items-center">
         <a
-          routerLink="/home/admin-cine"
+          routerLink="/home/usuario-normal"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
           class="nav-link px-3 text-white fs-4"
@@ -14,37 +14,17 @@
         </a>
       </li>
       <a
-        routerLink="/salas"
+        routerLink="/cines/disponibles"
         class="btn btn-outline-light me-1 btn-lg"
         routerLinkActive="active"
         aria-current="page"
         [routerLinkActiveOptions]="{ exact: true }"
       >
-        Gestion Salas
-      </a>
-      <a
-        routerLink="/peliculas"
-        routerLinkActive="active"
-        class="btn btn-outline-light me-1 btn-lg"
-      >
-        Peliculas
+        Cines Disponibles
       </a>
 
-      <a
-        routerLink="/proyecciones"
-        routerLinkActive="active"
-        class="btn btn-outline-light me-1 btn-lg"
-      >
-        Proyecciones
-      </a>
-      <a
-        routerLink="/saldo-cine"
-        routerLinkActive="active"
-        class="btn btn-outline-light me-1 btn-lg"
-      >
-        <i class="bi bi-coin fs-6"></i>
-        Saldo Cine
-      </a>
+      <div class="m-4"></div>
+      <div class="m-4"></div>
       <div class="m-4"></div>
       <div class="m-4"></div>
       <div class="m-4"></div>
@@ -71,24 +51,7 @@
         <i class="bi bi-person"></i>
         Mi Cuenta
       </a>
-      <a
-        routerLink="/home/usuario-normal"
-        routerLinkActive="active"
-        class="btn btn-outline-light me-1 btn-lg"
-      >
-        <i class="bi bi-ticket"></i>
-        Comprar Boletos
-      </a>
-      <a
-        routerLink="/cines/disponibles"
-        class="btn btn-outline-light me-1 btn-lg"
-        routerLinkActive="active"
-        aria-current="page"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        Cines Disponibles
-      </a>
-      <h2>ID: {{ idUsuario }}</h2>
+      <h2>ID:{{ idUsuario }}</h2>
       <div class="ms-auto text-end">
         <button type="button" class="btn btn-outline-light btn-lg" (click)="logout()">
           Cerrar Sesion

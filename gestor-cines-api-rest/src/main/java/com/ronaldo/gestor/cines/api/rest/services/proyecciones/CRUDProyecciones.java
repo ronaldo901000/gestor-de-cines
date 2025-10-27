@@ -5,6 +5,7 @@ import com.ronaldo.gestor.cines.api.rest.db.proyeccion.ProyeccionDB;
 import com.ronaldo.gestor.cines.api.rest.dtos.proyecciones.ProyeccionRequest;
 import com.ronaldo.gestor.cines.api.rest.dtos.proyecciones.ProyeccionResponse;
 import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionAdminSistema;
+import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionUsuario;
 import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionesAdminCine;
 import com.ronaldo.gestor.cines.api.rest.enums.query.RangoBusquedaElemento;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
@@ -104,7 +105,41 @@ public class CRUDProyecciones extends CRUD {
                      throw new EntityNotFoundException("El cine ingresado no existe");
               }
               int fin = inicio + RangoBusquedaElemento.PROYECCIONES.getRango();
-              List<Proyeccion> proyecciones = proyeccionDB.obtenerProyeccionesPorRango(codigoCine, inicio, fin);
+              
+              List<Proyeccion> proyecciones = proyeccionDB.obtenerProyeccionesPorRango(
+                      codigoCine,
+                      PeticionesAdminCine.OBTENER_PROYECCIONES_POR_RANGO.get(),
+                      inicio, 
+                      fin
+              );
+              
+              return creador.crearListaResponse(proyecciones);
+       }
+
+       /**
+        * 
+        * @param codigoPelicula
+        * @param inicio
+        * @return
+        * @throws DataBaseException
+        * @throws EntityNotFoundException 
+        */
+       public List<ProyeccionResponse> obtenerProyeccionesPorCodigoPelicula(String codigoPelicula, int inicio) throws DataBaseException, EntityNotFoundException {
+              ProyeccionDB proyeccionDB = new ProyeccionDB();
+              HerramientaDB herramientaDB = new HerramientaDB();
+              CreadorProyeccionesResponse creador = new CreadorProyeccionesResponse();
+              if (!herramientaDB.existeEntidad(codigoPelicula, PeticionAdminSistema.OBTENER_PELICULA.get())) {
+                     throw new EntityNotFoundException("La pelicula ingresado no existe");
+              }
+              int fin = inicio + RangoBusquedaElemento.PROYECCIONES.getRango();
+              
+              List<Proyeccion> proyecciones = proyeccionDB.obtenerProyeccionesPorRango(
+                      codigoPelicula,
+                      PeticionUsuario.OBTENER_PROYECCIONES_POR_PELICULA.get(), 
+                      inicio, 
+                      fin
+              );
+              
               return creador.crearListaResponse(proyecciones);
        }
 

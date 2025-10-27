@@ -33,7 +33,6 @@ export class SalasTableComponent implements OnInit {
         this.salasService.traerSalasPorPagina(this.codigoCine, this.inicio).subscribe({
             next: (salasServer: SalaResponse[]) => {
                 this.salas = salasServer;
-
             },
             error: (error) => {
                 console.log(error.error);

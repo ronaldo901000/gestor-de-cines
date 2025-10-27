@@ -42,7 +42,7 @@ export class PeliculaFormComponent implements OnInit {
             codigo: [null, [Validators.required, Validators.maxLength(25), Validators.pattern(/^[a-zA-Z0-9-ñ]+$/)]],
             titulo: [null, [Validators.required, Validators.maxLength(100), Validators.pattern(/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ,.'":;!¿?()\-]+$/)]],
             sinopsis: [null, [Validators.required, Validators.maxLength(300)]],
-            duracion: [1, [Validators.required, Validators.min(1)]],
+            duracion: [1, [Validators.required, Validators.min(1), Validators.max(1000)]],
             director: [null, [Validators.required, Validators.maxLength(100)]],
             cast: [null, [Validators.required, Validators.maxLength(200)]],
             clasificacion: [ClasificacionTypeEnum.A, [Validators.required]],

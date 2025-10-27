@@ -5,10 +5,11 @@ import { HeaderAdminSistemaComponent } from "../../../components/header/header-a
 import { ActualizacionCuentaFormComponent } from "../../../components/cuenta/actualizacion-cuenta-form-component/actualizacion-cuenta-form.component";
 import { Usuario } from '../../../models/usuario/usuario';
 import { UsuarioServices } from '../../../services/usuario/usuario.services';
+import { HeaderUsuarioNormalComponent } from "../../../components/header/header-usuario-normal/header-usuario-normal.component";
 
 @Component({
   selector: 'app-actualizacion-cuenta-page.component',
-  imports: [HeaderAdminCineComponent, HeaderAdminSistemaComponent, ActualizacionCuentaFormComponent],
+  imports: [HeaderAdminCineComponent, HeaderAdminSistemaComponent, ActualizacionCuentaFormComponent, HeaderUsuarioNormalComponent],
   templateUrl: './actualizacion-cuenta-page.component.html',
   styleUrl: './actualizacion-cuenta-page.component.css'
 })

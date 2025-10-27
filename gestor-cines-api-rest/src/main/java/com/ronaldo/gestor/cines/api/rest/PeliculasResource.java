@@ -64,6 +64,20 @@ public class PeliculasResource {
        }
 
        @GET
+       @Path("especifico/{cadenaBusqueda}")
+       @Produces(MediaType.APPLICATION_JSON)
+       public Response getPeliculasPorCategoriaOTitulo(@PathParam("cadenaBusqueda") String cadenaBusqueda) {
+              CRUDPeliculas crudPeliculas = new CRUDPeliculas();
+              try {
+                     return Response.ok(crudPeliculas.obtenerPeliculasPorTituloOCategoria(cadenaBusqueda)).build();
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+              } catch (UserDataInvalidException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+              }
+       }
+
+       @GET
        @Path("pelicula/{codigo}")
        @Produces(MediaType.APPLICATION_JSON)
        public Response getPeliculas(@PathParam("codigo") String codigo) {

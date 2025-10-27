@@ -1,0 +1,47 @@
+<app-toast-component #toast></app-toast-component>
+<div class="text-center" id="tabla">
+  <nav aria-label="Paginación">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="inicio === 0">
+        <button class="page-link" (click)="retrocederUnaPagina()">Anterior</button>
+      </li>
+      <li class="page-item" [class.disabled]="!hayMasProyecciones()">
+        <button class="page-link" (click)="avanzarUnaPagina()">Siguiente</button>
+      </li>
+    </ul>
+  </nav>
+  @if(proyecciones.length==0){
+  <h2>Esta pelicula no tiene proyecciones disponibles, elige otro</h2>
+  } @if(proyecciones.length>0){
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Cine</th>
+        <th scope="col">Sala</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Hora de Inicio</th>
+        <th scope="col">Hora de Finalizacion</th>
+        <th scope="col">Precio de boleto</th>
+        <th scope="col">Elige una proyeccion</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (proyeccion of proyecciones; track $index) {
+      <tr>
+        <td>{{ proyeccion.sala.nombreCine }}</td>
+        <td>{{ proyeccion.sala.nombre }}</td>
+        <td>{{ proyeccion.fecha | date : 'dd MMMM yyyy' }}</td>
+        <td>{{ proyeccion.horaInicio }}</td>
+        <td>{{ proyeccion.horaFin }}</td>
+        <td>{{ proyeccion.precio | currency : 'Q.' }}</td>
+        <td>
+          <a href="#" class="btn btn-success">
+           <i class="bi bi-check-circle"> Seleccionar </i>
+          </a>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  }
+</div>

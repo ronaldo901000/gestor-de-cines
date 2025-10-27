@@ -1,0 +1,38 @@
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div class="col-md-11">
+      <div class="card shadow-sm">
+        <img src="URL_DE_LA_IMAGEN" class="card-img-top" alt="Imagen de la película" />
+        <div class="card-body">
+          <h5 class="card-title"><strong>Titulo: </strong> {{ pelicula.titulo }}</h5>
+          <p class="card-text"><strong>Sinopsis: </strong> : {{ pelicula.sinopsis }}</p>
+          <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item">
+              <strong>Categorias:</strong> {{ pelicula.idsCategorias }}
+            </li>
+            <li class="list-group-item">
+              <strong>Duracion:</strong> {{ pelicula.duracion }} minutos
+            </li>
+            <li class="list-group-item">
+              <strong>Clasificación:</strong> {{ pelicula.clasificacion }}
+            </li>
+            <li class="list-group-item"><strong>Director: </strong> {{ pelicula.director }}</li>
+            <li class="list-group-item"><strong>Cast:</strong> {{ pelicula.cast }}</li>
+            <li class="list-group-item">
+              <strong>Fecha en que se estrenó:
+
+              </strong> {{ pelicula.fechaEstreno | date:'dd,MMMM-yyy'}}
+            </li>
+          </ul>
+          <a
+            href="/proyecciones/pelicula/{{ pelicula.codigo }}/{{ pelicula.titulo }}"
+            class="btn btn-warning w-100"
+          >
+            <i class="bi bi-ticket"></i>
+            <strong> Comprar Boleto</strong>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

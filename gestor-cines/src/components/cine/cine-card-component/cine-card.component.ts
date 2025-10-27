@@ -16,6 +16,9 @@ export class CineCardComponent {
   @Input()
   cineSeleccionado!: Cine;
 
+  @Input({required:true})
+  esAdminSistema!: boolean;
+
   @ViewChild('toast') toast!: ToastComponent;
 
   @Output()

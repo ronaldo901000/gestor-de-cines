@@ -12,7 +12,9 @@
     <h1>Nueva Sala</h1>
     <br />
     <div class="row">
+      @if(codigoCine){
      <app-sala-form [codigoCineRecibido]="codigoCine"></app-sala-form>
+     }
     </div>
   </div>
   <br>

@@ -24,8 +24,8 @@ export class Login implements OnInit {
   credencialesForm!: FormGroup;
   nuevaCredencial!: Credencial;
   propiedadesUsuario!: PropiedadesUsuario;
-  errorInicioSesion!:boolean;
-  mensaje!:string;
+  errorInicioSesion!: boolean;
+  mensaje!: string;
 
   constructor(private router: Router, private formBuilder: FormBuilder,
     private usuarioServices: UsuarioServices
@@ -38,18 +38,6 @@ export class Login implements OnInit {
     this.inicializarForm();
   }
 
-  login(role: string): void {
-    localStorage.setItem('role', role);
-    localStorage.setItem(UserProperties.ID, this.idUsuario)
-    switch (role) {
-      case 'ADMIN-SISTEMA':
-        this.router.navigate(['/home/admin-sistema']);
-        break;
-      case 'ADMIN-CINE':
-        localStorage.setItem(AdminCineProperties.CODIGO_CINE, 'CN-1');
-        this.router.navigate(['/home/admin-cine']);
-    }
-  }
 
   iniciarSesion(): void {
     if (this.credencialesForm.valid) {
@@ -63,10 +51,10 @@ export class Login implements OnInit {
             this.llevarAlHome(this.role);
           }
         },
-        error:(error)=>{
+        error: (error) => {
           console.log(error.error);
-          this.errorInicioSesion=true;
-          this.mensaje=error.error;
+          this.errorInicioSesion = true;
+          this.mensaje = error.error;
         }
       });
     }
@@ -88,14 +76,17 @@ export class Login implements OnInit {
 
   llevarAlHome(role: string) {
     switch (role) {
-      
+
       case Roles.ADMIN_SISTEMA:
         this.router.navigate(['/home/admin-sistema']);
         break;
       case Roles.ADMIN_CINE:
         this.router.navigate(['/home/admin-cine']);
         break;
-        
+      case Roles.USUARIO_NORMAL:
+        this.router.navigate(['/home/usuario-normal']);
+        break;
+
     }
   }
   inicializarForm(): void {

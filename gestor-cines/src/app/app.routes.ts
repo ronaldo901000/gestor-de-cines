@@ -36,6 +36,9 @@ import { RegistroPage } from '../pages/general/registro-page/registro-page';
 import { RoleGuardService } from '../services/seguridad/role-guard.services';
 import { Roles } from '../shared/user/user-roles';
 import { ActualizacionCuentaPageComponent } from '../pages/general/actualizacion-cuenta-page/actualizacion-cuenta-page.component';
+import { HomeUsuarioNormalPage } from '../pages/general/home-usuario-normal-page/home-usuario-normal-page.component';
+import { ProyeccionesPeliculaPageComponent } from '../pages/general/proyecciones-page/proyecciones-page';
+import { CinesDisponiblesPage } from '../pages/general/cines-page/cines-page.component ';
 export const routes: Routes = [
     {
         path: '',
@@ -241,5 +244,22 @@ export const routes: Routes = [
         canActivate: [RoleGuardService],
         data: { allowedRoles: [Roles.ADMIN_CINE, Roles.ADMIN_SISTEMA, Roles.USUARIO_NORMAL] },
         component: ActualizacionCuentaPageComponent
+    },
+    {
+        path: 'home/usuario-normal',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: [Roles.ADMIN_CINE, Roles.ADMIN_SISTEMA, Roles.USUARIO_NORMAL] },
+        component: HomeUsuarioNormalPage
+    }, {
+        path: 'proyecciones/pelicula/:codigo-pelicula/:nombre-pelicula',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: [Roles.ADMIN_CINE, Roles.ADMIN_SISTEMA, Roles.USUARIO_NORMAL] },
+        component: ProyeccionesPeliculaPageComponent
+    },
+    {
+        path: 'cines/disponibles',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: [Roles.ADMIN_CINE, Roles.ADMIN_SISTEMA, Roles.USUARIO_NORMAL] },
+        component: CinesDisponiblesPage
     }
 ];

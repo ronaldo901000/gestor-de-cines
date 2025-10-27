@@ -1,0 +1,23 @@
+@if (rol=='ADMIN-CINE') {
+<app-header-admin-cine></app-header-admin-cine>
+} @if (rol=='ADMIN-SISTEMA') {
+<app-header-admin-sistema></app-header-admin-sistema>
+} @if (rol=='USUARIO-NORMAL') {
+<app-header-usuario-normal></app-header-usuario-normal>
+}
+<div class="container text-center text-black">
+  <h1>Proyecciones del la pelicula "{{ nombrePelicula }}"</h1>
+  <br />
+  <br />
+  <div class="container text-center">
+  <a routerLink="/home/usuario-normal" class="btn btn-primary">
+    <i class="bi bi-arrow-left-square-fill"></i>
+    Regresar A Peliculas
+  </a>
+</div>
+  <br />
+  <br />
+  <app-proyecciones-pelicula-table-component
+    [codigoPelicula]="codigoPelicula"
+  ></app-proyecciones-pelicula-table-component>
+</div>

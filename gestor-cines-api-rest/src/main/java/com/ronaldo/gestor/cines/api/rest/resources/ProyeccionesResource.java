@@ -119,4 +119,20 @@ public class ProyeccionesResource {
                      return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
               }
        }
+
+       @GET
+       @Path("pelicula/{codigoPelicula}/{inicio}")
+       @Produces(MediaType.APPLICATION_JSON)
+       public Response obtenerProyeccionesPorCodigoPelicula(
+               @PathParam("codigoPelicula") String codigoPelicula,
+               @PathParam("inicio") int inicio) {
+              CRUDProyecciones crud = new CRUDProyecciones();
+              try {
+                     return Response.ok(crud.obtenerProyeccionesPorCodigoPelicula(codigoPelicula, inicio)).build();
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+              } catch (EntityNotFoundException ex) {
+                     return Response.status(Response.Status.NOT_FOUND).entity(ex.getMessage()).build();
+              }
+       }
 }

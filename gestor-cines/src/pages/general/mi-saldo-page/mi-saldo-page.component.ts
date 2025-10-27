@@ -6,9 +6,10 @@ import { UserProperties } from '../../../shared/user/user-properties';
 import { UsuarioServices } from '../../../services/usuario/usuario.services';
 import { CurrencyPipe } from '@angular/common';
 import { RecargaFormComponent } from "../../../components/recarga-form-component/recarga-form.component";
+import { HeaderUsuarioNormalComponent } from "../../../components/header/header-usuario-normal/header-usuario-normal.component";
 @Component({
     selector: 'app-mi-saldo-page',
-    imports: [HeaderAdminCineComponent, HeaderAdminSistemaComponent, CurrencyPipe, RecargaFormComponent],
+    imports: [HeaderAdminCineComponent, HeaderAdminSistemaComponent, CurrencyPipe, RecargaFormComponent, HeaderUsuarioNormalComponent],
     templateUrl: './mi-saldo-page.component.html',
 })
 export class MiSaldoPageComponent implements OnInit {
