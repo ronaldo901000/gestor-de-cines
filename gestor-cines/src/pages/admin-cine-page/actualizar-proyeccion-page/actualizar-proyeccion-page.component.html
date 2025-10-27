@@ -24,8 +24,6 @@
   <br />
   <br />
   <br />
-  <br />
-  <br />
 
   <div class="container-xxl">
     <h5 class="text-center">Listado de Peliculas</h5>
@@ -34,4 +32,9 @@
   <br />
   <br />
   <br />
+  @if(codigoCine){
+  <div class="container">
+    <app-salas-table-component [codigoCine]="codigoCine"></app-salas-table-component>
+  </div>
+  }
 </div>

@@ -114,5 +114,17 @@ public class UsuariosDB {
               }
               return Optional.empty();
        }
-       
+
+       public void pagar(String id, double totalAPagar, Connection connection) throws DataBaseException {
+              try (PreparedStatement update = connection.
+                      prepareStatement(PeticionUsuario.PAGAR_TRANSACCION.get())) {
+                     update.setDouble(1, totalAPagar);
+                     update.setString(2, id);
+                     update.executeUpdate();
+
+              } catch (SQLException e) {
+                     throw new DataBaseException("Error al pagar transaccion en la db");
+              }
+       }
+
 }

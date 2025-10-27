@@ -9,14 +9,15 @@ import { ProyeccionesServices } from "../../../services/proyeccion/proyeccion.se
 import { UpdateProyeccionFormComponent } from "../../../components/proyeccion/update-proyeccion-form/update-proyeccion-form.component";
 import { PeliculasTableComponent } from "../../../components/pelicula/pelicula-table/pelicula-table.component";
 import { SalasTableComponent } from "../../../components/sala/sala-table/sala-table.component";
+import { UserProperties } from "../../../shared/user/user-properties";
 @Component({
     selector: 'app-actualizar-proyeccion-page',
-    imports: [RouterLink, HeaderAdminCineComponent, UpdateProyeccionFormComponent, PeliculasTableComponent],
+    imports: [RouterLink, HeaderAdminCineComponent, UpdateProyeccionFormComponent, PeliculasTableComponent, SalasTableComponent],
     templateUrl: './actualizar-proyeccion-page.component.html',
 })
 
 export class ActualizarProyeccionComponentPage {
-
+    codigoCine!: string | null;
     codigoProyeccion!: string
     proyeccion!: ProyeccionResponse
     constructor(private router: ActivatedRoute, private proyeccionServices: ProyeccionesServices) {
@@ -25,6 +26,7 @@ export class ActualizarProyeccionComponentPage {
 
     ngOnInit(): void {
         this.codigoProyeccion = this.router.snapshot.params['codigoProyeccion'];
+        this.codigoCine=localStorage.getItem(UserProperties.CODIGO_CINE);
         this.proyeccionServices.obtenerProyecion(this.codigoProyeccion).subscribe({
             next: (proyeccionServer: ProyeccionResponse) => {
                 this.proyeccion = proyeccionServer;

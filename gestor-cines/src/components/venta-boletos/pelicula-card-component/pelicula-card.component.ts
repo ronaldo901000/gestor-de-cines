@@ -3,9 +3,10 @@ import { CineServices } from "../../../services/cine/cine.services";
 import { ToastComponent } from "../../toast/toast.component";
 import { Pelicula } from "../../../models/pelicula/pelicula";
 import { DatePipe } from "@angular/common";
+import { RouterLink } from "@angular/router";
 @Component({
   selector: 'app-pelicula-card-component',
-  imports: [DatePipe],
+  imports: [DatePipe, RouterLink],
   templateUrl: './pelicula-card.component.html',
   styleUrl: './pelicula-card.component.css'
 })

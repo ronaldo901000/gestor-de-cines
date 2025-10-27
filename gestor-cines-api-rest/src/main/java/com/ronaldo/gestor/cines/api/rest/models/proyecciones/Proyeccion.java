@@ -22,6 +22,7 @@ public class Proyeccion implements Editable{
        private LocalTime horaInicio;
        private LocalTime horaFin;
        private double precio;
+       private boolean disponible;
 
        public String getCodigo() {
               return codigo;
@@ -79,6 +80,16 @@ public class Proyeccion implements Editable{
               this.precio = precio;
        }
 
+       public boolean isDisponible() {
+              return disponible;
+       }
+
+       public void setDisponible(boolean disponible) {
+              this.disponible = disponible;
+       }
+
+       
+       
        public boolean datosValidos() {
               return StringUtils.isNotBlank(codigo)
                       && StringUtils.isNotBlank(codigoPelicula)

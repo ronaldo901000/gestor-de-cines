@@ -16,6 +16,10 @@ public enum PeticionUsuario {
        OBTENER_PELICULAS_POR_CATEGORIA_O_TITULO("select distinct pelicula.* from pelicula join registro_categoria_pelicula "
                + "on pelicula.codigo = registro_categoria_pelicula.codigo_pelicula join categoria_pelicula "
                + "on registro_categoria_pelicula.id_categoria = categoria_pelicula.id where pelicula.titulo = ? or categoria_pelicula.nombre = ?"),
+       OBTENER_COMPRA_BOLETOS_POR_PROYECCION("select * from compra_boletos where codigo_proyeccion=?"),
+       CREAR_COMPRA_BOLETO("insert into compra_boletos (id_usuario, codigo_proyeccion, fecha_compra, cantidad, costo_total)"
+               + " values(?, ?, ?, ?, ?)"),
+       PAGAR_TRANSACCION("update usuario set creditos=creditos-? where id=?"),
        ;
        
        private String peticion;

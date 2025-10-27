@@ -24,6 +24,10 @@ public class Sala implements Editable {
 
        public Sala() {
        }
+       
+       public int obtenerCapacidad(){
+              return filas*columnas;
+       }
 
        public String getCodigo() {
               return codigo;

@@ -22,11 +22,12 @@
         <th scope="col">Hora de Inicio</th>
         <th scope="col">Hora de Finalizacion</th>
         <th scope="col">Precio de boleto</th>
-        <th scope="col">Elige una proyeccion</th>
+        <th scope="col">Selecciona</th>
       </tr>
     </thead>
     <tbody>
-      @for (proyeccion of proyecciones; track $index) {
+      @for (proyeccion of proyecciones; track $index) { 
+        @if(proyeccion.disponible){
       <tr>
         <td>{{ proyeccion.sala.nombreCine }}</td>
         <td>{{ proyeccion.sala.nombre }}</td>
@@ -35,12 +36,16 @@
         <td>{{ proyeccion.horaFin }}</td>
         <td>{{ proyeccion.precio | currency : 'Q.' }}</td>
         <td>
-          <a href="#" class="btn btn-success">
-           <i class="bi bi-check-circle"> Seleccionar </i>
+          <a
+            routerLink="/proyecciones-de-pelicula/compra-boletos/{{ proyeccion.codigo }}"
+            class="btn btn-warning"
+          >
+            <i class="bi bi-cart"> Comprar Boletos</i>
           </a>
         </td>
       </tr>
       }
+     }
     </tbody>
   </table>
   }

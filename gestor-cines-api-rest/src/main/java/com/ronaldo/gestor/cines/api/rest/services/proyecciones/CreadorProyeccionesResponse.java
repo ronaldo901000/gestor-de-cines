@@ -53,6 +53,7 @@ public class CreadorProyeccionesResponse {
               response.setHoraInicio(proyeccion.getHoraInicio());
               response.setHoraFin(proyeccion.getHoraFin());
               response.setPrecio(proyeccion.getPrecio());
+              response.setDisponible(proyeccion.isDisponible());
        }
 
        /**

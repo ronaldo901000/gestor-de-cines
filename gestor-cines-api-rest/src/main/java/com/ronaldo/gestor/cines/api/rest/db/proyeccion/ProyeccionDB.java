@@ -174,6 +174,19 @@ public class ProyeccionDB {
               }
        }
 
+       public void cambiarEstadoDisponibilidad(String codigo, boolean nuevoEstado, Connection connnection) throws DataBaseException {
+              try (PreparedStatement update = connnection.
+                      prepareStatement(PeticionesAdminCine.ACTUALIZAR_ESTADO_PROYECCION.get())) {
+                     update.setBoolean(1, nuevoEstado);
+                     update.setString(2, codigo);
+                     update.executeUpdate();
+
+              } catch (SQLException e) {
+
+                     throw new DataBaseException("Error al actualizar estado de proyeccion en la db");
+              }
+       }
+
        /**
         *
         * @param resultSet
@@ -188,5 +201,6 @@ public class ProyeccionDB {
               proyeccion.setHoraInicio(LocalTime.parse(resultSet.getString("p.hora_inicio")));
               proyeccion.setHoraFin(LocalTime.parse(resultSet.getString("p.hora_fin")));
               proyeccion.setPrecio(resultSet.getDouble("p.precio"));
+              proyeccion.setDisponible(resultSet.getBoolean("p.disponible"));
        }
 }

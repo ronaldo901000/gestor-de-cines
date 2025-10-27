@@ -1,12 +1,12 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ToastComponent } from '../../toast/toast.component';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ProyeccionResponse } from '../../../models/proyeccion/proyeccion-response';
 import { ProyeccionesServices } from '../../../services/proyeccion/proyeccion.services';
 import { DatePipe, CurrencyPipe } from '@angular/common';
 @Component({
     selector: 'app-proyecciones-pelicula-table-component',
-    imports: [ToastComponent, DatePipe, CurrencyPipe,],
+    imports: [ToastComponent, DatePipe, CurrencyPipe, RouterLink],
     templateUrl: './proyecciones-table.component.html',
 })
 export class ProyeccionesPeliculaTableComponent implements OnInit {

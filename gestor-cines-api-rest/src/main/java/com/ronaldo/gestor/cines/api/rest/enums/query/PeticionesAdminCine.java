@@ -31,6 +31,7 @@ public enum PeticionesAdminCine {
        OBTENER_SALDO_CINE("select * from cine where codigo=?"),
        RECARGAR_CARTERA_CINE("update cine set creditos_cartera = creditos_cartera + ? where codigo=?"),
        OBTENER_MI_CINE("select * from admin_cine join cine on codigo_cine=codigo where id_usuario=?"),
+       ACTUALIZAR_ESTADO_PROYECCION("update proyeccion set disponible=? where codigo=?"),
        ;
        private String peticion;
 
