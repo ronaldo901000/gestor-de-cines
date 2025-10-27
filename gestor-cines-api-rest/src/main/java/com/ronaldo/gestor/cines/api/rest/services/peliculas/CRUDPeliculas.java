@@ -151,6 +151,16 @@ public class CRUDPeliculas extends CRUD {
               return peliculasResponse;
        }
 
+       public List<PeliculaResponse> obtenerPeliculasPorTituloOCategoria(String cadenaBusqueda) throws DataBaseException, UserDataInvalidException {
+              List<PeliculaResponse> peliculasResponse = new ArrayList<>();
+              PeliculasDB peliculasDB = new PeliculasDB();
+              
+              List<Pelicula> peliculas = peliculasDB.obtenerPeliculasPorTituloOCaregoria(cadenaBusqueda);
+
+              crearResponse(peliculas, peliculasResponse);
+              return peliculasResponse;
+       }
+
        /**
         *
         * @param peliculas

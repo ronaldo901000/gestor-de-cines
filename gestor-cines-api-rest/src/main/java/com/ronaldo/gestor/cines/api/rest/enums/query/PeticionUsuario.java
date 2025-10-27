@@ -11,7 +11,11 @@ public enum PeticionUsuario {
                + " values (?, ?, ?, ?, ?)"),
        OBTENER_USUARIO_POR_CORREO("select * from usuario where correo=?"),
        VERIFICAR_DISPONIBILIDAD_CORREO("select * from usuario where correo = ? and id != ?"),
-       ACTUALIZAR_CUENTA("update usuario set nombre=?, correo=?, telefono=? where id=?")
+       ACTUALIZAR_CUENTA("update usuario set nombre=?, correo=?, telefono=? where id=?"),
+       OBTENER_PROYECCIONES_POR_PELICULA("select * from proyeccion p join sala s on p.codigo_sala=s.codigo where p.codigo_pelicula=?"),
+       OBTENER_PELICULAS_POR_CATEGORIA_O_TITULO("select distinct pelicula.* from pelicula join registro_categoria_pelicula "
+               + "on pelicula.codigo = registro_categoria_pelicula.codigo_pelicula join categoria_pelicula "
+               + "on registro_categoria_pelicula.id_categoria = categoria_pelicula.id where pelicula.titulo = ? or categoria_pelicula.nombre = ?"),
        ;
        
        private String peticion;

@@ -1,20 +1,16 @@
+@if(rol=='ADMIN-SISTEMA'){
 <app-header-admin-sistema></app-header-admin-sistema>
+}
+@else if(rol=='ADMIN-CINE'){
+<app-header-admin-cine></app-header-admin-cine>
+}
+@if(rol=='USUARIO-NORMAL'){
+<app-header-usuario-normal></app-header-usuario-normal>
+}
 <div class="container text-center text-black">
   <br />
-  <div class="container">
-    <a routerLink="/cine/nuevo" class="btn btn-success">
-      <i class="bi bi-file-earmark-plus"></i>
-      <h6>Crear Cine</h6>
-    </a>
-  </div>
   <br />
 </div>
-  <div class="container text-center">
-    <a routerLink="/home/admin-sistema" class="btn btn-primary">
-      <i class="bi bi-arrow-left-square-fill"></i>
-      Regresar Al Menu Principal
-    </a>
-  </div>
 <div class="container text-black">
   <h1>Listado de Cines</h1>
   <br />
@@ -36,7 +32,12 @@
   <div class="row">
     @for (cine of cines; track $index) {
     <h1></h1>
-    <app-cine-card [cineSeleccionado]="cine" (cineEliminado)="cargarCines()" [esAdminSistema]="true"> </app-cine-card>
+    <app-cine-card
+      [cineSeleccionado]="cine"
+      (cineEliminado)="cargarCines()"
+      [esAdminSistema]="false"
+    >
+    </app-cine-card>
     }
   </div>
 </div>

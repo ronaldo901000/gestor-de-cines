@@ -19,8 +19,10 @@
   <h1>Listado de Salas</h1>
   <br />
   <br />
+  @if(codigoCine){
   <app-salas-table-component
     [codigoCine]="codigoCine"
     [editable]="true"
   ></app-salas-table-component>
+  }
 </div>

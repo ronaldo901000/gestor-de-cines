@@ -89,12 +89,12 @@ public class ProyeccionDB {
         * @return
         * @throws DataBaseException 
         */
-       public List<Proyeccion> obtenerProyeccionesPorRango(String codigoCine, int inicio, int fin) throws DataBaseException {
+       public List<Proyeccion> obtenerProyeccionesPorRango(String codigoCine, String peticion,int inicio, int fin) throws DataBaseException {
               List<Proyeccion> proyecciones = new ArrayList<>();
               int contador = 0;
               try (Connection connnection = DataSourceDBSingleton.getInstance().getConnection()) {
                      try (PreparedStatement query = connnection.
-                             prepareStatement(PeticionesAdminCine.OBTENER_PROYECCIONES_POR_RANGO.get())) {
+                             prepareStatement(peticion)) {
                             query.setString(1, codigoCine);
                             ResultSet resultSet = query.executeQuery();
                             while (resultSet.next()) {

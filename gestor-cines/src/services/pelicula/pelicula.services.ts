@@ -21,13 +21,16 @@ export class PeliculaServices {
     public traerPeliculasPorPagina(inicio: number): Observable<Pelicula[]> {
         return this.httpClient.get<Pelicula[]>(`${this.restConstants.getApiURL()}peliculas/paginacion/${inicio}`);
     }
+    public traerPeliculasPorTituloOCategoria(cadena: string): Observable<Pelicula[]> {
+        return this.httpClient.get<Pelicula[]>(`${this.restConstants.getApiURL()}peliculas/especifico/${cadena}`);
+    }
 
     public traerPeliculaPorCodigo(codigo: String): Observable<Pelicula> {
         return this.httpClient.get<Pelicula>(`${this.restConstants.getApiURL()}peliculas/pelicula/${codigo}`);
     }
 
     public actualizarPelicula(pelicula: Pelicula): Observable<Pelicula> {
-        return this.httpClient.put<Pelicula>(`${this.restConstants.getApiURL()}peliculas`,pelicula);
+        return this.httpClient.put<Pelicula>(`${this.restConstants.getApiURL()}peliculas`, pelicula);
     }
 
     public eliminarPelicula(codigo: string): Observable<void> {

@@ -3,10 +3,14 @@
 } @if(rol=='ADMIN-CINE'){
 <app-header-admin-cine></app-header-admin-cine>
 }
+ @if(rol=='USUARIO-NORMAL'){
+<app-header-usuario-normal></app-header-usuario-normal>
+}
 <div class="container text-center">
-  <h1>ACTUALIZACION DE CUENTA</h1>
+  <h1>Informacion del perfil</h1>
   <br />
   <br />
+  <h3>Actualizar Datos</h3>
   @if (usuarioActual!=undefined) {
   <app-actualizacion-cuenta-form-component
     [usuarioActual]="usuarioActual"

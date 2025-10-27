@@ -6,6 +6,7 @@ import { HeaderAdminCineComponent } from "../../../components/header/header-admi
 import { PeliculasTableComponent } from "../../../components/pelicula/pelicula-table/pelicula-table.component";
 import { CineServices } from "../../../services/cine/cine.services";
 import { Cine } from "../../../models/cine/cine";
+import { UserProperties } from "../../../shared/user/user-properties";
 @Component({
     selector: 'app-crear-proyeccion-page',
     imports: [RouterLink, CrearProyeccionFormComponent, SalasTableComponent, HeaderAdminCineComponent, PeliculasTableComponent],
@@ -14,19 +15,22 @@ import { Cine } from "../../../models/cine/cine";
 
 
 export class CrearProyeccionComponentPage implements OnInit {
-    codigoCine: string = 'CN-1'
+    codigoCine!: string | null;
     cine!: Cine
     constructor(private cineServices: CineServices) {
 
     }
     ngOnInit(): void {
-        this.cineServices.traerCinesPorPalabraClave(this.codigoCine).subscribe({
-            next: (cineServer: Cine[]) => {
-                this.cine = cineServer[0];
-            },
-            error: (error) => {
-                console.log(error.error);
-            }
-        });
+        this.codigoCine = localStorage.getItem(UserProperties.CODIGO_CINE);
+        if (this.codigoCine) {
+            this.cineServices.traerCinesPorPalabraClave(this.codigoCine).subscribe({
+                next: (cineServer: Cine[]) => {
+                    this.cine = cineServer[0];
+                },
+                error: (error) => {
+                    console.log(error.error);
+                }
+            });
+        }
     }
 }

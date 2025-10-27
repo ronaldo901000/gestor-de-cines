@@ -4,6 +4,7 @@ import com.ronaldo.gestor.cines.api.rest.db.DataSourceDBSingleton;
 import com.ronaldo.gestor.cines.api.rest.db.categoriaDB.CategoriaDB;
 import com.ronaldo.gestor.cines.api.rest.dtos.peliculas.PeliculaUpdateResponse;
 import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionAdminSistema;
+import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionUsuario;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.models.peliculas.Pelicula;
 import java.sql.Connection;
@@ -28,9 +29,9 @@ public class PeliculasDB {
         * @throws DataBaseException
         */
        public void crear(Pelicula pelicula) throws DataBaseException {
-              
-              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
-                     
+
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+
                      connection.setAutoCommit(false);
                      try (PreparedStatement insert = connection.prepareStatement(PeticionAdminSistema.CREAR_PELICULA.get())) {
 
@@ -78,31 +79,22 @@ public class PeliculasDB {
                      }
               }
        }
-       
+
        public List<Pelicula> obtenerPeliculasPorRango(int inicio, int fin) throws DataBaseException {
               List<Pelicula> peliculas = new ArrayList<>();
               int contador = 0;
-              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
-                    
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+
                      try (PreparedStatement query = connection.prepareStatement(PeticionAdminSistema.OBTENER_PELICULAS.get());) {
                             ResultSet resultSet = query.executeQuery();
                             while (resultSet.next()) {
                                    if (contador >= inicio && contador < fin) {
-                                          peliculas.add(new Pelicula(
-                                                  resultSet.getString("codigo"),
-                                                  resultSet.getString("titulo"),
-                                                  resultSet.getString("sinopsis"),
-                                                  resultSet.getInt("duracion"),
-                                                  resultSet.getString("director"),
-                                                  resultSet.getString("cast"),
-                                                  resultSet.getString("clasificacion"),
-                                                  LocalDate.parse(resultSet.getString("fecha_estreno")))
-                                          );
+                                          peliculas.add(contruirPelicula(resultSet));
                                    }
                                    contador++;
                             }
                      }
-                     
+
               } catch (SQLException e) {
                      e.printStackTrace();
                      throw new DataBaseException("Error al obtener cines en la db");
@@ -110,24 +102,23 @@ public class PeliculasDB {
               return peliculas;
        }
 
-
        /**
-        * 
+        *
         * @param codigoPelicula
         * @param dato
         * @return
-        * @throws DataBaseException 
+        * @throws DataBaseException
         */
-       public String obtenerCategoriasPelicula(String codigoPelicula,String dato) throws DataBaseException {
+       public String obtenerCategoriasPelicula(String codigoPelicula, String dato) throws DataBaseException {
               String categorias = "";
-              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()){
-                     
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+
                      try (PreparedStatement query = connection.prepareStatement(
                              PeticionAdminSistema.OBTENER_CATEGORIAS_PELICULA.get())) {
                             query.setString(1, codigoPelicula);
                             ResultSet resultSet = query.executeQuery();
                             while (resultSet.next()) {
-                                   categorias += resultSet.getString(dato)+",";
+                                   categorias += resultSet.getString(dato) + ",";
                             }
                      }
               } catch (SQLException e) {
@@ -138,7 +129,7 @@ public class PeliculasDB {
        }
 
        public void actualizar(Pelicula pelicula) throws DataBaseException {
-              CategoriaDB categoriaDB= new CategoriaDB();
+              CategoriaDB categoriaDB = new CategoriaDB();
               try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
 
                      connection.setAutoCommit(false);
@@ -175,12 +166,12 @@ public class PeliculasDB {
               }
 
        }
-       
+
        /**
-        * 
+        *
         * @param codigo
         * @return
-        * @throws DataBaseException 
+        * @throws DataBaseException
         */
        public Optional<PeliculaUpdateResponse> obtenerPelicula(String codigo) throws DataBaseException {
               try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
@@ -207,9 +198,9 @@ public class PeliculasDB {
        }
 
        /**
-        * 
+        *
         * @param codigo
-        * @throws DataBaseException 
+        * @throws DataBaseException
         */
        public void eliminar(String codigo) throws DataBaseException {
               try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
@@ -221,5 +212,44 @@ public class PeliculasDB {
                      e.printStackTrace();
                      throw new DataBaseException("Error al eliminar pelicula en la db");
               }
+       }
+
+
+       /**
+        * 
+        * @param cadena
+        * @return
+        * @throws DataBaseException 
+        */
+       public List<Pelicula> obtenerPeliculasPorTituloOCaregoria(String cadena) throws DataBaseException {
+              List<Pelicula> peliculas = new ArrayList<>();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement query = connection.
+                             prepareStatement(PeticionUsuario.OBTENER_PELICULAS_POR_CATEGORIA_O_TITULO.get());) {
+                            query.setString(1, cadena);
+                            query.setString(2, cadena);
+                            ResultSet resultSet = query.executeQuery();
+                            while (resultSet.next()) {
+                                   peliculas.add(contruirPelicula(resultSet));
+                            }
+                     }
+
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al obtener cines por categoria o titulo en la db");
+              }
+              return peliculas;
+       }
+
+       private Pelicula contruirPelicula(ResultSet resultSet) throws SQLException {
+              return new Pelicula(
+                      resultSet.getString("codigo"),
+                      resultSet.getString("titulo"),
+                      resultSet.getString("sinopsis"),
+                      resultSet.getInt("duracion"),
+                      resultSet.getString("director"),
+                      resultSet.getString("cast"),
+                      resultSet.getString("clasificacion"),
+                      LocalDate.parse(resultSet.getString("fecha_estreno")));
        }
 }
