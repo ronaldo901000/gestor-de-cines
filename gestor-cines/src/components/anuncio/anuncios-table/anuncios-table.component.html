@@ -1,0 +1,40 @@
+<div class="text-center" id="tabla">
+  @if(anuncios.length==0){
+  <h2>No Tienes anuncios comprados</h2>
+  } @if(anuncios.length>0){
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Codigo</th>
+        <th scope="col">Titulo</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Fecha de registro</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Duracion</th>
+        <th scope="col">Dias activo</th>
+        <th scope="col">Activo</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (anuncio of anuncios; track $index) {
+      <tr>
+        <td>
+          <strong>{{ anuncio.codigo }}</strong>
+        </td>
+        <td>{{ anuncio.titulo }}</td>
+        <td>{{ anuncio.tipo }}</td>
+        <td>{{ anuncio.fechaRegistro | date : 'MMMM,dd yyyy' }}</td>
+        <td>{{ anuncio.precio | currency : 'Q.' }}</td>
+        <td>{{ anuncio.diasDuracion }} Dias</td>
+        <td>{{ anuncio.diasActivo }}</td>
+        @if(anuncio.activo){
+        <td>SI</td>
+        } @else{
+        <td>NO</td>
+        }
+      </tr>
+      }
+    </tbody>
+  </table>
+  }
+</div>

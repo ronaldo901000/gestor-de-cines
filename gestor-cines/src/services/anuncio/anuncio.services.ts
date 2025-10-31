@@ -5,6 +5,7 @@ import { Cine } from '../../models/cine/cine';
 import { Observable } from 'rxjs';
 import { AnuncioTexto } from '../../models/anuncio/anuncio-texto';
 import { AnuncioVideo } from '../../models/anuncio/anuncio-video';
+import { AnuncioResponse } from '../../models/anuncio/anuncio-response';
 
 @Injectable({
     providedIn: 'root',
@@ -26,8 +27,9 @@ export class AnuncioServices {
         return this.httpClient.post<void>(`${this.restConstants.getApiURL()}anuncios/imagen/`, anuncio);
     }
 
-    public traerCinesPorPagina(inicio: number): Observable<Cine[]> {
-        return this.httpClient.get<Cine[]>(`${this.restConstants.getApiURL()}cines/pagina/${inicio}`);
+    public obtenerAnuncios(idAnuciante: string): Observable<AnuncioResponse[]> {
+        return this.httpClient.get<AnuncioResponse[]>
+            (`${this.restConstants.getApiURL()}anuncios/${idAnuciante}`);
     }
 
 
