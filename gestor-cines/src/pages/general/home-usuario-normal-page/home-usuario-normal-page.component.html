@@ -5,43 +5,55 @@
 } @if(rol=='ADMIN-CINE'){
 <app-header-admin-cine></app-header-admin-cine>
 }
-
-<div class="container align-content-sm-center text-black">
-  <div class="text-center text-black">
-    <h1>BIENVENIDO</h1>
-  </div>
-  <br />
-  <h1>Peliculas Disponibles:</h1>
-
-  <div class="col-5">
-    <div class="input-group">
-      <input
-        type="search"
-        class="form-control"
-        [(ngModel)]="titulo"
-        placeholder="Ingresa el titulo de la pelicula o la categoria"
-      />
-      <button type="button" class="btn btn-primary" (click)="buscarPeliculas(titulo)">
-        Buscar
-      </button>
+<div id="contenedor">
+  <div class="container-fluid">
+    <div class="row min-vh-100">
+      <div class="col-2 bg-info border-end p-3">
+       <h5>Anuncio derecho</h5>
+      </div>
+      <div class="col-8 text-black p-4">
+        <div class="text-center">
+          <h1>BIENVENIDO AL GESTOR DE CINES</h1>
+        </div>
+        <br />
+        <h2>Peliculas Disponibles:</h2>
+        <div class="col-12 col-md-6 mx-auto">
+          <div class="input-group mb-3">
+            <input
+              type="search"
+              class="form-control"
+              [(ngModel)]="titulo"
+              placeholder="Ingresa el título de la película o la categoría"
+            />
+            <button type="button" class="btn btn-primary" (click)="buscarPeliculas(titulo)">
+              Buscar
+            </button>
+          </div>
+        </div>
+        <nav aria-label="Paginación">
+          <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="inicio === 0">
+              <button class="page-link" (click)="retroceder()">Anterior</button>
+            </li>
+            <li class="page-item" [class.disabled]="!hayMasPeliculas()">
+              <button class="page-link" (click)="avanzar()">Siguiente</button>
+            </li>
+          </ul>
+        </nav>
+        <div class="row justify-content-center">
+          @for (pelicula of peliculas; track $index) {
+          <div class="col-12 col-md-6 mb-4 justify-content-center">
+            <app-pelicula-card-component
+              [pelicula]="pelicula"
+              [posterUrl]="cargarPoster(pelicula.codigo)"
+            ></app-pelicula-card-component>
+          </div>
+          }
+        </div>
+      </div>
+      <div class="col-2 bg-danger border-start p-3">
+        <h5>Anuncio derecho</h5>
+      </div>
     </div>
-  </div>
-  <br />
-  <nav aria-label="Paginación">
-    <ul class="pagination justify-content-center">
-      <li class="page-item" [class.disabled]="inicio === 0">
-        <button class="page-link" (click)="retroceder()">Anterior</button>
-      </li>
-      <li class="page-item" [class.disabled]="!hayMasPeliculas()">
-        <button class="page-link" (click)="avanzar()">Siguiente</button>
-      </li>
-    </ul>
-  </nav>
-  <div class="row justify-content-center">
-    @for (pelicula of peliculas; track $index) {
-    <div class="col-12 col-md-6 mb-4 justify-content-center">
-      <app-pelicula-card-component [pelicula]="pelicula" [posterUrl]="cargarPoster(pelicula.codigo)"></app-pelicula-card-component>
-    </div>
-    }
   </div>
 </div>
