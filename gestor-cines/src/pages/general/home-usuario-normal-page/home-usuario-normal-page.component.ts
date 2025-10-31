@@ -49,6 +49,9 @@ export class HomeUsuarioNormalPage implements OnInit {
             });
         }
     }
+    cargarPoster(codigo: string): string {
+        return this.peliculasServices.obtenerPosterUrl(codigo);
+    }
     retroceder(): void {
         this.inicio -= this.rango;
         this.obtenerPeliculas();

@@ -3,6 +3,7 @@ package com.ronaldo.gestor.cines.api.rest.dtos.peliculas;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.ronaldo.gestor.cines.api.rest.enums.URL.URLAppi;
 import com.ronaldo.gestor.cines.api.rest.models.herencia.EntidadResponse;
 import com.ronaldo.gestor.cines.api.rest.models.peliculas.Pelicula;
 import java.time.LocalDate;
@@ -108,5 +109,6 @@ public class PeliculaResponse extends EntidadResponse {
        public void setIdsCategorias(String idsCategorias) {
               this.idsCategorias = idsCategorias;
        }
+
 
 }

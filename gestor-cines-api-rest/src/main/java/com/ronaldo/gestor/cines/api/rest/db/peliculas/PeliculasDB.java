@@ -43,6 +43,7 @@ public class PeliculasDB {
                             insert.setString(6, pelicula.getCast());
                             insert.setString(7, pelicula.getClasificacion());
                             insert.setDate(8, Date.valueOf(pelicula.getFechaEstreno()));
+                            insert.setBytes(9, pelicula.getPoster());
                             insert.executeUpdate();
                             //se registran sus categorias y posters
                             insertarCategorias(connection, pelicula.getCodigo(), pelicula.getIdsCategorias());
@@ -236,9 +237,27 @@ public class PeliculasDB {
 
               } catch (SQLException e) {
                      e.printStackTrace();
-                     throw new DataBaseException("Error al obtener cines por categoria o titulo en la db");
+                     throw new DataBaseException("Error al obtener pelicula por categoria o titulo en la db");
               }
               return peliculas;
+       }
+
+       public Optional<byte[]> obtenerPosterPelicula(String codigo) throws DataBaseException {
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement query = connection.
+                             prepareStatement(PeticionAdminSistema.OBTENER_PELICULA.get());) {
+                            query.setString(1, codigo);
+                            ResultSet resultSet = query.executeQuery();
+                            if (resultSet.next()) {
+                                   return Optional.of(resultSet.getBytes("poster"));
+                            }
+                     }
+
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al obtener poster por categoria o titulo en la db");
+              }
+              return Optional.empty();
        }
 
        private Pelicula contruirPelicula(ResultSet resultSet) throws SQLException {

@@ -12,11 +12,9 @@ export class PeliculaServices {
 
     constructor(private httpClient: HttpClient) { }
 
-    public crearNuevaPelicula(pelicula: Pelicula): Observable<void> {
-        return this.httpClient.post<void>(`${this.restConstants.getApiURL()}peliculas`, pelicula);
+    public crearNuevaPelicula(formData: FormData): Observable<void> {
+        return this.httpClient.post<void>(`${this.restConstants.getApiURL()}peliculas`, formData);
     }
-
-
 
     public traerPeliculasPorPagina(inicio: number): Observable<Pelicula[]> {
         return this.httpClient.get<Pelicula[]>(`${this.restConstants.getApiURL()}peliculas/paginacion/${inicio}`);
@@ -36,6 +34,9 @@ export class PeliculaServices {
     public eliminarPelicula(codigo: string): Observable<void> {
         return this.httpClient.delete<void>(
             `${this.restConstants.getApiURL()}peliculas/${codigo}`);
+    }
+    obtenerPosterUrl(codigo: string): string {
+        return `${this.restConstants.getApiURL()}peliculas/poster/${codigo}`;
     }
 
 }

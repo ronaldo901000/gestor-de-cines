@@ -23,6 +23,7 @@ public class Pelicula implements Editable {
        private String clasificacion;
        private LocalDate fechaEstreno;
        private List<String> idsCategorias;
+       private byte[] poster;
 
        public Pelicula() {
        }
@@ -37,9 +38,6 @@ public class Pelicula implements Editable {
               this.clasificacion = clasificacion;
               this.fechaEstreno = fechaEstreno;
        }
-
-       
-       
        
        public String getCodigo() {
               return codigo;
@@ -113,7 +111,13 @@ public class Pelicula implements Editable {
               this.idsCategorias = idsCategorias;
        }
 
-       
+       public byte[] getPoster() {
+              return poster;
+       }
+
+       public void setPoster(byte[] poster) {
+              this.poster = poster;
+       }
 
        public boolean datosValidos() {
               return StringUtils.isNotBlank(codigo)
@@ -123,7 +127,7 @@ public class Pelicula implements Editable {
                       && StringUtils.isNotBlank(cast)
                       && StringUtils.isNotBlank(clasificacion)
                       && idsCategorias != null
-                      && fechaEstreno!=null
+                      && fechaEstreno != null
                       && duracionValida()
                       && codigoTituloCorrecto()
                       && limiteCaracteresCorrecto()
