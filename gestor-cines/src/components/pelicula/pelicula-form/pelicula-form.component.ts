@@ -11,7 +11,6 @@ import { ClasificacionTypeEnum } from '../../../models/pelicula/pelicula-type-en
 import { CommonModule } from '@angular/common';
 import { Pelicula } from '../../../models/pelicula/pelicula';
 import { PeliculaServices } from '../../../services/pelicula/pelicula.services';
-import { Status } from '../../../shared/status/status';
 import { CategoriaService } from '../../../services/categoria/categoria.service';
 import { CategoriaResponse } from '../../../models/categoria/categoria-response';
 @Component({
@@ -26,7 +25,7 @@ export class PeliculaFormComponent implements OnInit {
     peliculaForm!: FormGroup;
     categoriasString!: String
     nuevaPelicula!: Pelicula;
-
+    selectedFile: File | null = null;
     eventTypeOptions: string[] = Object.values(ClasificacionTypeEnum);
 
     constructor(
@@ -48,17 +47,22 @@ export class PeliculaFormComponent implements OnInit {
             clasificacion: [ClasificacionTypeEnum.A, [Validators.required]],
             fechaEstreno: [new Date().toISOString().substring(0, 10), [Validators.required]],
             idsCategorias: [null, [Validators.required, Validators.maxLength(100), Validators.pattern(/^[0-9,]+$/)]],
-
+            poster: [null, [Validators.required]]
         });
     }
 
     crear(): void {
         if (this.peliculaForm.valid) {
-            this.nuevaPelicula = this.peliculaForm.value as Pelicula;
-            this.peliculaServices.crearNuevaPelicula(this.nuevaPelicula).subscribe({
+            this.nuevaPelicula = this.peliculaForm.value;
+            this.peliculaServices.crearNuevaPelicula(this.crearFormData()).subscribe({
                 next: () => {
                     this.toast.titulo = 'Exitoso';
-                    this.toast.mensaje = 'Pelicula con codigo: "' + this.nuevaPelicula.codigo + '" creada exitosamente!!! '
+                    this.toast.mensaje = 'Pelicula creada exitosamente';
+                    this.toast.dato1='Codigo: '+this.nuevaPelicula.codigo;
+                    this.toast.dato2='Titulo: '+this.nuevaPelicula.titulo;
+                    this.toast.dato3='Categorias: '+this.nuevaPelicula.idsCategorias;
+                    this.toast.dato4='Duracion:'+this.nuevaPelicula.duracion;
+                    this.toast.dato5='Clasificacion: '+this.nuevaPelicula.clasificacion;
                     this.toast.tipo = 'success';
                     this.toast.mostrar();
                     this.reset();
@@ -66,19 +70,7 @@ export class PeliculaFormComponent implements OnInit {
                 error: (error) => {
                     this.toast.titulo = 'Error';
                     this.toast.tipo = 'danger';
-                    console.log(error);
-                    if (error.status == Status.CONFLICT) {
-                        this.toast.mensaje = 'Ya existe una pelicula con el codigo: "' + this.nuevaPelicula.codigo + '" usa otro';
-                    } else if (error.status == Status.BAD_REQUEST) {
-                        this.toast.mensaje = 'Error en los datos enviados, por favor ingresa datos correctos';
-                    } else if (error.status == Status.INTERNAL_SERVER_ERROR) {
-                        this.toast.mensaje = 'Error interno del servidor';
-                    } else if (error.status == Status.NOT_FOUND) {
-                        this.toast.mensaje = 'Una de las categorias ingresadas no esta registrada en el sistema,revisa';
-                    }
-                    else {
-                        this.toast.mensaje = 'Error desconocido';
-                    }
+                    this.toast.mensaje = error.error;
                     this.toast.mostrar();
                 }
             });
@@ -105,5 +97,33 @@ export class PeliculaFormComponent implements OnInit {
         });
     }
 
+    crearFormData(): FormData {
+        const formData = new FormData();
+        formData.append('codigo', this.nuevaPelicula.codigo);
+        formData.append('titulo', this.nuevaPelicula.titulo);
+        formData.append('sinopsis', this.nuevaPelicula.sinopsis);
+        formData.append('duracion', this.nuevaPelicula.duracion.toString());
+        formData.append('director', this.nuevaPelicula.director);
+        formData.append('cast', this.nuevaPelicula.cast);
+        formData.append('clasificacion', this.nuevaPelicula.clasificacion);
+        formData.append('duracion', this.nuevaPelicula.duracion.toString());
+        formData.append('idsCategorias', this.nuevaPelicula.idsCategorias);
+        formData.append('poster', this.selectedFile!);
+        const fecha = new Date(this.nuevaPelicula.fechaEstreno);
+        formData.append('fechaEstreno', fecha.toISOString().split('T')[0]);
+        return formData;
+    }
+
+    onFileChange(event: any): void {
+        const files = event.target.files;
+        if (files && files.length > 0) {
+            this.selectedFile = files[0];
+            this.peliculaForm.controls['poster'].setValue(this.selectedFile);
+            this.peliculaForm.controls['poster'].markAsTouched();
+        } else {
+            this.selectedFile = null;
+            this.peliculaForm.controls['poster'].setValue(null);
+        }
+    }
 
 }

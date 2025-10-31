@@ -133,6 +133,22 @@
         "
       />
     </div>
+    <div class="col-6">
+      <label for="poster" class="form-label"><h4>Poster de la pelicula:</h4></label>
+      <input
+        type="file"
+        (change)="onFileChange($event)"
+        class="form-control"
+        id="poster"
+        name="poster"
+        accept="image/*"
+      />
+      @if (peliculaForm.controls['poster'].invalid && peliculaForm.controls['poster'].touched) {
+      <div class="invalid-feedback">
+        <div>Por favor ingresa un poster</div>
+      </div>
+      }
+    </div>
   </div>
   <hr class="my-4" />
   <div class="d-grid gap-2 d-md-flex justify-content-lg-center">

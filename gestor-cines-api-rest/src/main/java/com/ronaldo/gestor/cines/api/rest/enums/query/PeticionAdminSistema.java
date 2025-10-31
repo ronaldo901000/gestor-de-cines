@@ -34,8 +34,8 @@ public enum PeticionAdminSistema {
        OBTENER_CATEGORIAS("select * from categoria_pelicula"),
        OBTENER_CATEGORIA("select * from categoria_pelicula where id=?"),
        OBTENER_PELICULA("select * from pelicula where codigo=?"),
-       CREAR_PELICULA("insert into pelicula (codigo, titulo, sinopsis, duracion, director, cast, clasificacion, fecha_estreno) "
-               + "values (?, ?, ?, ?, ?, ?, ?, ?)"),
+       CREAR_PELICULA("insert into pelicula (codigo, titulo, sinopsis, duracion, director, cast, clasificacion, fecha_estreno,poster) "
+               + "values (?, ?, ?, ?, ?, ?, ?, ?, ?)"),
        CREAR_REGISTRO_CATEGORIAS_PELICULA("insert into registro_categoria_pelicula (id_categoria, codigo_pelicula)"
                + "values (?,?)"),
        OBTENER_PELICULAS("select * from pelicula where activa=1"),

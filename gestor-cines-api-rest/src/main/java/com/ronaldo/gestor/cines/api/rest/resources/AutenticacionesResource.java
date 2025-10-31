@@ -1,4 +1,4 @@
-package com.ronaldo.gestor.cines.api.rest;
+package com.ronaldo.gestor.cines.api.rest.resources;
 
 import com.ronaldo.gestor.cines.api.rest.dtos.credenciales.CredencialRequest;
 import com.ronaldo.gestor.cines.api.rest.exceptions.CredencialInvalidadException;

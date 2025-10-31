@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.ronaldo.gestor.cines.api.rest.models.herencia.EntidadRequest;
+import java.io.InputStream;
 import java.time.LocalDate;
 
 /**
@@ -23,6 +24,7 @@ public class PeliculaRequest extends EntidadRequest {
        @JsonDeserialize(using = LocalDateDeserializer.class)
        private LocalDate fechaEstreno;
        private String idsCategorias;
+       private byte[] poster;
 
        public String getCodigo() {
               return codigo;
@@ -95,6 +97,14 @@ public class PeliculaRequest extends EntidadRequest {
 
        public void setIdsCategorias(String idsCategorias) {
               this.idsCategorias = idsCategorias;
+       }
+
+       public byte[] getPoster() {
+              return poster;
+       }
+
+       public void setPoster(byte[] poster) {
+              this.poster = poster;
        }
 
        

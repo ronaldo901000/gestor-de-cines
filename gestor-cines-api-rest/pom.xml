@@ -76,6 +76,11 @@
             <version>11.0.13</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+            <version>${restapi}</version>
+        </dependency>
     </dependencies>
         
 

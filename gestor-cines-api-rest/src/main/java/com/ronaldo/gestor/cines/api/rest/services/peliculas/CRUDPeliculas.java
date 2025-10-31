@@ -16,9 +16,13 @@ import com.ronaldo.gestor.cines.api.rest.models.herencia.EntidadResponse;
 import com.ronaldo.gestor.cines.api.rest.models.interfaces.Editable;
 import com.ronaldo.gestor.cines.api.rest.models.peliculas.Pelicula;
 import com.ronaldo.gestor.cines.api.rest.services.CRUD;
+import java.io.IOException;
+import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 
 /**
  *
@@ -54,6 +58,39 @@ public class CRUDPeliculas extends CRUD {
               return pelicula;
        }
 
+       public PeliculaRequest construirRequest(String codigo,
+               String titulo,
+               String sinopsis,
+               int duracion,
+               String director,
+               String cast,
+               String clasificacion,
+               String fechaEstreno,
+               String idsCategorias,
+               InputStream posterFileStream,
+               FormDataContentDisposition fileDetails
+       ) throws UserDataInvalidException, IOException {
+              PeliculaRequest peliculaRequest = new PeliculaRequest();
+              peliculaRequest.setCodigo(codigo);
+              peliculaRequest.setTitulo(titulo);
+              peliculaRequest.setSinopsis(sinopsis);
+              peliculaRequest.setDuracion(duracion);
+              peliculaRequest.setDirector(director);
+              peliculaRequest.setCast(cast);
+              peliculaRequest.setClasificacion(clasificacion);
+              if (fechaEstreno == null || fechaEstreno.isBlank()) {
+                     throw new UserDataInvalidException("La fecha de estreno es obligatoria.");
+              }
+              LocalDate fecha = LocalDate.parse(fechaEstreno);
+              peliculaRequest.setFechaEstreno(fecha);
+              peliculaRequest.setIdsCategorias(idsCategorias);
+              if (posterFileStream != null) {
+                     byte[] posterBytes = posterFileStream.readAllBytes();
+                     peliculaRequest.setPoster(posterBytes);
+              }
+              return peliculaRequest;
+       }
+
        /**
         *
         * @param entidadRequest
@@ -73,8 +110,8 @@ public class CRUDPeliculas extends CRUD {
               pelicula.setClasificacion(peliculaRequest.getClasificacion().trim());
               pelicula.setFechaEstreno(peliculaRequest.getFechaEstreno());
               pelicula.setIdsCategorias(extraerIDsCategorias(peliculaRequest));
-
-              if (!pelicula.datosValidos()) {
+              pelicula.setPoster(peliculaRequest.getPoster());
+              if (!pelicula.datosValidos() && pelicula.getPoster() != null) {
                      throw new UserDataInvalidException("Error en los datos enviados");
               }
 
@@ -253,5 +290,17 @@ public class CRUDPeliculas extends CRUD {
               }
               peliculasDB.eliminar(codigo);
        }
-       
+
+       public byte[] obtenerPoster(String codigo) throws EntityNotFoundException, DataBaseException {
+              PeliculasDB peliculasDB = new PeliculasDB();
+              HerramientaDB herramientaDB = new HerramientaDB();
+              if (!herramientaDB.existeEntidad(codigo, PeticionAdminSistema.OBTENER_PELICULA.get())) {
+                     throw new EntityNotFoundException("No se encontro la pelicula con codigo " + codigo + " en el sistema");
+              }
+              Optional<byte[]> poster = peliculasDB.obtenerPosterPelicula(codigo);
+              if (poster.isEmpty()) {
+                     throw new EntityNotFoundException("No hay poster en la base de datos");
+              }
+              return poster.get();
+       }
 }

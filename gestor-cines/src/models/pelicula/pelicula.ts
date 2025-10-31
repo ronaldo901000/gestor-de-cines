@@ -7,6 +7,6 @@ export interface Pelicula {
     cast: string,
     clasificacion: string,
     fechaEstreno: Date,
-    idsCategorias: string
-
+    idsCategorias: string,
+    poster:File
 }
