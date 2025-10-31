@@ -8,6 +8,7 @@ import { TiposAnuncio } from "../../../shared/tipo-anuncio/tipo-anuncio";
 import { UserProperties } from "../../../shared/user/user-properties";
 import { AnuncioServices } from "../../../services/anuncio/anuncio.services";
 import { AnuncioVideo } from "../../../models/anuncio/anuncio-video";
+import { AnuncioImagen } from "../../../models/anuncio/anuncio-imagen";
 
 @Component({
     selector: 'app-anuncio-form-component',
@@ -19,7 +20,8 @@ export class AnuncioFormComponent {
     @ViewChild('toast') toast!: ToastComponent;
     nuevoAnuncioForm!: FormGroup;
     nuevoAnuncioTexto!: Anuncio;
-    nuevoAnuncioVideo!: AnuncioVideo
+    nuevoAnuncioVideo!: AnuncioVideo;
+    nuevoAnuncioImagen!: AnuncioImagen;
     @Input()
     tipoAnuncio!: string;
 
@@ -30,7 +32,7 @@ export class AnuncioFormComponent {
     actualizarSaldo = new EventEmitter<void>();
 
     idAnuciante!: string | null;
-
+    selectedFile: File | null = null;
     constructor(private formBuilder: FormBuilder, private anuncioServices: AnuncioServices) {
 
     }
@@ -63,6 +65,16 @@ export class AnuncioFormComponent {
                     this.anuncioServices.crearAnuncioDeVideo(this.nuevoAnuncioVideo).subscribe({
                         next: () => {
                             this.mostrarMensajeYAvisar(this.nuevoAnuncioVideo);
+                        },
+                        error: (error) => {
+                            this.mostrarError(error);
+                        }
+                    });
+                } else if (this.tipoAnuncio == TiposAnuncio.IMAGEN) {
+                    this.nuevoAnuncioImagen = this.nuevoAnuncioForm.value as AnuncioImagen;
+                    this.anuncioServices.crearAnuncioImagen(this.crearFormData()).subscribe({
+                        next: () => {
+                            this.mostrarMensajeYAvisar(this.nuevoAnuncioImagen);
                         },
                         error: (error) => {
                             this.mostrarError(error);
@@ -145,6 +157,7 @@ export class AnuncioFormComponent {
             tipo: this.tipoAnuncio,
             precio: this.precio
         });
+        this.selectedFile=null;
     }
 
     reiniciarToast(): void {
@@ -154,5 +167,32 @@ export class AnuncioFormComponent {
         this.toast.dato4 = '';
         this.toast.dato5 = '';
     }
+    crearFormData(): FormData {
+        const formData = new FormData();
+        if(this.idAnuciante){
+        formData.append('codigo', this.nuevoAnuncioImagen.codigo);
+        formData.append('idAnunciante', this.idAnuciante);
+        formData.append('titulo', this.nuevoAnuncioImagen.titulo);
+        formData.append('tipo', this.nuevoAnuncioImagen.tipo);
+        formData.append('descripcion', this.nuevoAnuncioImagen.duracion.toString());
+        const fecha = new Date(this.nuevoAnuncioImagen.fechaRegistro);
+        formData.append('fechaRegistro', fecha.toISOString().split('T')[0]);
+        formData.append('precio', this.nuevoAnuncioImagen.precio.toString());
+        formData.append('duracion', this.nuevoAnuncioImagen.duracion.toString());
+        formData.append('imagen', this.selectedFile!);
+        }
+        return formData;
+    }
 
+    onFileChange(event: any): void {
+        const files = event.target.files;
+        if (files && files.length > 0) {
+            this.selectedFile = files[0];
+            this.nuevoAnuncioForm.controls['imagen'].setValue(this.selectedFile);
+            this.nuevoAnuncioForm.controls['imagen'].markAsTouched();
+        } else {
+            this.selectedFile = null;
+            this.nuevoAnuncioForm.controls['poimagenster'].setValue(null);
+        }
+    }
 }

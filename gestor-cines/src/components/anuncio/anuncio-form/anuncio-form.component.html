@@ -69,21 +69,22 @@
           />
         </div>
         } @if(tipoAnuncio=='IMAGEN'){
-        <div class="col-6 justify-content-lg-center">
-          <label for="imagen" class="form-label"><h4>Imagen para el anuncio:</h4></label>
+        <div class="col-6">
+          <label for="imagen" class="form-label"><h4>Imagen del anuncio:</h4></label>
           <input
             type="file"
+            (change)="onFileChange($event)"
             class="form-control"
-            placeholder="Selecciona la imagen para tu anuncio"
             id="imagen"
             name="imagen"
-            formControlName="imagen"
             accept="image/*"
-            [class.is-invalid]="
-              nuevoAnuncioForm.controls['imagen'].dirty &&
-              nuevoAnuncioForm.controls['imagen'].invalid
-            "
           />
+          @if (nuevoAnuncioForm.controls['imagen'].invalid &&
+          nuevoAnuncioForm.controls['imagen'].touched) {
+          <div class="invalid-feedback">
+            <div>Por favor ingresa un poster</div>
+          </div>
+          }
         </div>
         }
       </div>

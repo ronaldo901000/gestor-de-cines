@@ -1,9 +1,14 @@
 package com.ronaldo.gestor.cines.api.rest.db.anuncios;
 
 import com.ronaldo.gestor.cines.api.rest.db.DataSourceDBSingleton;
+import com.ronaldo.gestor.cines.api.rest.db.general.HerramientaDB;
 import com.ronaldo.gestor.cines.api.rest.db.usuarios.UsuariosDB;
+import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionAdminSistema;
+import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionesAnunciante;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
+import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
 import com.ronaldo.gestor.cines.api.rest.models.anuncios.Anuncio;
+import com.ronaldo.gestor.cines.api.rest.models.anuncios.AnuncioImagen;
 import com.ronaldo.gestor.cines.api.rest.services.anuncios.CRUDAnuncios;
 import java.sql.Connection;
 import java.sql.Date;
@@ -45,6 +50,32 @@ public class AnunciosDB {
               }
        }
 
+       public void crearAnuncioImagen(AnuncioImagen anuncio, double costoTotal) throws DataBaseException {
+              UsuariosDB usuariosDB = new UsuariosDB();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     connection.setAutoCommit(false);
+                     try (PreparedStatement insert = connection.
+                             prepareStatement(PeticionesAnunciante.CREAR_ANUNCIO_IMAGEN.get())) {
+
+                            insertarDatosComunesAnuncio(insert, anuncio);
+                            insert.setBytes(9, anuncio.getImagen());
+                            insert.executeUpdate();
+                            //se actualiza el credito del usuario
+                            usuariosDB.pagar(anuncio.getIdAnunciante(), costoTotal, connection);
+                            //se confirma la transaccion
+                            connection.commit();
+
+                     } catch (SQLException ex) {
+                            connection.rollback();
+                            ex.printStackTrace();
+                            throw new DataBaseException("No se pudo crear el anuncio de imagen en la db");
+                     } finally {
+                            connection.setAutoCommit(true);
+                     }
+              } catch (SQLException e) {
+                     throw new DataBaseException("Error al crear anuncio en la db");
+              }
+       }
 
        public void insertarDatosComunesAnuncio(PreparedStatement insert, Anuncio anuncio) throws SQLException {
               insert.setString(1, anuncio.getCodigo());
@@ -56,5 +87,6 @@ public class AnunciosDB {
               insert.setDouble(7, anuncio.getPrecio());
               insert.setInt(8, anuncio.getDuracion());
        }
+
 
 }

@@ -22,6 +22,10 @@ export class AnuncioServices {
         return this.httpClient.post<void>(`${this.restConstants.getApiURL()}anuncios/video/`, anuncio);
     }
 
+    public crearAnuncioImagen(anuncio: FormData): Observable<void> {
+        return this.httpClient.post<void>(`${this.restConstants.getApiURL()}anuncios/imagen/`, anuncio);
+    }
+
     public traerCinesPorPagina(inicio: number): Observable<Cine[]> {
         return this.httpClient.get<Cine[]>(`${this.restConstants.getApiURL()}cines/pagina/${inicio}`);
     }
