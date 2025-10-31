@@ -79,7 +79,7 @@ public class CRUDPeliculas extends CRUD {
               peliculaRequest.setCast(cast);
               peliculaRequest.setClasificacion(clasificacion);
               if (fechaEstreno == null || fechaEstreno.isBlank()) {
-                     throw new UserDataInvalidException("La fecha de estreno es obligatoria.");
+                     throw new UserDataInvalidException("La fecha de estreno es obligatoria");
               }
               LocalDate fecha = LocalDate.parse(fechaEstreno);
               peliculaRequest.setFechaEstreno(fecha);

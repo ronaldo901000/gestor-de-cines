@@ -2,9 +2,9 @@ package com.ronaldo.gestor.cines.api.rest.services.anuncios;
 
 import com.ronaldo.gestor.cines.api.rest.db.anuncios.AnunciosDB;
 import com.ronaldo.gestor.cines.api.rest.db.general.HerramientaDB;
+import com.ronaldo.gestor.cines.api.rest.dtos.anuncios.AnuncioImagenRequest;
 import com.ronaldo.gestor.cines.api.rest.dtos.anuncios.AnuncioTextoRequest;
 import com.ronaldo.gestor.cines.api.rest.dtos.anuncios.AnuncioVideoRequest;
-import com.ronaldo.gestor.cines.api.rest.dtos.anuncios.AnunciosRequest;
 import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionAdminSistema;
 import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionesAnunciante;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
@@ -13,10 +13,15 @@ import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.SaldoInsuficienteException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.UserDataInvalidException;
 import com.ronaldo.gestor.cines.api.rest.models.anuncios.Anuncio;
+import com.ronaldo.gestor.cines.api.rest.models.anuncios.AnuncioImagen;
 import com.ronaldo.gestor.cines.api.rest.models.anuncios.AnuncioTexto;
 import com.ronaldo.gestor.cines.api.rest.models.anuncios.AnuncioVideo;
 import com.ronaldo.gestor.cines.api.rest.models.usuario.Usuario;
+import java.io.IOException;
+import java.io.InputStream;
+import java.time.LocalDate;
 import org.apache.commons.lang3.StringUtils;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 
 /**
  *
@@ -25,6 +30,7 @@ import org.apache.commons.lang3.StringUtils;
 public class CRUDAnuncios {
 
        public static final int ID_PRECIO_ANUNCIO_TXT = 1;
+       public static final int ID_PRECIO_ANUNCIO_IMAGEN = 2;
        public static final int ID_PRECIO_ANUNCIO_VIDEO = 3;
 
        /**
@@ -107,6 +113,9 @@ public class CRUDAnuncios {
               if (!herramientaDB.existeEntidad(anuncio.getIdAnunciante(), PeticionAdminSistema.OBTENER_USUARIO.get())) {
                      throw new EntityNotFoundException("El id " + anuncio.getIdAnunciante() + " no pertenece a ningun usuario");
               }
+              if (!herramientaDB.existeEntidad(anuncio.getIdAnunciante(), PeticionAdminSistema.OBTENER_UN_ANUNCIANTE.get())) {
+                     throw new EntityNotFoundException("El ID " + anuncio.getIdAnunciante() + " no es anunciante");
+              }
        }
 
        /**
@@ -177,4 +186,76 @@ public class CRUDAnuncios {
               }
               return anuncio;
        }
+
+       public AnuncioImagenRequest crearRequestAnuncioImagen(
+               String codigo,
+               String idAnunciante,
+               String titulo,
+               String tipo,
+               String descripcion,
+               String fechaRegistro,
+               double precio,
+               int duracion,
+               InputStream imagenFileStream,
+               FormDataContentDisposition fileDetails
+       ) throws UserDataInvalidException, IOException {
+              AnuncioImagenRequest anuncio = new AnuncioImagenRequest();
+              anuncio.setCodigo(codigo);
+              anuncio.setIdAnunciante(idAnunciante);
+              anuncio.setTitulo(titulo);
+              anuncio.setTipo(tipo);
+              anuncio.setDescripcion(descripcion);
+              if (fechaRegistro == null || fechaRegistro.isBlank()) {
+                     throw new UserDataInvalidException("La fecha es obligatoria");
+              }
+              LocalDate fecha = LocalDate.parse(fechaRegistro);
+              anuncio.setFechaRegistro(fecha);
+              anuncio.setPrecio(precio);
+              anuncio.setDuracion(duracion);
+              if (imagenFileStream != null) {
+                     byte[] imagenBytes = imagenFileStream.readAllBytes();
+                     anuncio.setImagen(imagenBytes);
+              }
+              return anuncio;
+       }
+
+       private AnuncioImagen extraerAuncioImagen(AnuncioImagenRequest request) throws UserDataInvalidException {
+              AnuncioImagen anuncio = new AnuncioImagen();
+              anuncio.setCodigo(request.getCodigo());
+              anuncio.setIdAnunciante(request.getIdAnunciante());
+              anuncio.setTitulo(request.getTitulo());
+              anuncio.setTipo(request.getTipo());
+              anuncio.setDescripcion(request.getDescripcion());
+              anuncio.setFechaRegistro(request.getFechaRegistro());
+              anuncio.setPrecio(request.getPrecio());
+              anuncio.setDuracion(request.getDuracion());
+              anuncio.setImagen(request.getImagen());
+              if (!anuncio.datosValidos()) {
+                     throw new UserDataInvalidException("Error en los datos enviados");
+              }
+
+              if (anuncio.getImagen() == null) {
+                     throw new UserDataInvalidException("Imagen no enviada");
+              }
+              return anuncio;
+       }
+
+       public void crearAnuncioImagen(AnuncioImagenRequest anuncioRequest) throws UserDataInvalidException,
+               EntityAlreadyExistsException, DataBaseException, EntityNotFoundException, SaldoInsuficienteException {
+              AnunciosDB anunciosDB = new AnunciosDB();
+              Usuario usuario = new Usuario();
+
+              AnuncioImagen anuncio = extraerAuncioImagen(anuncioRequest);
+              usuario.setId(anuncio.getIdAnunciante());
+              //se verifican las disponibilidades en la db y si el usuario cuenta con los creditos necesarios
+              verificarExistenciasEnDB(anuncio);
+              double costoTotal = anuncio.calcularCantidadApagar(ID_PRECIO_ANUNCIO_IMAGEN);
+
+              verificarSaldoAnunciante(costoTotal, anuncio.getIdAnunciante());
+
+              //se crea el anuncio
+              anunciosDB.crearAnuncioImagen(anuncio, costoTotal);
+       }
+
+
 }

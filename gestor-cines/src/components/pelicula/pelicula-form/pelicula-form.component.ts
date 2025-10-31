@@ -53,16 +53,17 @@ export class PeliculaFormComponent implements OnInit {
 
     crear(): void {
         if (this.peliculaForm.valid) {
+            this.reiniciarToast();
             this.nuevaPelicula = this.peliculaForm.value;
             this.peliculaServices.crearNuevaPelicula(this.crearFormData()).subscribe({
                 next: () => {
                     this.toast.titulo = 'Exitoso';
                     this.toast.mensaje = 'Pelicula creada exitosamente';
-                    this.toast.dato1='Codigo: '+this.nuevaPelicula.codigo;
-                    this.toast.dato2='Titulo: '+this.nuevaPelicula.titulo;
-                    this.toast.dato3='Categorias: '+this.nuevaPelicula.idsCategorias;
-                    this.toast.dato4='Duracion:'+this.nuevaPelicula.duracion;
-                    this.toast.dato5='Clasificacion: '+this.nuevaPelicula.clasificacion;
+                    this.toast.dato1 = 'Codigo: ' + this.nuevaPelicula.codigo;
+                    this.toast.dato2 = 'Titulo: ' + this.nuevaPelicula.titulo;
+                    this.toast.dato3 = 'Categorias: ' + this.nuevaPelicula.idsCategorias;
+                    this.toast.dato4 = 'Duracion:' + this.nuevaPelicula.duracion;
+                    this.toast.dato5 = 'Clasificacion: ' + this.nuevaPelicula.clasificacion;
                     this.toast.tipo = 'success';
                     this.toast.mostrar();
                     this.reset();
@@ -124,6 +125,14 @@ export class PeliculaFormComponent implements OnInit {
             this.selectedFile = null;
             this.peliculaForm.controls['poster'].setValue(null);
         }
+    }
+
+    reiniciarToast(): void {
+        this.toast.dato1 = '';
+        this.toast.dato2 = '';
+        this.toast.dato3 = '';
+        this.toast.dato4 = '';
+        this.toast.dato5 = '';
     }
 
 }

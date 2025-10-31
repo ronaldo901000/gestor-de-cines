@@ -12,6 +12,8 @@ public enum PeticionesAnunciante {
        OBTENER_COSTO_ANUNCIO("select * from precio_anuncio where id=?"),
        CREAR_ANUNCIO_VIDEO("insert into anuncio (codigo, id_anunciante, titulo, tipo, "
                + "descripcion, fecha_registro, precio, duracion_dias,link_video) values(?, ?, ?, ?, ?, ?, ?, ?, ?)"),
+       CREAR_ANUNCIO_IMAGEN("insert into anuncio (codigo, id_anunciante, titulo, tipo, "
+               + "descripcion, fecha_registro, precio, duracion_dias,imagen) values(?, ?, ?, ?, ?, ?, ?, ?, ?)"),
        ;
        private String peticion;
 
