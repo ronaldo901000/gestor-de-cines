@@ -1,19 +1,21 @@
 package com.ronaldo.gestor.cines.api.rest.db.anuncios;
 
 import com.ronaldo.gestor.cines.api.rest.db.DataSourceDBSingleton;
-import com.ronaldo.gestor.cines.api.rest.db.general.HerramientaDB;
 import com.ronaldo.gestor.cines.api.rest.db.usuarios.UsuariosDB;
-import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionAdminSistema;
+import com.ronaldo.gestor.cines.api.rest.dtos.anuncios.AnuncioResponse;
 import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionesAnunciante;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
-import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
 import com.ronaldo.gestor.cines.api.rest.models.anuncios.Anuncio;
 import com.ronaldo.gestor.cines.api.rest.models.anuncios.AnuncioImagen;
 import com.ronaldo.gestor.cines.api.rest.services.anuncios.CRUDAnuncios;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -88,5 +90,33 @@ public class AnunciosDB {
               insert.setInt(8, anuncio.getDuracion());
        }
 
-
+       public List<AnuncioResponse> obtenerAnuncios(String idAnunciante) throws DataBaseException {
+              List<AnuncioResponse> anuncios = new ArrayList<>();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement query = connection.
+                             prepareStatement(PeticionesAnunciante.OBTENER_MIS_ANUNCIOS.get())) {
+                            query.setString(1, idAnunciante);
+                            ResultSet resultSet = query.executeQuery();
+                            while (resultSet.next()) {
+                                   AnuncioResponse anuncio = new AnuncioResponse();
+                                   anuncio.setCodigo(resultSet.getString("codigo"));
+                                   anuncio.setIdAnunciante(resultSet.getString("id_anunciante"));
+                                   anuncio.setTitulo(resultSet.getString("titulo"));
+                                   anuncio.setTipo(resultSet.getString("tipo"));
+                                   anuncio.setDescripcion(resultSet.getString("descripcion"));
+                                   anuncio.setFechaRegistro(LocalDate.parse(resultSet.getString("fecha_registro")));
+                                   anuncio.setPrecio(resultSet.getDouble("precio"));
+                                   anuncio.setDiasDuracion(resultSet.getInt("duracion_dias"));
+                                   anuncio.setDiasActivo(resultSet.getInt("dias_activo"));
+                                   anuncio.setActivo(resultSet.getBoolean("activo"));
+                                   anuncios.add(anuncio);
+                            }
+                            System.out.println("total anuncios: "+ anuncios.size());
+                     }
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al obtener anuncio en la db");
+              }
+              return anuncios;
+       }
 }

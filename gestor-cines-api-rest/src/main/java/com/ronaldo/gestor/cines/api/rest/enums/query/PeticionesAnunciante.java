@@ -14,6 +14,7 @@ public enum PeticionesAnunciante {
                + "descripcion, fecha_registro, precio, duracion_dias,link_video) values(?, ?, ?, ?, ?, ?, ?, ?, ?)"),
        CREAR_ANUNCIO_IMAGEN("insert into anuncio (codigo, id_anunciante, titulo, tipo, "
                + "descripcion, fecha_registro, precio, duracion_dias,imagen) values(?, ?, ?, ?, ?, ?, ?, ?, ?)"),
+       OBTENER_MIS_ANUNCIOS("select * from anuncio where id_anunciante=?"),
        ;
        private String peticion;
 
