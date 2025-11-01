@@ -11,6 +11,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -67,6 +70,40 @@ public class CompraBoletosDB {
                      throw new DataBaseException("Error al obtener boletos vendidos en la db");
               }
               return contador;
+       }
+       
+       /**
+        * 
+        * @param idUsuario
+        * @param inicio
+        * @param fin
+        * @return
+        */
+       public List<CompraBoletos> obtenerMisBoletosPorRango(String idUsuario, int inicio, int fin) throws DataBaseException {
+              List<CompraBoletos> boletos = new ArrayList<>();
+              int contador = 0;
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement query = connection.
+                             prepareStatement(PeticionUsuario.OBTENER_MIS_BOLETOS.get())) {
+                            query.setString(1, idUsuario);
+                            ResultSet resultSet = query.executeQuery();
+                            while (resultSet.next()) {
+                                   if (contador >= inicio && contador < fin) {
+                                          CompraBoletos compra = new CompraBoletos();
+                                          compra.setIdUsuario(idUsuario);
+                                          compra.setCodigoProyeccion(resultSet.getString("codigo_proyeccion"));
+                                          compra.setFechaCompra(LocalDate.parse(resultSet.getString("fecha_compra")));
+                                          compra.setCantidad(resultSet.getInt("cantidad"));
+                                          compra.setCostoTotal(resultSet.getDouble("costo_total"));
+                                          boletos.add(compra);
+                                   }
+                                   contador++;
+                            }
+                     }
+              } catch (SQLException e) {
+                     throw new DataBaseException("Error al obtener boletos en la db");
+              }
+              return boletos;
        }
 
 }

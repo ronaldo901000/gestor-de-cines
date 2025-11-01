@@ -4,9 +4,11 @@ import com.ronaldo.gestor.cines.api.rest.db.compraBoletos.CompraBoletosDB;
 import com.ronaldo.gestor.cines.api.rest.db.general.HerramientaDB;
 import com.ronaldo.gestor.cines.api.rest.db.usuarios.UsuariosDB;
 import com.ronaldo.gestor.cines.api.rest.dtos.compraBoletos.CompraBoletosRequest;
+import com.ronaldo.gestor.cines.api.rest.dtos.compraBoletos.CompraBoletosResponse;
 import com.ronaldo.gestor.cines.api.rest.dtos.proyecciones.ProyeccionResponse;
 import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionUsuario;
 import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionesAdminCine;
+import com.ronaldo.gestor.cines.api.rest.enums.query.RangoBusquedaElemento;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.FaltaBoletosException;
@@ -14,6 +16,8 @@ import com.ronaldo.gestor.cines.api.rest.exceptions.SaldoInsuficienteException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.UserDataInvalidException;
 import com.ronaldo.gestor.cines.api.rest.models.compraBoletos.CompraBoletos;
 import com.ronaldo.gestor.cines.api.rest.services.proyecciones.CRUDProyecciones;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -161,5 +165,30 @@ public class CRCompraBoletos {
                      throw new UserDataInvalidException("Error en los datos enviados");
               }
               return compra;
+       }
+
+       public List<CompraBoletosResponse> obtenerBoletosComprados(String idUsuario, int inicio) throws DataBaseException, EntityNotFoundException {
+              CompraBoletosDB compraBoletosDB = new CompraBoletosDB();
+              int fin = inicio + RangoBusquedaElemento.MIS_COMPRAS.getRango();
+              List<CompraBoletos> compras = compraBoletosDB.obtenerMisBoletosPorRango(idUsuario, inicio, fin);
+
+              return contruirResponse(compras);
+
+       }
+
+       private List<CompraBoletosResponse> contruirResponse(List<CompraBoletos> boletos) throws EntityNotFoundException, DataBaseException {
+              CRUDProyecciones crud = new CRUDProyecciones();
+              List<CompraBoletosResponse> responses = new ArrayList<>();
+              for (int i = 0; i < boletos.size(); i++) {
+                     ProyeccionResponse proyeccionResponse = crud.obtenerProyeccion(boletos.get(i).getCodigoProyeccion());
+                     CompraBoletosResponse response = new CompraBoletosResponse();
+                     response.setIdUsuario(boletos.get(i).getIdUsuario());
+                     response.setCantidad(boletos.get(i).getCantidad());
+                     response.setCostoTotal(boletos.get(i).getCostoTotal());
+                     response.setFechaCompra(boletos.get(i).getFechaCompra());
+                     response.setProyeccion(proyeccionResponse);
+                     responses.add(response);
+              }
+              return responses;
        }
 }

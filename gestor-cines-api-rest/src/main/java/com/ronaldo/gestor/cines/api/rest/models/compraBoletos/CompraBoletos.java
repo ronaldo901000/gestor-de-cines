@@ -56,7 +56,7 @@ public class CompraBoletos implements Editable {
               return costoTotal;
        }
 
-       public void setCostoTotal(int costoTotal) {
+       public void setCostoTotal(double costoTotal) {
               this.costoTotal = costoTotal;
        }
 
