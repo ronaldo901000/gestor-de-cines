@@ -9,7 +9,8 @@ public enum RangoBusquedaElemento {
        PELICULAS(6),
        SALAS(5),
        PROYECCIONES(5),
-       ANUNCIOS(2)
+       ANUNCIOS(2),
+       MIS_COMPRAS(5),
        ;
        private int rango;
 

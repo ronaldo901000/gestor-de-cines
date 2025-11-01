@@ -20,7 +20,7 @@
         aria-current="page"
         [routerLinkActiveOptions]="{ exact: true }"
       >
-        Gestion Salas
+        Salas
       </a>
       <a
         routerLink="/peliculas"
@@ -45,8 +45,6 @@
         <i class="bi bi-coin fs-6"></i>
         Saldo Cine
       </a>
-      <div class="m-4"></div>
-      <div class="m-4"></div>
       <div class="m-4"></div>
       @if (esAnunciante=='true') {
       <a
@@ -87,6 +85,14 @@
         [routerLinkActiveOptions]="{ exact: true }"
       >
         Cines Disponibles
+      </a>
+      <a
+        routerLink="/boletos/mis-boletos"
+        routerLinkActive="active"
+        class="btn btn-outline-light me-1 btn-lg"
+      >
+        <i class="bi bi-cart"></i>
+        Mis Compras
       </a>
       <h2>ID: {{ idUsuario }}</h2>
       <div class="ms-auto text-end">

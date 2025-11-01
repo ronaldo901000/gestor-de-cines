@@ -1,0 +1,46 @@
+@if (rol=='ADMIN-CINE') {
+<app-header-admin-cine></app-header-admin-cine>
+} @if (rol=='ADMIN-SISTEMA') {
+<app-header-admin-sistema></app-header-admin-sistema>
+} @if (rol=='USUARIO-NORMAL') {
+<app-header-usuario-normal></app-header-usuario-normal>
+}
+<div id="contenedor">
+  <div class="container-fluid">
+    <div class="row min-vh-100">
+      <div class="col-2 bg-info border-end p-3">
+        <h5>Anuncio Izquierdo</h5>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anuncios.length>0){
+        <app-anuncio-card-component [anuncio]="anuncios[0]"></app-anuncio-card-component>
+        }
+      </div>
+      <div class="col-8 text-black p-4">
+        <div class="text-center">
+          <h1><strong>Mis Compras de boletos </strong></h1>
+        </div>
+        <br />
+        <br />
+        @if(idUser){
+        <app-mis-compras-table-component [idUser]="idUser"></app-mis-compras-table-component>
+        }
+        <br />
+      </div>
+      <div class="col-2 bg-danger border-start p-3">
+        <h5>Anuncio derecho</h5>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anuncios.length==2){
+        <app-anuncio-card-component [anuncio]="anuncios[1]"></app-anuncio-card-component>
+        }
+      </div>
+    </div>
+  </div>
+</div>

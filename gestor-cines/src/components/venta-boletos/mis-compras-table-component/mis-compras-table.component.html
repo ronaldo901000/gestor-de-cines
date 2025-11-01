@@ -1,0 +1,61 @@
+<app-toast-component #toast></app-toast-component>
+<div class="text-center" id="tabla">
+  <nav aria-label="Paginación">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="inicio === 0">
+        <button class="page-link" (click)="retrocederUnaPagina()">Anterior</button>
+      </li>
+      <li class="page-item" [class.disabled]="!hayMasCompras()">
+        <button class="page-link" (click)="avanzarUnaPagina()">Siguiente</button>
+      </li>
+    </ul>
+  </nav>
+  @if(compras.length==0){
+  <h2>No tienes compras</h2>
+  } @if(compras.length>0){
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Pelicula</th>
+        <th scope="col">Sala</th>
+        <th scope="col">Cantidad boletos</th>
+        <th scope="col">Fecha de compra</th>
+        <th scope="col">Costo</th>
+        <th scope="col">Hora Inicio</th>
+        <th scope="col">Hora Fin</th>
+        <th scope="col">Comentar Pelicula</th>
+        <th scope="col">Comentar Sala</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (compra of compras; track $index) {
+      <tr>
+        <td>{{ compra.proyeccion.pelicula.titulo }}</td>
+        <td>{{ compra.proyeccion.sala.nombre }}</td>
+        <td>{{ compra.cantidad }}</td>
+        <td>{{ compra.fechaCompra | date : 'dd MMMM yyyy' }}</td>
+        <td>{{ compra.costoTotal | currency : 'Q.' }}</td>
+        <td>{{ compra.proyeccion.horaInicio }}</td>
+        <td>{{ compra.proyeccion.horaFin }}</td>
+        <td>
+          <a
+            routerLink="/proyecciones-de-pelicula/compra-boletos/{{ compra.proyeccion.pelicula }}"
+            class="btn btn-warning"
+          >
+            <i class="bi bi-pencil"> </i>
+          </a>
+        </td>
+        <td>
+          <a
+            routerLink="/proyecciones-de-pelicula/compra-boletos/{{ compra.proyeccion.pelicula }}"
+            class="btn btn-warning"
+          >
+            <i class="bi bi-pencil"> </i>
+          </a>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  }
+</div>

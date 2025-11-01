@@ -20,6 +20,7 @@ public enum PeticionUsuario {
        CREAR_COMPRA_BOLETO("insert into compra_boletos (id_usuario, codigo_proyeccion, fecha_compra, cantidad, costo_total)"
                + " values(?, ?, ?, ?, ?)"),
        PAGAR_TRANSACCION("update usuario set creditos=creditos-? where id=?"),
+       OBTENER_MIS_BOLETOS("select * from compra_boletos where id_usuario=?"),
        ;
        
        private String peticion;

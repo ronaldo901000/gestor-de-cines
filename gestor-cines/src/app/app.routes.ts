@@ -40,6 +40,7 @@ import { HomeUsuarioNormalPage } from '../pages/general/home-usuario-normal-page
 import { ProyeccionesPeliculaPageComponent } from '../pages/general/proyecciones-page/proyecciones-page';
 import { CinesDisponiblesPage } from '../pages/general/cines-page/cines-page.component ';
 import { CompraBoletosPageComponent } from '../pages/general/comprar-boletos-page/compra-boletos-page.component';
+import { MisComprasPage } from '../pages/general/mis-compras-page/mis-compras-page';
 export const routes: Routes = [
     {
         path: '',
@@ -268,5 +269,11 @@ export const routes: Routes = [
         canActivate: [RoleGuardService],
         data: { allowedRoles: [Roles.ADMIN_CINE, Roles.ADMIN_SISTEMA, Roles.USUARIO_NORMAL] },
         component: CompraBoletosPageComponent
+    },
+    {
+        path: 'boletos/mis-boletos',
+        canActivate:[RoleGuardService],
+        data: { allowedRoles: [Roles.ADMIN_CINE, Roles.ADMIN_SISTEMA, Roles.USUARIO_NORMAL] },
+        component: MisComprasPage
     }
 ];
