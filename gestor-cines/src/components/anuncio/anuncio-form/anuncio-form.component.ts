@@ -105,7 +105,7 @@ export class AnuncioFormComponent {
                 codigo: [null, [Validators.required, Validators.maxLength(25), Validators.pattern(/^[a-zA-Z0-9-ñ]+$/)]],
                 idAnunciante: [this.idAnuciante, Validators.required],
                 titulo: [null, [Validators.required, Validators.pattern(/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ,.'":;!¿?()\-]+$/)]],
-                descripcion: [null, [Validators.required, Validators.pattern(/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ,.'":;!¿?()\-]+$/)]],
+                descripcion: [null, [Validators.required, Validators.pattern(/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ,.'":;!¿?()\-]+$/), Validators.maxLength(300)]],
                 linkVideo: [null, Validators.required],
                 fechaRegistro: [new Date().toISOString().substring(0, 10), [Validators.required]],
                 duracion: [1, Validators.required],
@@ -174,7 +174,7 @@ export class AnuncioFormComponent {
         formData.append('idAnunciante', this.idAnuciante);
         formData.append('titulo', this.nuevoAnuncioImagen.titulo);
         formData.append('tipo', this.nuevoAnuncioImagen.tipo);
-        formData.append('descripcion', this.nuevoAnuncioImagen.duracion.toString());
+        formData.append('descripcion', this.nuevoAnuncioImagen.descripcion);
         const fecha = new Date(this.nuevoAnuncioImagen.fechaRegistro);
         formData.append('fechaRegistro', fecha.toISOString().split('T')[0]);
         formData.append('precio', this.nuevoAnuncioImagen.precio.toString());

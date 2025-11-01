@@ -50,4 +50,13 @@ public class GeneradorAnuncios {
               }
               return imagen.get();
        }
+
+       public String obtenerLink(String codigoAnuncio) throws DataBaseException, EntityNotFoundException {
+              AnunciosDB anunciosDB = new AnunciosDB();
+              Optional<String> link=anunciosDB.obtenerLink(codigoAnuncio);
+              if(link.isEmpty()){
+                     throw new EntityNotFoundException("link del anuncio no encontrado en la base de datos");
+              }
+              return link.get();
+       }
 }

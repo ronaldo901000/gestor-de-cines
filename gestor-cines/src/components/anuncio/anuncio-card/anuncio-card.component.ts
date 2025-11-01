@@ -13,20 +13,32 @@ export class AnuncioCardComponent implements OnInit {
   @Input({ required: true })
   anuncio!: AnuncioResponse;
 
-  @Input()
-  linkVideo!: string;
-
   URLImagen!: string;
-
+  linkVideo!: string;
   constructor(private anunciosServices: AnuncioServices) { }
 
 
   ngOnInit(): void {
-    this.obtenerURLImagen();
+    if (this.anuncio.tipo == 'IMAGEN') {
+      this.obtenerURLImagen();
+    }
+    if (this.anuncio.tipo == 'VIDEO') {
+      this.obtenerLink();
+    }
   }
 
   obtenerURLImagen(): void {
     this.URLImagen = this.anunciosServices.obtenerImagenUrl(this.anuncio.codigo);
   }
 
+  obtenerLink(): void {
+    this.anunciosServices.obtenerLink(this.anuncio.codigo).subscribe({
+      next: (linkServer: string) => {
+        this.linkVideo = linkServer;
+      },
+      error: (error) => {
+        console.log(error.error);
+      }
+    });
+  }
 }

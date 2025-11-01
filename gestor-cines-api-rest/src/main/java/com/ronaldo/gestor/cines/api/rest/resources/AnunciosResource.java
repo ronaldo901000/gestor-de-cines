@@ -148,7 +148,7 @@ public class AnunciosResource {
        @GET
        @Path("/imagen/{codigo}")
        @Produces("image/jpeg")
-       public Response getPoster(@PathParam("codigo") String codigo) {
+       public Response getImagen(@PathParam("codigo") String codigo) {
               GeneradorAnuncios generador = new GeneradorAnuncios();
 
               try {
@@ -173,4 +173,16 @@ public class AnunciosResource {
               }
        }
 
+       @GET
+       @Path("link/{codigo}")
+       public Response getLink(@PathParam("codigo") String codigo) {
+              GeneradorAnuncios generador = new GeneradorAnuncios();
+              try {
+                     return Response.ok(generador.obtenerLink(codigo)).build();
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+              } catch (EntityNotFoundException ex) {
+                     return Response.status(Response.Status.NOT_FOUND).entity(ex.getMessage()).build();
+              }
+       }
 }

@@ -87,12 +87,12 @@ export class HomeUsuarioNormalPage implements OnInit {
         this.anunciosServices.obtenerAnunciosParaMostrar(indice).subscribe({
             next: (anunciosServer: AnuncioResponse[]) => {
                 this.anuncios = anunciosServer;
-                if (this.anuncios.length > 0) {
-                    const nuevoIndice = indice + 2;
-                    localStorage.setItem(UserProperties.INDICE_ANUNCIO, nuevoIndice.toString());
+                if (this.anuncios.length < 2) {
+                    localStorage.setItem(UserProperties.INDICE_ANUNCIO, '0');
                 }
                 else {
-                    localStorage.setItem(UserProperties.INDICE_ANUNCIO, '0');
+                    const nuevoIndice = indice + 2;
+                    localStorage.setItem(UserProperties.INDICE_ANUNCIO, nuevoIndice.toString());
                 }
             },
             error: (error) => {

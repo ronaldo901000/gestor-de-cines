@@ -9,9 +9,12 @@ import { UsuarioServices } from '../../../services/usuario/usuario.services';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BoletosFormComponent } from "../../../components/venta-boletos/boletos-form.component/boletos-form.component";
+import { AnuncioCardComponent } from "../../../components/anuncio/anuncio-card/anuncio-card.component";
+import { AnuncioResponse } from '../../../models/anuncio/anuncio-response';
+import { AnuncioServices } from '../../../services/anuncio/anuncio.services';
 @Component({
   selector: 'app-compra-boletos-page.component',
-  imports: [HeaderAdminSistemaComponent, DatePipe,HeaderAdminCineComponent, HeaderUsuarioNormalComponent, CurrencyPipe, BoletosFormComponent, RouterLink],
+  imports: [HeaderAdminSistemaComponent, DatePipe, HeaderAdminCineComponent, HeaderUsuarioNormalComponent, CurrencyPipe, BoletosFormComponent, RouterLink, AnuncioCardComponent],
   templateUrl: './compra-boletos-page.component.html',
   styleUrl: './compra-boletos-page.component.css'
 })
@@ -21,14 +24,14 @@ export class CompraBoletosPageComponent implements OnInit {
   id!: string | null;
   saldoActual!: number;
   codigoProyeccion!: String;
-  proyeccion!: ProyeccionResponse
+  proyeccion!: ProyeccionResponse;
+  anuncios: AnuncioResponse[] = [];
 
   constructor(private proyeccionService: ProyeccionesServices,
     private usuarioServices: UsuarioServices,
-    private router: ActivatedRoute
-  ) {
+    private router: ActivatedRoute, private anunciosServices: AnuncioServices
+  ) { }
 
-  }
 
   ngOnInit(): void {
     this.rol = localStorage.getItem(UserProperties.ROL);
@@ -36,7 +39,8 @@ export class CompraBoletosPageComponent implements OnInit {
     this.obtenerProyeccion();
     this.id = localStorage.getItem(UserProperties.ID);
     this.obtenerSaldoActual();
-    
+    this.obtenerAnuncios();
+
   }
 
   obtenerProyeccion(): void {
@@ -63,5 +67,24 @@ export class CompraBoletosPageComponent implements OnInit {
 
       });
     }
+  }
+
+  obtenerAnuncios() {
+    const indice = Number(localStorage.getItem(UserProperties.INDICE_ANUNCIO)) || 0;
+    this.anunciosServices.obtenerAnunciosParaMostrar(indice).subscribe({
+      next: (anunciosServer: AnuncioResponse[]) => {
+        this.anuncios = anunciosServer;
+        if (this.anuncios.length < 2) {
+          localStorage.setItem(UserProperties.INDICE_ANUNCIO, '0');
+        }
+        else {
+          const nuevoIndice = indice + 2;
+          localStorage.setItem(UserProperties.INDICE_ANUNCIO, nuevoIndice.toString());
+        }
+      },
+      error: (error) => {
+        console.log(error.error);
+      }
+    });
   }
 }

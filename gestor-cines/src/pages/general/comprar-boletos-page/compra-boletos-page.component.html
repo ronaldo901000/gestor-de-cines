@@ -1,49 +1,79 @@
-@if(proyeccion!=undefined){ @if(rol=='ADMIN-SISTEMA'){
-<app-header-admin-sistema></app-header-admin-sistema>
-} @if(rol=='ADMIN-CINE'){
+@if (rol=='ADMIN-CINE') {
 <app-header-admin-cine></app-header-admin-cine>
-} @if(rol=='USUARIO-NORMAL'){
+} @if (rol=='ADMIN-SISTEMA') {
+<app-header-admin-sistema></app-header-admin-sistema>
+} @if (rol=='USUARIO-NORMAL') {
 <app-header-usuario-normal></app-header-usuario-normal>
-}
-<div class="container text-center">
-  <h1>Compra de boletos</h1>
-  <br />
-  <div class="container text-center">
-    <a
-      routerLink="/proyecciones-pelicula/{{ proyeccion.pelicula.codigo }}/{{
-        proyeccion.pelicula.titulo
-      }}"
-      class="btn btn-success"
-    >
-      <i class="bi bi-arrow-left-square-fill"></i>
-      Regresar A Proyecciones
-    </a>
+} @if(proyeccion!=undefined){
+<div id="contenedor">
+  <div class="container-fluid">
+    <div class="row min-vh-100">
+      <div class="col-2 bg-info border-end p-3">
+        <h5>Anuncio Izquierdo</h5>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anuncios.length>0){
+        <app-anuncio-card-component [anuncio]="anuncios[0]"></app-anuncio-card-component>
+        }
+      </div>
+      <div class="col-8 text-black p-4">
+        <div class="text-center">
+          <h1><strong>Compra de boletos </strong></h1>
+        </div>
+        <br />
+        <div class="text-center">
+          <a
+            routerLink="/proyecciones-pelicula/{{ proyeccion.pelicula.codigo }}/{{
+              proyeccion.pelicula.titulo
+            }}"
+            class="btn btn-success"
+          >
+            <i class="bi bi-arrow-left-square-fill"></i>
+            Regresar A Proyecciones
+          </a>
+        </div>
+        <br />
+        <h2>
+          <strong> Mi saldo: {{ saldoActual | currency : 'Q.' }}</strong>
+        </h2>
+        <br />
+        @if(id && proyeccion!=undefined){
+        <div class="text-start">
+          <h2>
+            <strong>Precio por boleto: {{ proyeccion.precio | currency : 'Q.' }}</strong>
+          </h2>
+          <h4>Pelicula: {{ proyeccion.pelicula.titulo }}</h4>
+          <h4>Sala: {{ proyeccion.sala.nombre }}</h4>
+          <h4>Fecha: {{ proyeccion.fecha | date : 'dd-MMMM-yyyy' }}</h4>
+          <h4>Hora de inicio: {{ proyeccion.horaInicio }}</h4>
+          <h4>Hora de Finalizacion: {{ proyeccion.horaFin }}</h4>
+        </div>
+        <br />
+        <app-boletos-form-component
+          [fechaMaxima]="proyeccion.fecha"
+          [idUsuario]="id"
+          [codigoProyeccion]="proyeccion.codigo"
+          [precioBoleto]="proyeccion.precio"
+          (actualizarVistaSaldo)="obtenerSaldoActual()"
+        >
+        </app-boletos-form-component>
+        }
+      </div>
+      <div class="col-2 bg-danger border-start p-3">
+        <h5>Anuncio derecho</h5>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anuncios.length==2){
+        <app-anuncio-card-component [anuncio]="anuncios[1]"></app-anuncio-card-component>
+        }
+      </div>
+    </div>
   </div>
-  <br />
-  <h2>
-    <strong> Mi saldo: {{ saldoActual | currency : 'Q.' }}</strong>
-  </h2>
-  <br />
-  @if(id && proyeccion!=undefined){
-  <div class="text-start">
-    <h2>
-      <strong>Precio por boleto: {{ proyeccion.precio | currency : 'Q.' }}</strong>
-    </h2>
-    <h4>Pelicula: {{ proyeccion.pelicula.titulo }}</h4>
-    <h4>Sala: {{proyeccion.sala.nombre}}</h4>
-    <h4>Fecha: {{ proyeccion.fecha | date : 'dd-MMMM-yyyy' }}</h4>
-    <h4>Hora de inicio: {{ proyeccion.horaInicio }}</h4>
-    <h4>Hora de Finalizacion: {{ proyeccion.horaFin }}</h4>
-  </div>
-  <br />
-  <app-boletos-form-component
-    [fechaMaxima]="proyeccion.fecha"
-    [idUsuario]="id"
-    [codigoProyeccion]="proyeccion.codigo"
-    [precioBoleto]="proyeccion.precio"
-    (actualizarVistaSaldo)="obtenerSaldoActual()"
-  >
-  </app-boletos-form-component>
-  }
 </div>
 }

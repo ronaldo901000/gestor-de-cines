@@ -47,4 +47,12 @@ export class AnuncioServices {
         return `${this.restConstants.getApiURL()}anuncios/imagen/${codigo}`;
     }
 
+    public obtenerLink(codigoAnuncio: string): Observable<string> {
+        return this.httpClient.get(
+            `${this.restConstants.getApiURL()}anuncios/link/${codigoAnuncio}`,
+            { responseType: 'text' }
+        ) as Observable<string>;
+    }
+
+
 }

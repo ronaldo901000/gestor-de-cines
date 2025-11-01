@@ -21,8 +21,8 @@ export class ProyeccionesPeliculaPageComponent implements OnInit {
     codigoPelicula!: string;
     nombrePelicula!: string
     indiceAnuncio!: number;
-    anuncios:AnuncioResponse[]=[];
-    constructor(private router: ActivatedRoute, private anunciosServices:AnuncioServices) { }
+    anuncios: AnuncioResponse[] = [];
+    constructor(private router: ActivatedRoute, private anunciosServices: AnuncioServices) { }
 
     ngOnInit(): void {
         this.idUser = localStorage.getItem(UserProperties.ID);
@@ -39,12 +39,12 @@ export class ProyeccionesPeliculaPageComponent implements OnInit {
         this.anunciosServices.obtenerAnunciosParaMostrar(indice).subscribe({
             next: (anunciosServer: AnuncioResponse[]) => {
                 this.anuncios = anunciosServer;
-                if (this.anuncios.length > 0) {
-                    const nuevoIndice = indice + 2;
-                    localStorage.setItem(UserProperties.INDICE_ANUNCIO, nuevoIndice.toString());
+                if (this.anuncios.length < 2) {
+                    localStorage.setItem(UserProperties.INDICE_ANUNCIO, '0');
                 }
                 else {
-                    localStorage.setItem(UserProperties.INDICE_ANUNCIO, '0');
+                    const nuevoIndice = indice + 2;
+                    localStorage.setItem(UserProperties.INDICE_ANUNCIO, nuevoIndice.toString());
                 }
             },
             error: (error) => {

@@ -239,4 +239,28 @@ public class AnunciosDB {
               anuncio.setActivo(resultSet.getBoolean("activo"));
               return anuncio;
        }
+
+       /**
+        * 
+        * @param codigo
+        * @return
+        * @throws DataBaseException 
+        */
+       public Optional<String> obtenerLink(String codigo) throws DataBaseException {
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement query = connection.
+                             prepareStatement(PeticionesAnunciante.OBTENER_ANUNCIO_IMAGEN.get())) {
+                            query.setString(1, codigo);
+                            ResultSet resultSet = query.executeQuery();
+                            if (resultSet.next()) {
+                                   return Optional.of(resultSet.getString("link_video"));
+                            }
+                     }
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al obtener link del anuncio para mostrar en la db");
+              }
+              return Optional.empty();
+       }
+       
 }
