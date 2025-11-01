@@ -1,6 +1,6 @@
 <div class="container mt-3">
   <div class="row justify-content-center">
-    <div class="col-md-8 ">
+    <div class="col-md-8">
       <div class="card shadow-sm">
         <img [src]="posterUrl" class="card-img-top" alt="Imagen de la película" />
         <div class="card-body">
@@ -19,9 +19,8 @@
             <li class="list-group-item"><strong>Director: </strong> {{ pelicula.director }}</li>
             <li class="list-group-item"><strong>Cast:</strong> {{ pelicula.cast }}</li>
             <li class="list-group-item">
-              <strong>Fecha en que se estrenó:
-
-              </strong> {{ pelicula.fechaEstreno | date:'dd,MMMM-yyy'}}
+              <strong>Fecha en que se estrenó: </strong>
+              {{ pelicula.fechaEstreno | date : 'dd,MMMM-yyy' }}
             </li>
           </ul>
           <a

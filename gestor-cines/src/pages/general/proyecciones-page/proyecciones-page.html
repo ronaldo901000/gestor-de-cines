@@ -5,19 +5,51 @@
 } @if (rol=='USUARIO-NORMAL') {
 <app-header-usuario-normal></app-header-usuario-normal>
 }
-<div class="container text-center text-black">
-  <h1>Proyecciones del la pelicula "{{ nombrePelicula }}"</h1>
-  <br />
-  <br />
-  <div class="container text-center">
-    <a routerLink="/home/usuario-normal" class="btn btn-primary">
-      <i class="bi bi-arrow-left-square-fill"></i>
-      Regresar A Peliculas
-    </a>
+<div id="contenedor">
+  <div class="container-fluid">
+    <div class="row min-vh-100">
+      <div class="col-2 bg-info border-end p-3">
+        <h5>Anuncio Izquierdo</h5>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anuncios.length>0){
+        <app-anuncio-card-component [anuncio]="anuncios[0]"> </app-anuncio-card-component>
+
+        }
+
+      </div>
+      <div class="col-8 text-black p-4">
+        <div class="container text-center text-black">
+          <h1>Proyecciones del la pelicula "{{ nombrePelicula }}"</h1>
+          <br />
+          <br />
+          <div class="container text-center">
+            <a routerLink="/home/usuario-normal/{{ indiceAnuncio }}" class="btn btn-primary">
+              <i class="bi bi-arrow-left-square-fill"></i>
+              Regresar A Peliculas
+            </a>
+          </div>
+          <br />
+          <br />
+          <app-proyecciones-pelicula-table-component
+            [codigoPelicula]="codigoPelicula"
+          ></app-proyecciones-pelicula-table-component>
+        </div>
+      </div>
+      <div class="col-2 bg-danger border-start p-3">
+        <h5>Anuncio derecho</h5>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anuncios.length==2){
+        <app-anuncio-card-component [anuncio]="anuncios[1]"></app-anuncio-card-component>
+        }
+      </div>
+    </div>
   </div>
-  <br />
-  <br />
-  <app-proyecciones-pelicula-table-component
-    [codigoPelicula]="codigoPelicula"
-  ></app-proyecciones-pelicula-table-component>
 </div>

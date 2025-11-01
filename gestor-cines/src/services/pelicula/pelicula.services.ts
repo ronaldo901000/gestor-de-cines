@@ -35,7 +35,7 @@ export class PeliculaServices {
         return this.httpClient.delete<void>(
             `${this.restConstants.getApiURL()}peliculas/${codigo}`);
     }
-    obtenerPosterUrl(codigo: string): string {
+    public obtenerPosterUrl(codigo: string): string {
         return `${this.restConstants.getApiURL()}peliculas/poster/${codigo}`;
     }
 
