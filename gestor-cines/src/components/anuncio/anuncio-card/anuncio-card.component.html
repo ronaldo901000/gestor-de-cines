@@ -1,0 +1,21 @@
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <div class="card shadow-sm">
+        @if(anuncio.tipo=='IMAGEN'){
+        <img [src]="URLImagen" class="card-img-top" alt="Imagen de la película" />
+        } @if(anuncio.tipo=='VIDEO'){
+        <a [href]="linkVideo" target="_blank" class="btn btn-primary"> Ver Video </a>
+        }
+        <div class="card-body">
+          <h2 class="card-title">
+            <strong> {{ anuncio.titulo }}</strong>
+          </h2>
+          <br />
+          <h3 class="card-text"><strong>Descripcion: </strong> {{ anuncio.descripcion }}</h3>
+          <ul class="list-group list-group-flush mb-3"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

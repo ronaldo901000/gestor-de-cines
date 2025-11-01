@@ -66,6 +66,8 @@ export class Login implements OnInit {
     //se agrega el rol
     localStorage.setItem(UserProperties.ROL, this.propiedadesUsuario.role);
     this.role = localStorage.getItem(UserProperties.ROL);
+    //se inicializa el indice inicial para los anuncios
+    localStorage.setItem(UserProperties.INDICE_ANUNCIO,'0');
     //se agrega si es anunciante o no
     localStorage.setItem(UserProperties.ES_ANUNCIANTE, this.propiedadesUsuario.esAnunciante.toString());
     if (this.propiedadesUsuario.role == Roles.ADMIN_CINE) {
@@ -84,6 +86,7 @@ export class Login implements OnInit {
         this.router.navigate(['/home/admin-cine']);
         break;
       case Roles.USUARIO_NORMAL:
+        
         this.router.navigate(['/home/usuario-normal']);
         break;
 

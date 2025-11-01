@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { HeaderAdminSistemaComponent } from '../../../components/header/header-admin-sistema/header-admin-sistema.component';
 import { RouterLink } from '@angular/router';
 import { CineCardComponent } from '../../../components/cine/cine-card-component/cine-card.component';
@@ -21,6 +21,7 @@ export class CinesDisponiblesPage implements OnInit {
   protected inicio: number = 0;
   protected rango: number = 5;
   protected rol!: string | null;
+
   constructor(private cinesServices: CineServices) {
   }
 

@@ -9,7 +9,16 @@
   <div class="container-fluid">
     <div class="row min-vh-100">
       <div class="col-2 bg-info border-end p-3">
-       <h5>Anuncio derecho</h5>
+        <h5>Anuncio Izquierdo</h5>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anuncios.length>0){
+        <app-anuncio-card-component [anuncio]="anuncios[0]"> </app-anuncio-card-component>
+
+        }
       </div>
       <div class="col-8 text-black p-4">
         <div class="text-center">
@@ -23,7 +32,7 @@
               type="search"
               class="form-control"
               [(ngModel)]="titulo"
-              placeholder="Ingresa el título de la película o la categoría"
+              placeholder="Ingresa el titulo de la pelicula o la categoría"
             />
             <button type="button" class="btn btn-primary" (click)="buscarPeliculas(titulo)">
               Buscar
@@ -53,6 +62,14 @@
       </div>
       <div class="col-2 bg-danger border-start p-3">
         <h5>Anuncio derecho</h5>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anuncios.length==2){
+        <app-anuncio-card-component [anuncio]="anuncios[1]"></app-anuncio-card-component>
+        }
       </div>
     </div>
   </div>

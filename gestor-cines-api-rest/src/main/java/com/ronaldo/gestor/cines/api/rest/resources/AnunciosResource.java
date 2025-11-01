@@ -18,8 +18,10 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.StreamingOutput;
 import java.io.IOException;
 import java.io.InputStream;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
@@ -118,7 +120,7 @@ public class AnunciosResource {
        @GET
        @Path("{idAnunciante}")
        @Produces(MediaType.APPLICATION_JSON)
-       public Response obtenerSala(@PathParam("idAnunciante") String idAnunciante) {
+       public Response obtenerAnunciosPorAnunciante(@PathParam("idAnunciante") String idAnunciante) {
               GeneradorAnuncios generador = new GeneradorAnuncios();
               try {
                      return Response.ok(generador.obtenerAnuncios(idAnunciante)).build();
@@ -128,5 +130,59 @@ public class AnunciosResource {
                      return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
               }
        }
-       
+
+       @GET
+       @Path("por-rango/{inicio}")
+       @Produces(MediaType.APPLICATION_JSON)
+       public Response obtenerAnunciosPorRango(@PathParam("inicio") int inicio) {
+              GeneradorAnuncios generador = new GeneradorAnuncios();
+              try {
+                     return Response.ok(generador.obtenerAnunciosPorRango(inicio)).build();
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+              } catch (UserDataInvalidException ex) {
+                     return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+              }
+       }
+
+       @GET
+       @Path("/imagen/{codigo}")
+       @Produces("image/jpeg")
+       public Response getImagen(@PathParam("codigo") String codigo) {
+              GeneradorAnuncios generador = new GeneradorAnuncios();
+
+              try {
+                     byte[] imagen = generador.obtenerImagenAnuncio(codigo);
+                     StreamingOutput stream = output -> {
+                            try {
+                                   output.write(imagen);
+                                   output.flush();
+                            } catch (IOException e) {
+                                   throw new WebApplicationException("File Not Found !!");
+                            }
+                     };
+
+                     return Response.ok(stream)
+                             .header("Content-Disposition", "inline; filename=\"" + codigo + ".jpg\"")
+                             .build();
+
+              } catch (EntityNotFoundException ex) {
+                     return Response.status(Response.Status.NOT_FOUND).entity(ex.getMessage()).build();
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+              }
+       }
+
+       @GET
+       @Path("link/{codigo}")
+       public Response getLink(@PathParam("codigo") String codigo) {
+              GeneradorAnuncios generador = new GeneradorAnuncios();
+              try {
+                     return Response.ok(generador.obtenerLink(codigo)).build();
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+              } catch (EntityNotFoundException ex) {
+                     return Response.status(Response.Status.NOT_FOUND).entity(ex.getMessage()).build();
+              }
+       }
 }
