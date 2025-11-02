@@ -1,0 +1,58 @@
+@if (rol=='ADMIN-CINE') {
+<app-header-admin-cine></app-header-admin-cine>
+} @if (rol=='ADMIN-SISTEMA') {
+<app-header-admin-sistema></app-header-admin-sistema>
+} @if (rol=='USUARIO-NORMAL') {
+<app-header-usuario-normal></app-header-usuario-normal>
+}
+<div id="contenedor">
+  <div class="container-fluid">
+    <div class="row min-vh-100">
+      <div class="col-2 bg-info border-end p-3">
+        <h5>Anuncio Izquierdo</h5>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anuncios.length>0){
+        <app-anuncio-card-component [anuncio]="anuncios[0]"></app-anuncio-card-component>
+        }
+      </div>
+      <div class="col-8 text-black p-4">
+        <div class="text-center">
+          <h1>
+            <strong>Opiniones hacia: {{ nombre }} </strong>
+          </h1>
+        </div>
+        <br />
+        <br />
+        <div class="text-center">
+          <a
+            routerLink="/proyecciones-pelicula/{{codigoPelicula}}/{{nombrePelicula}}"
+            class="btn btn-success"
+          >
+            <i class="bi bi-arrow-left-square-fill"></i>
+            Regresar A Proyecciones
+            
+          </a>
+        </div>
+        <br />
+        @if(opiniones!=undefined){
+        <app-opiniones-table-component [opiniones]="opiniones"></app-opiniones-table-component>
+        }
+      </div>
+      <div class="col-2 bg-danger border-start p-3">
+        <h5>Anuncio derecho</h5>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anuncios.length==2){
+        <app-anuncio-card-component [anuncio]="anuncios[1]"></app-anuncio-card-component>
+        }
+      </div>
+    </div>
+  </div>
+</div>

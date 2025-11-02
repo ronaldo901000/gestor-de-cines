@@ -1,0 +1,28 @@
+<app-toast-component #toast></app-toast-component>
+<div class="text-center" id="tabla">
+  @if(opiniones.length==0){
+  <h2>No hay Opiniones</h2>
+  } @if(opiniones.length>0){
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Nombre del usuario</th>
+        <th scope="col">Calificacion</th>
+        <th scope="col">Comentario</th>
+        <th scope="col">Fecha de de publicacion</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      @for (opinion of opiniones; track $index) {
+      <tr>
+        <td>{{ opinion.usuario.nombre }}</td>
+        <td>{{ opinion.calificacion }}</td>
+        <td>{{ opinion.comentario }}</td>
+        <td>{{ opinion.fecha | date : 'dd MMMM yyyy' }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  }
+</div>

@@ -33,7 +33,7 @@ export class MisComprasPage {
     this.obtenerAnuncios();
   }
 
-  obtenerAnuncios() :void{
+  obtenerAnuncios(): void {
     const indice = Number(localStorage.getItem(UserProperties.INDICE_ANUNCIO)) || 0;
     this.anunciosServices.obtenerAnunciosParaMostrar(indice).subscribe({
       next: (anunciosServer: AnuncioResponse[]) => {

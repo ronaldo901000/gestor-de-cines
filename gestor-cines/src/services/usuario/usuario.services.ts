@@ -7,6 +7,8 @@ import { UsuarioRequest } from '../../models/usuario/usuario-request';
 import { Credencial } from '../../models/credencial/credencial';
 import { PropiedadesUsuario } from '../../models/propiedades-usuario/propiedades-usuario';
 import { Usuario } from '../../models/usuario/usuario';
+import { Opinion } from '../../models/opinion/opinion';
+import { OpinionResponse } from '../../models/opinion/opinion-response';
 
 @Injectable({
     providedIn: 'root',
@@ -47,5 +49,16 @@ export class UsuarioServices {
         return this.httpClient.put<UsuarioRequest>(
             `${this.restConstants.getApiURL()}usuarios/actualizacion`, usuario
         );
+    }
+
+    public publicarOpinion(opinion: Opinion): Observable<PropiedadesUsuario> {
+        return this.httpClient.post<PropiedadesUsuario>(
+            `${this.restConstants.getApiURL()}opiniones`, opinion
+        );
+    }
+
+    public obtenerOpiniones(codigo: string, esPelicula: boolean): Observable<OpinionResponse[]> {
+        return this.httpClient.get<OpinionResponse[]>(
+            `${this.restConstants.getApiURL()}opiniones/${codigo}/${esPelicula}`);
     }
 }

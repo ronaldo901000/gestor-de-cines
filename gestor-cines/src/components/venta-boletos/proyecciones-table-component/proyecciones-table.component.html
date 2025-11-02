@@ -22,12 +22,13 @@
         <th scope="col">Hora de Inicio</th>
         <th scope="col">Hora de Finalizacion</th>
         <th scope="col">Precio de boleto</th>
+        <th scope="col">Opiniones a pelicula</th>
+        <th scope="col">Opiniones a sala</th>
         <th scope="col">Selecciona</th>
       </tr>
     </thead>
     <tbody>
-      @for (proyeccion of proyecciones; track $index) { 
-        @if(proyeccion.disponible){
+      @for (proyeccion of proyecciones; track $index) { @if(proyeccion.disponible){
       <tr>
         <td>{{ proyeccion.sala.nombreCine }}</td>
         <td>{{ proyeccion.sala.nombre }}</td>
@@ -37,6 +38,26 @@
         <td>{{ proyeccion.precio | currency : 'Q.' }}</td>
         <td>
           <a
+            routerLink="/proyecciones-pelicula/opiniones/{{ proyeccion.pelicula.codigo }}/{{
+              proyeccion.pelicula.titulo
+            }}/true/{{ proyeccion.pelicula.codigo }}/{{ proyeccion.pelicula.titulo }}"
+            class="btn btn-success"
+          >
+            <i class="bi bi-eye"></i>
+          </a>
+        </td>
+        <td>
+          <a
+            routerLink="/proyecciones-pelicula/opiniones/{{ proyeccion.sala.codigo }}/{{
+              proyeccion.sala.nombre
+            }}/false/{{ proyeccion.pelicula.codigo }}/{{ proyeccion.pelicula.titulo }}"
+            class="btn btn-success"
+          >
+            <i class="bi bi-eye"></i>
+          </a>
+        </td>
+        <td>
+          <a
             routerLink="/proyecciones-de-pelicula/compra-boletos/{{ proyeccion.codigo }}"
             class="btn btn-warning"
           >
@@ -44,8 +65,7 @@
           </a>
         </td>
       </tr>
-      }
-     }
+      } }
     </tbody>
   </table>
   }
