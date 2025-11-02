@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+  <H1>COSTO DE BLOQUEO DIARIO DE ANUNCIOS ACTUAL</H1>
+  <br />
+  @if(costoActual!==undefined){
+  <h1>{{ costoActual | currency : 'Q.' }}</h1>
+  }
+</div>
+<br />
+<br />
+<br />
+<app-toast-component #toast></app-toast-component>
+<h4>Ingresa un valor si quieres actualizar el costo de bloqueo</h4>
+<form [formGroup]="costoForm" (submit)="crear()">
+  <div class="row g-3" id="contenedor">
+    <div class="col-12">
+      <label for="costo" class="form-label">Costo Q.</label>
+      <input
+        placeholder="ingresa un costo ej: Q.100"
+        min="0"
+        max="100000000"
+        type="number"
+        class="form-control"
+        id="costo"
+        name="costo"
+        formControlName="costoBloqueo"
+        [class.is-invalid]="
+          costoForm.controls['costoBloqueo'].dirty && costoForm.controls['costoBloqueo'].invalid
+        "
+      />
+    </div>
+  </div>
+  <hr class="my-4" />
+  <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
+    <button class="btn btn-secondary me-md-2" type="button" (click)="reset()">Limpiar</button>
+    <button class="btn btn-success" [disabled]="costoForm.invalid">
+      <strong>Editar Costo Por Bloqueo</strong>
+    </button>
+  </div>
+</form>

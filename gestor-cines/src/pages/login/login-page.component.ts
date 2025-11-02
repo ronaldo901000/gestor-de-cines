@@ -7,6 +7,7 @@ import { Credencial } from '../../models/credencial/credencial';
 import { UsuarioServices } from '../../services/usuario/usuario.services';
 import { PropiedadesUsuario } from '../../models/propiedades-usuario/propiedades-usuario';
 import { Roles } from '../../shared/user/user-roles';
+import { CineServices } from '../../services/cine/cine.services';
 @Component({
   selector: 'app-login-page',
   imports: [FormsModule, ReactiveFormsModule, RouterLink],
@@ -17,7 +18,6 @@ export class Login implements OnInit {
 
   alreadyLoggedIn!: boolean;
   currentRole!: string | null;
-  idUsuario: string = 'USR001';
 
   role!: string | null;
 
@@ -28,7 +28,7 @@ export class Login implements OnInit {
   mensaje!: string;
 
   constructor(private router: Router, private formBuilder: FormBuilder,
-    private usuarioServices: UsuarioServices
+    private usuarioServices: UsuarioServices, private cineService: CineServices
   ) {
 
   }
@@ -67,12 +67,14 @@ export class Login implements OnInit {
     localStorage.setItem(UserProperties.ROL, this.propiedadesUsuario.role);
     this.role = localStorage.getItem(UserProperties.ROL);
     //se inicializa el indice inicial para los anuncios
-    localStorage.setItem(UserProperties.INDICE_ANUNCIO,'0');
+    localStorage.setItem(UserProperties.INDICE_ANUNCIO, '0');
     //se agrega si es anunciante o no
     localStorage.setItem(UserProperties.ES_ANUNCIANTE, this.propiedadesUsuario.esAnunciante.toString());
     if (this.propiedadesUsuario.role == Roles.ADMIN_CINE) {
       //se agrega el cine al que trabaja
       localStorage.setItem(UserProperties.CODIGO_CINE, this.propiedadesUsuario.codigoCine);
+      //se agrega la ingo para saber si tiene bloqueo de anuncios
+      this.tieneBloqueador();
     }
   }
 
@@ -86,16 +88,29 @@ export class Login implements OnInit {
         this.router.navigate(['/home/admin-cine']);
         break;
       case Roles.USUARIO_NORMAL:
-        
+
         this.router.navigate(['/home/usuario-normal']);
         break;
 
     }
   }
+
+  tieneBloqueador(): void {
+    this.cineService.tieneBloqueadorAnuncios(this.propiedadesUsuario.codigoCine).subscribe({
+      next: (hayBloqueadorServer: boolean) => {
+        localStorage.setItem(AdminCineProperties.TIENE_BLOQUEADOR_ANUNCIOS, hayBloqueadorServer.toString());
+      },
+      error: (error) => {
+        console.log(error.error);
+      }
+    });
+  }
+
   inicializarForm(): void {
     this.credencialesForm = this.formBuilder.group({
       correo: [null, [Validators.required, Validators.email]],
       contraseña: [null, [Validators.required]],
     });
   }
+
 }

@@ -24,8 +24,7 @@ export class MisComprasPage {
   compras: CompraBoletosResponse[] = [];
 
 
-  constructor(private anunciosServices: AnuncioServices,
-    private comprasServices: CompraBoletosServices
+  constructor(private anunciosServices: AnuncioServices
   ) { }
 
   ngOnInit(): void {
@@ -34,7 +33,7 @@ export class MisComprasPage {
     this.obtenerAnuncios();
   }
 
-  obtenerAnuncios() {
+  obtenerAnuncios() :void{
     const indice = Number(localStorage.getItem(UserProperties.INDICE_ANUNCIO)) || 0;
     this.anunciosServices.obtenerAnunciosParaMostrar(indice).subscribe({
       next: (anunciosServer: AnuncioResponse[]) => {

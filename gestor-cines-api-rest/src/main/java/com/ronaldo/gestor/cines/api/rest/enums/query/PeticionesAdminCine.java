@@ -32,6 +32,10 @@ public enum PeticionesAdminCine {
        RECARGAR_CARTERA_CINE("update cine set creditos_cartera = creditos_cartera + ? where codigo=?"),
        OBTENER_MI_CINE("select * from admin_cine join cine on codigo_cine=codigo where id_usuario=?"),
        ACTUALIZAR_ESTADO_PROYECCION("update proyeccion set disponible=? where codigo=?"),
+       PAGAR("update cine set creditos_cartera=creditos_cartera-? where codigo=?"),
+       OBTENER_PAGO_BLOQUEO("select * from pago_bloqueo_anuncio where activo=1 and codigo_cine=?"),
+       AGREGAR_DIA_ACTIVO_BLOQUEADOR("update pago_bloqueo_anuncio set dias_activo=dias_activo+1 where id=?"),
+       CAMBIAR_ESTADO_ACTIVO_BLOQUEADOR("update pago_bloqueo_anuncio set activo=? where id=?"),
        ;
        private String peticion;
 

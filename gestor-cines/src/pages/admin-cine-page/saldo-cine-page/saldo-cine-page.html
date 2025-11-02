@@ -1,21 +1,49 @@
 <app-header-admin-cine></app-header-admin-cine>
-<div class="container text-center">
-  @if(cine!=undefined){
-  <h1>Codigo: {{ cine.codigo }}</h1>  
-  <h1>Nombre del cine: {{ cine.nombre }}</h1>
-  }
-  <br />
-  <br />
-  <br />
-  <br />
 
-  @if(codigoCine){
-    <h1><strong>SALDO ACTUAL: {{saldoActual | currency: 'Q.'}}</strong></h1>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-  <app-recarga-cine-component [codigoCine]="codigoCine" (actualizarVistaSaldo)="obtenerSaldo()"></app-recarga-cine-component>
-  }
+<div id="contenedor">
+  <div class="container-fluid">
+    <div class="row min-vh-100">
+      <div class="col-2 bg-transparent border-end p-3"> 
+        <br />
+        @if(anuncios.length>0){
+        <app-anuncio-card-component [anuncio]="anuncios[0]"> </app-anuncio-card-component>
+        }
+      </div>
+
+      <div class="col-8 text-black p-4">
+        <div class="container text-center">
+          @if(cine!=undefined){
+          <h1>Codigo: {{ cine.codigo }}</h1>
+          <h1>Nombre del cine: {{ cine.nombre }}</h1>
+          }
+          <br />
+          <br />
+          <br />
+          <br />
+
+          @if(codigoCine){
+          <h1>
+            <strong>SALDO ACTUAL: {{ saldoActual | currency : 'Q.' }}</strong>
+          </h1>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <app-recarga-cine-component
+            [codigoCine]="codigoCine"
+            (actualizarVistaSaldo)="obtenerSaldo()"
+          ></app-recarga-cine-component>
+          }
+        </div>
+      </div>
+
+      <div class="col-2 bg-transparent border-start p-3">
+        <br />
+        @if(anuncios.length==2){
+        <app-anuncio-card-component [anuncio]="anuncios[1]"> </app-anuncio-card-component>
+        }
+      </div>
+    </div>
+  </div>
 </div>

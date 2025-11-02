@@ -64,36 +64,6 @@ public class PreciosAnunciosDB {
        }
 
        /**
-        *
-        * @param precioAnuncio
-        * @throws DataBaseException
-        */
-       /**
-        * 
-        * @param precioAnuncio
-        * @throws DataBaseException 
-        */              /**
-               *
-        * @param precioAnuncio
-        * @throws DataBaseException 
-        */       /**
-        * 
-        * @param precioAnuncio
-        * @throws DataBaseException 
-        */       /**
-        *
-        * @param precioAnuncio
-        * @throws DataBaseException
-        */
-       /**
-        * 
-        * @param precioAnuncio
-        * @throws DataBaseException 
-        */              /**
-               *
-        * @param precioAnuncio
-        * @throws DataBaseException 
-        */       /**
         * 
         * @param precioAnuncio
         * @throws DataBaseException 
@@ -111,5 +81,34 @@ public class PreciosAnunciosDB {
               } catch (SQLException e) {
                      throw new DataBaseException("Error al actualizar precios del anuncio en la db");
               }
+       }
+
+       public void actualizarCostoBloqueo(double costo) throws DataBaseException {
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+
+                     try (PreparedStatement update = connection.
+                             prepareStatement(PeticionAdminSistema.ACTUALIZAR_COSTO_BLOQUEO_ANUNCIO.get())) {
+                            update.setDouble(1, costo);
+                            update.executeUpdate();
+                     }
+              } catch (SQLException e) {
+                     throw new DataBaseException("Error al actualizar costo de bloqueo de anuncio en la db");
+              }
+       }
+
+       public double obtenerCostoBloqueo() throws DataBaseException {
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+
+                     try (PreparedStatement query = connection.
+                             prepareStatement(PeticionAdminSistema.OBTENER_COSTO_BLOQUEO_ANUNCIO.get())) {
+                            ResultSet resultSet = query.executeQuery();
+                            if (resultSet.next()) {
+                                   return resultSet.getDouble("costo");
+                            }
+                     }
+              } catch (SQLException e) {
+                     throw new DataBaseException("Error al obtener costo de bloqueo de anuncio en la db");
+              }
+              return -1;
        }
 }

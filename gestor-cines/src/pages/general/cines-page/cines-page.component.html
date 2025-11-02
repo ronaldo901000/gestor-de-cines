@@ -1,43 +1,72 @@
 @if(rol=='ADMIN-SISTEMA'){
 <app-header-admin-sistema></app-header-admin-sistema>
-}
-@else if(rol=='ADMIN-CINE'){
+} @else if(rol=='ADMIN-CINE'){
 <app-header-admin-cine></app-header-admin-cine>
-}
-@if(rol=='USUARIO-NORMAL'){
+} @if(rol=='USUARIO-NORMAL'){
 <app-header-usuario-normal></app-header-usuario-normal>
 }
-<div class="container text-center text-black">
-  <br />
-  <br />
-</div>
-<div class="container text-black">
-  <h1>Listado de Cines</h1>
-  <br />
-  <div class="col-5">
-    <app-buscador-component (palabraBuscada)="buscarCines($event)"> </app-buscador-component>
-  </div>
-  <br />
-  <nav aria-label="Paginación">
-    <ul class="pagination justify-content-center">
-      <li class="page-item" [class.disabled]="inicio === 0">
-        <button class="page-link" (click)="retrocederUnaPagina()">Anterior</button>
-      </li>
-      <li class="page-item" [class.disabled]="!hayMasCines()">
-        <button class="page-link" (click)="avanzarUnaPagina()">Siguiente</button>
-      </li>
-    </ul>
-  </nav>
-  <app-toast-component #toast></app-toast-component>
-  <div class="row">
-    @for (cine of cines; track $index) {
-    <h1></h1>
-    <app-cine-card
-      [cineSeleccionado]="cine"
-      (cineEliminado)="cargarCines()"
-      [esAdminSistema]="false"
-    >
-    </app-cine-card>
-    }
+<div id="contenedor">
+  <div class="container-fluid">
+    <div class="row min-vh-100">
+      <div class="col-2 bg-transparent border-end p-3">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anuncios.length>0){
+        <app-anuncio-card-component [anuncio]="anuncios[0]"></app-anuncio-card-component>
+        }
+      </div>
+
+      <div class="col-8 text-black p-4">
+        <div class="container text-center text-black">
+          <br />
+          <br />
+        </div>
+        <div class="container text-black">
+          <h1>Listado de Cines</h1>
+          <br />
+          <div class="col-5">
+            <app-buscador-component (palabraBuscada)="buscarCines($event)">
+            </app-buscador-component>
+          </div>
+          <br />
+          <nav aria-label="Paginación">
+            <ul class="pagination justify-content-center">
+              <li class="page-item" [class.disabled]="inicio === 0">
+                <button class="page-link" (click)="retrocederUnaPagina()">Anterior</button>
+              </li>
+              <li class="page-item" [class.disabled]="!hayMasCines()">
+                <button class="page-link" (click)="avanzarUnaPagina()">Siguiente</button>
+              </li>
+            </ul>
+          </nav>
+          <app-toast-component #toast></app-toast-component>
+          <div class="row">
+            @for (cine of cines; track $index) {
+            <h1></h1>
+            <app-cine-card
+              [cineSeleccionado]="cine"
+              (cineEliminado)="cargarCines()"
+              [esAdminSistema]="false"
+            >
+            </app-cine-card>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="col-2 bg-transparent border-start p-3">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anuncios.length==2){
+        <app-anuncio-card-component [anuncio]="anuncios[1]"></app-anuncio-card-component>
+        }
+      </div>
+    </div>
   </div>
 </div>

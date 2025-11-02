@@ -41,6 +41,7 @@ import { ProyeccionesPeliculaPageComponent } from '../pages/general/proyecciones
 import { CinesDisponiblesPage } from '../pages/general/cines-page/cines-page.component ';
 import { CompraBoletosPageComponent } from '../pages/general/comprar-boletos-page/compra-boletos-page.component';
 import { MisComprasPage } from '../pages/general/mis-compras-page/mis-compras-page';
+import { PagoBloqueoAnunciosPage } from '../pages/admin-cine-page/pago-bloqueo-anuncios-page/pago-bloqueo-anuncios-page';
 export const routes: Routes = [
     {
         path: '',
@@ -272,8 +273,14 @@ export const routes: Routes = [
     },
     {
         path: 'boletos/mis-boletos',
-        canActivate:[RoleGuardService],
+        canActivate: [RoleGuardService],
         data: { allowedRoles: [Roles.ADMIN_CINE, Roles.ADMIN_SISTEMA, Roles.USUARIO_NORMAL] },
         component: MisComprasPage
+    },
+    {
+        path: 'anuncios/bloqueo',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: [Roles.ADMIN_CINE] },
+        component: PagoBloqueoAnunciosPage
     }
 ];

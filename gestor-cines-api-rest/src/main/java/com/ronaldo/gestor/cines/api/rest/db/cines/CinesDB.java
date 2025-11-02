@@ -230,4 +230,23 @@ public class CinesDB {
               }
        }
 
+       /**
+        * 
+        * @param codigoCine
+        * @param costo
+        * @param connection
+        * @throws DataBaseException 
+        */
+       public void pagar(String codigoCine, double costo, Connection connection) throws DataBaseException {
+              try (PreparedStatement update = connection.
+                      prepareStatement(PeticionesAdminCine.PAGAR.get())) {
+                     update.setDouble(1, costo);
+                     update.setString(2, codigoCine);
+                     update.executeUpdate();
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al pagar con la cartera de cine en la db");
+              }
+       }
+
 }

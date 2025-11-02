@@ -1,41 +1,69 @@
 <app-header-admin-cine></app-header-admin-cine>
-<div id="contenedor" class="text-black">
-  <div class="container text-center">
-    <br />
-    <a routerLink="/proyecciones" class="btn btn-success">
-      <i class="bi bi-arrow-left-square-fill"></i>
-      Ir a listado de Proyecciones
-    </a>
-  </div>
-  <div class="container text-center">
-    <br />
-    <h1>Nueva Proyeccion de Pelicula</h1>
-    <br />
-    <div class="row">
-      @if(cine!=undefined){
-      <app-crear-proyeccion-form-component
-        [fechaMinima]="cine.fechaCreacion"
-      ></app-crear-proyeccion-form-component>
-      }
+<div id="contenedor">
+  <div class="container-fluid">
+    <div class="row min-vh-100">
+      <div class="col-2 bg-transparent border-end p-3">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anuncios.length>0){
+        <app-anuncio-card-component [anuncio]="anuncios[0]"> </app-anuncio-card-component>
+        }
+      </div>
+      <div class="col-8 text-black p-4">
+        <div id="contenedor" class="text-black">
+          <div class="container text-center">
+            <br />
+            <a routerLink="/proyecciones" class="btn btn-success">
+              <i class="bi bi-arrow-left-square-fill"></i>
+              Ir a listado de Proyecciones
+            </a>
+          </div>
+          <div class="container text-center">
+            <br />
+            <h1>Nueva Proyeccion de Pelicula</h1>
+            <br />
+            <div class="row">
+              @if(cine!=undefined){
+              <app-crear-proyeccion-form-component
+                [fechaMinima]="cine.fechaCreacion"
+              ></app-crear-proyeccion-form-component>
+              }
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+          </div>
+          <div class="container-xxl">
+            <h5 class="text-center">Listado de Peliculas</h5>
+            <app-peliculas-table-component [editable]="false"></app-peliculas-table-component>
+          </div>
+          <br />
+          <br />
+          <div class="container-xxl">
+            <h5 class="text-center">Listado de Salas</h5>
+            @if(codigoCine){
+            <app-salas-table-component [codigoCine]="codigoCine"></app-salas-table-component>
+            }
+          </div>
+          <br />
+        </div>
+      </div>
+      <div class="col-2 bg-transparent border-start p-3">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anuncios.length==2){
+        <app-anuncio-card-component [anuncio]="anuncios[1]"> </app-anuncio-card-component>
+        }
+      </div>
     </div>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
   </div>
-  <div class="container-xxl">
-    <h5 class="text-center">Listado de Peliculas</h5>
-    <app-peliculas-table-component [editable]="false"></app-peliculas-table-component>
-  </div>
-  <br />
-  <br />
-  <div class="container-xxl">
-    <h5 class="text-center">Listado de Salas</h5>
-    @if(codigoCine){
-    <app-salas-table-component [codigoCine]="codigoCine"></app-salas-table-component>
-    }
-  </div>
-  <br />
 </div>

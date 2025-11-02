@@ -1,5 +1,6 @@
 package com.ronaldo.gestor.cines.api.rest.resources;
 
+import com.ronaldo.gestor.cines.api.rest.db.preciosAnunciosDB.CostoBloqueoRequest;
 import com.ronaldo.gestor.cines.api.rest.dtos.preciosAnuncios.PreciosAnunciosRequest;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
@@ -51,4 +52,32 @@ public class PrecioAnunciosResource {
                      return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
               }
        }
+
+       @PUT
+       @Path("costo-bloqueo")
+       @Consumes(MediaType.APPLICATION_JSON)
+       public Response actualizarPrecioBloqueo(CostoBloqueoRequest nuevoPrecio) {
+              CRUDPreciosAnuncios crud = new CRUDPreciosAnuncios();
+              try {
+                     crud.actualizarCostoBloqueo(nuevoPrecio);
+                     return Response.ok().build();
+              } catch (UserDataInvalidException e) {
+                     return Response.status(Response.Status.BAD_REQUEST).build();
+              } catch (DataBaseException e) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+              }
+       }
+
+       @GET
+       @Path("obtener-costo-bloqueo")
+       @Produces(MediaType.APPLICATION_JSON)
+       public Response obtenerPrecioBloqueo() {
+              CRUDPreciosAnuncios crud = new CRUDPreciosAnuncios();
+              try {
+                     return Response.ok(crud.obtenerCostoBloqueo()).build();
+              } catch (DataBaseException e) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+              }
+       }
+
 }

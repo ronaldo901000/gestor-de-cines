@@ -47,4 +47,7 @@ export class CineServices {
         return this.httpClient.get<number>(`${this.restConstants.getApiURL()}cines/saldo-actual/${codigoCine}`);
     }
 
+    public tieneBloqueadorAnuncios(codigoCine: string): Observable<boolean> {
+        return this.httpClient.get<boolean>(`${this.restConstants.getApiURL()}cines/bloqueadores/${codigoCine}`);
+    }
 }
