@@ -23,8 +23,8 @@
         <th scope="col">Costo</th>
         <th scope="col">Hora Inicio</th>
         <th scope="col">Hora Fin</th>
-        <th scope="col">Comentar Pelicula</th>
-        <th scope="col">Comentar Sala</th>
+        <th scope="col">Opinar Pelicula</th>
+        <th scope="col">Opinar Sala</th>
       </tr>
     </thead>
     <tbody>
@@ -39,7 +39,7 @@
         <td>{{ compra.proyeccion.horaFin }}</td>
         <td>
           <a
-            routerLink="/proyecciones-de-pelicula/compra-boletos/{{ compra.proyeccion.pelicula }}"
+            routerLink="/boletos/mis-boletos/opiniones/PELICULA/Pelicula {{ compra.proyeccion.pelicula.titulo}}/{{compra.proyeccion.pelicula.codigo}}"
             class="btn btn-warning"
           >
             <i class="bi bi-pencil"> </i>
@@ -47,7 +47,7 @@
         </td>
         <td>
           <a
-            routerLink="/proyecciones-de-pelicula/compra-boletos/{{ compra.proyeccion.pelicula }}"
+            routerLink="/boletos/mis-boletos/opiniones/SALA/{{ compra.proyeccion.sala.nombre}}/{{compra.proyeccion.sala.codigo}}"
             class="btn btn-warning"
           >
             <i class="bi bi-pencil"> </i>

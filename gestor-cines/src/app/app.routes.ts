@@ -42,6 +42,8 @@ import { CinesDisponiblesPage } from '../pages/general/cines-page/cines-page.com
 import { CompraBoletosPageComponent } from '../pages/general/comprar-boletos-page/compra-boletos-page.component';
 import { MisComprasPage } from '../pages/general/mis-compras-page/mis-compras-page';
 import { PagoBloqueoAnunciosPage } from '../pages/admin-cine-page/pago-bloqueo-anuncios-page/pago-bloqueo-anuncios-page';
+import { OpinionPage } from '../pages/general/opinion-page/opinion-page';
+import { OpinionesPage } from '../pages/general/opiniones-page/opiniones-page';
 export const routes: Routes = [
     {
         path: '',
@@ -282,5 +284,19 @@ export const routes: Routes = [
         canActivate: [RoleGuardService],
         data: { allowedRoles: [Roles.ADMIN_CINE] },
         component: PagoBloqueoAnunciosPage
+    },
+    {
+        path: 'boletos/mis-boletos/opiniones/:tipo/:titulo/:codigo',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: [Roles.ADMIN_CINE, Roles.ADMIN_SISTEMA, Roles.USUARIO_NORMAL] },
+        component: OpinionPage
+
+    },
+    {
+        path: 'proyecciones-pelicula/opiniones/:codigo/:nombre/:es-pelicula/:codigo-pelicula/:nombre-pelicula',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: [Roles.ADMIN_CINE, Roles.ADMIN_SISTEMA, Roles.USUARIO_NORMAL] },
+        component: OpinionesPage
+
     }
 ];

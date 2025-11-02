@@ -21,8 +21,13 @@ public enum PeticionUsuario {
                + " values(?, ?, ?, ?, ?)"),
        PAGAR_TRANSACCION("update usuario set creditos=creditos-? where id=?"),
        OBTENER_MIS_BOLETOS("select * from compra_boletos where id_usuario=?"),
-       ;
-       
+       BUSCAR_MI_OPINION_SALA("select * from opinion_sala where codigo_sala=? and id_usuario=?"),
+       BUSCAR_MI_OPINION_PELICULA("select * from opinion_pelicula where codigo_pelicula=? and id_usuario=?"),
+       CREAR_OPINION_SALA("insert into opinion_sala (codigo_sala, id_usuario, comentario, calificacion, fecha) values(?, ?, ?, ?, ? )"),
+       CREAR_OPINION_PELICULA("insert into opinion_pelicula (codigo_pelicula, id_usuario, comentario, calificacion, fecha) values(?, ?, ?, ?, ? )"),
+       OBTENER_OPINIONES_PELCULA("select * from opinion_pelicula where codigo_pelicula=?"),
+       OBTENER_OPINIONES_SALA("select * from opinion_sala where codigo_sala=?"),;
+
        private String peticion;
 
        private PeticionUsuario(String peticion) {

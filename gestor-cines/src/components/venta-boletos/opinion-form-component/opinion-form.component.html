@@ -1,0 +1,50 @@
+<app-toast-component #toast></app-toast-component>
+
+<form [formGroup]="opinionForm" (submit)="publicar()">
+  <br />
+  <div class="row g-3">
+    <input type="hidden" formControlName="codigoEntidad" />
+    <input type="hidden" formControlName="idUsuario" />
+    <input type="hidden" formControlName="tipo" />
+
+    <div class="col-12">
+       <label for="duracion" class="form-label"><h4>Comentario:</h4></label>
+      <input
+        maxlength="300"
+        type="text"
+        class="form-control"
+        id="comentario"
+        name="comentario"
+        formControlName="comentario"
+      />
+    </div>
+
+    <div class="col-6 justify-content-lg-center">
+      <label for="duracion" class="form-label"><h4>Calificacion:</h4></label>
+      <select class="form-control" formControlName="calificacion">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
+
+    <div class="col-6">
+       <label for="duracion" class="form-label"><h4>Fecha de publicacion :</h4></label>
+      <input
+        type="date"
+        class="form-control"
+        id="fechaPago"
+        name="fechaPago"
+        formControlName="fecha"
+      />
+    </div>
+  </div>
+  <hr class="my-4" />
+  <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
+    <button class="btn btn-success" [disabled]="opinionForm.invalid">
+      <strong>Publicar Opinion</strong>
+    </button>
+  </div>
+</form>
