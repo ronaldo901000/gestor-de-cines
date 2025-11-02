@@ -101,8 +101,5 @@ export class HomeUsuarioNormalPage implements OnInit {
         });
     }
 
-    obtenerURLImagen(codigoAnuncio: string): string {
-        return this.anunciosServices.obtenerImagenUrl(codigoAnuncio);
-    }
 
 }

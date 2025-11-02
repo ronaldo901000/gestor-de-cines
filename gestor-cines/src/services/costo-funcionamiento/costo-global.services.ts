@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { RestConstants } from '../../shared/rest-api/rest-constants';
 import { Observable } from 'rxjs';
 import { CostoGlobal } from '../../models/costo-funcionamiento/costo-global';
+import { CostoBloqueo } from '../precio-anuncio/costo-bloqueo';
 
 @Injectable({
     providedIn: 'root',
@@ -22,5 +23,17 @@ export class CostoGlobalServices {
             `${this.restConstants.getApiURL()}costoGlobal`, costo);
     }
 
+    public actualizarCostoBloqueo(costo: CostoBloqueo): Observable<void> {
+        return this.httpClient.put<void>(
+            `${this.restConstants.getApiURL()}precioAnuncios/costo-bloqueo`,
+            costo
+        );
+    }
+
+
+    public obtenerCostoBloqueo(): Observable<number> {
+        return this.httpClient.get<number>
+            (`${this.restConstants.getApiURL()}precioAnuncios/obtener-costo-bloqueo`);
+    }
 
 }

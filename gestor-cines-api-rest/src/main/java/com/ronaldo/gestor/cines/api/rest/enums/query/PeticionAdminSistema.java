@@ -61,6 +61,9 @@ public enum PeticionAdminSistema {
        ELIMINAR_ADMINS_SISTEMA("delete from admin_sistema where id_usuario=?"),
        OBTENER_FECHAS_REGISTRO_COSTO("select * from costo_funcionamiento join cine on codigo_cine=codigo where id=?"),
        OBTENER_UN_ANUNCIANTE("select * from anunciante where id_usuario=?"),
+       ACTUALIZAR_COSTO_BLOQUEO_ANUNCIO("update costo_bloqueo_anuncio set costo=?"),
+       OBTENER_COSTO_BLOQUEO_ANUNCIO("select * from costo_bloqueo_anuncio"),
+       PAGAR_BLOQUEO_ANUNCIOS("insert into pago_bloqueo_anuncio (codigo_cine, fecha_pago, total_dias, costo) values(?, ?, ?, ?)"),
        ;
        
        private String peticion;

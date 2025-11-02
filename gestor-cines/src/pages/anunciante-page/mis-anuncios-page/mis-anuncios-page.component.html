@@ -1,35 +1,69 @@
 @if (rol=='ADMIN-CINE') {
-  <app-header-admin-cine></app-header-admin-cine>
+<app-header-admin-cine></app-header-admin-cine>
+} @if (rol=='ADMIN-SISTEMA') {
+<app-header-admin-sistema></app-header-admin-sistema>
+} @if (rol=='USUARIO-NORMAL') {
+<app-header-usuario-normal></app-header-usuario-normal>
 }
-@if (rol=='ADMIN-SISTEMA') {
-  <app-header-admin-sistema></app-header-admin-sistema>
-}
+<div id="contenedor">
+  <div class="container-fluid">
+    <div class="row min-vh-100">
+      <div class="col-2 bg-transparent border-end p-3">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anunciosGeneral.length>0){
+        <app-anuncio-card-component [anuncio]="anunciosGeneral[0]"></app-anuncio-card-component>
+        }
+      </div>
+      <div class="col-8 text-black p-4">
+        <div class="container text-center text-black">
+          <br />
+          <div class="d-flex justify-content-center gap-3">
+            <a
+              routerLink="/misAnuncios/nuevo/TEXTO"
+              class="btn btn-success d-flex align-items-center"
+            >
+              <i class="bi bi-file-earmark-plus me-2"></i>
+              <h6 class="m-0">Comprar Anuncio de Texto</h6>
+            </a>
+            <a
+              routerLink="/misAnuncios/nuevo/IMAGEN"
+              class="btn btn-success d-flex align-items-center"
+            >
+              <i class="bi bi-file-earmark-plus me-2"></i>
+              <h6 class="m-0">Comprar Anuncio de Texto e Imagen</h6>
+            </a>
+            <a
+              routerLink="/misAnuncios/nuevo/VIDEO"
+              class="btn btn-success d-flex align-items-center"
+            >
+              <i class="bi bi-file-earmark-plus me-2"></i>
+              <h6 class="m-0">Comprar Anuncio de Texto y Video</h6>
+            </a>
+          </div>
 
-<div class="container text-center text-black">
-  <br />
-  <div class="d-flex justify-content-center gap-3">
-    <a routerLink="/misAnuncios/nuevo/TEXTO" class="btn btn-success d-flex align-items-center">
-      <i class="bi bi-file-earmark-plus me-2"></i>
-      <h6 class="m-0">Comprar Anuncio de Texto</h6>
-    </a>
-
-    <a routerLink="/misAnuncios/nuevo/IMAGEN" class="btn btn-success d-flex align-items-center">
-      <i class="bi bi-file-earmark-plus me-2"></i>
-      <h6 class="m-0">Comprar Anuncio de Texto e Imagen</h6>
-    </a>
-
-    <a routerLink="/misAnuncios/nuevo/VIDEO" class="btn btn-success d-flex align-items-center">
-      <i class="bi bi-file-earmark-plus me-2"></i>
-      <h6 class="m-0">Comprar Anuncio de Texto y Video</h6>
-    </a>
+          <br />
+        </div>
+        <div class="container text-center">
+          <h1><strong>Mis Anuncios</strong></h1>
+          <br />
+          <br />
+          <app-anuncios-table-component [anuncios]="anuncios"></app-anuncios-table-component>
+        </div>
+      </div>
+      <div class="col-2 bg-transparent border-start p-3">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anunciosGeneral.length==2){
+        <app-anuncio-card-component [anuncio]="anunciosGeneral[1]"></app-anuncio-card-component>
+        }
+      </div>
+    </div>
   </div>
-
-  <br />
-</div>
-
-<div class="container text-center">
-  <h1><strong>Mis Anuncios</strong></h1>
-  <br />
-  <br />
-  <app-anuncios-table-component [anuncios]="anuncios"></app-anuncios-table-component>
 </div>

@@ -43,8 +43,7 @@ export class ActualizarPreciosFormComponent implements OnInit {
           this.toast.titulo = 'Actualizacion exitosa';
           this.toast.tipo = 'success';
           this.toast.mensaje = 'Actualizacion realizada con exito, ' +
-            'nuevo precio de venta: "Q.' + respuesta.precioVentaPorDia +
-            '" nuevo precio de bloqueo: "Q.' + respuesta.precioBloqueoPorDia + '"';
+            'nuevo precio de venta: "Q.' + respuesta.precioVentaPorDia;
           this.toast.mostrar();
         },
         error: (error) => {
@@ -89,8 +88,8 @@ export class ActualizarPreciosFormComponent implements OnInit {
 
         }
       },
-      error: (err) => {
-        console.error('Error al traer precios', err);
+      error: (error) => {
+        console.error('Error al traer precios', error);
       }
     });
   }

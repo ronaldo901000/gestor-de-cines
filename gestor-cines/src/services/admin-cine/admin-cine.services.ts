@@ -4,6 +4,7 @@ import { RestConstants } from '../../shared/rest-api/rest-constants';
 import { Observable } from 'rxjs';
 import { Usuario } from '../../models/usuario/usuario';
 import { AdminCine } from '../../models/admin-cine/admin-cine';
+import { PagoBloqueo } from '../../models/pago-bloqueo/pago-bloqueo';
 
 @Injectable({
     providedIn: 'root',
@@ -22,9 +23,13 @@ export class AdminCinesServices {
         return this.httpClient.get<Usuario[]>(`${this.restConstants.getApiURL()}adminsCines/${codigoCine}`);
     }
 
-    eliminarAdminCine(id: string): Observable<void> {
+    public eliminarAdminCine(id: string): Observable<void> {
         return this.httpClient.delete<void>(
             `${this.restConstants.getApiURL()}adminsCines/${id}`);
     }
 
+    public pagarBloqueoAnuncio(pago: PagoBloqueo): Observable<void> {
+        return this.httpClient.post<void>
+            (`${this.restConstants.getApiURL()}cines/pago-bloqueo`, pago);
+    }
 }

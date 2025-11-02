@@ -1,18 +1,43 @@
 <app-header-admin-cine></app-header-admin-cine>
-<div class="container text-center"></div>
-
-<br />
-<div class="container text-black text-center">
-  <h1><strong> LISTA DE PELICULAS DISPONIBLES PARA ASIGNAR</strong></h1>
-  <br />
-  <div class="container text-center">
-    <a routerLink="/home/admin-cine" class="btn btn-primary">
-      <i class="bi bi-arrow-left-square-fill"></i>
-      Regresar Al Menu Principal
-    </a>
+<div id="contenedor">
+  <div class="container-fluid">
+    <div class="row min-vh-100">
+      <div class="col-2 bg-transparent border-end p-3">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anuncios.length>0){
+        <app-anuncio-card-component [anuncio]="anuncios[0]"> </app-anuncio-card-component>
+        }
+      </div>
+      <div class="col-8 text-black p-2">
+        <div class="container text-black text-center">
+          <h1><strong> LISTA DE PELICULAS DISPONIBLES PARA ASIGNAR</strong></h1>
+          <br />
+          <div class="container text-center">
+            <a routerLink="/home/admin-cine" class="btn btn-primary">
+              <i class="bi bi-arrow-left-square-fill"></i>
+              Regresar Al Menu Principal
+            </a>
+          </div>
+          <br />
+          <br />
+          <br />
+        </div>
+        <app-peliculas-table-component [editable]="false"></app-peliculas-table-component>
+      </div>
+      <div class="col-2 bg-transparent border-start p-3">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anuncios.length==2){
+        <app-anuncio-card-component [anuncio]="anuncios[1]"> </app-anuncio-card-component>
+        }
+      </div>
+    </div>
   </div>
-  <br />
-  <br />
-  <br />
 </div>
-<app-peliculas-table-component [editable]="false"></app-peliculas-table-component>

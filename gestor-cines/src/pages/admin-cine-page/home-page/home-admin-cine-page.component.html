@@ -1,54 +1,97 @@
 <app-header-admin-cine></app-header-admin-cine>
-
-<div class="container align-content-sm-center text-black">
-  <div class="text-center text-black">
-    <h1>BIENVENIDO ADMIN DE CINE</h1>
-  </div>
-
-  <div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-4 text-center border rounded-3 p-3 shadow-sm bg-gradient">
-        <svg class="bi" width="2em" height="2em">
-          <use xlink:href="#toggles2"></use>
-        </svg>
-        <h2>Salas</h2>
-        <h5 class="text-muted">
-          Apartado para ver el listado de salas, o crear una nueva
-        </h5>
-        <a routerLink="/salas" class="btn btn-success">
-          <i class="bi bi-toggles2"></i> Ir a Salas Registradas
-        </a>
+<div id="contenedor">
+  <div class="container-fluid">
+    <div class="row min-vh-100">
+      <div class="col-2 bg-transparent border-end p-3">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anuncios.length>0){
+        <app-anuncio-card-component [anuncio]="anuncios[0]"> </app-anuncio-card-component>
+        }
       </div>
 
-      <div class="col-md-4 text-center border rounded-3 p-3 shadow-sm bg-gradient">
-        <svg class="bi" width="2em" height="2em">
-          <use xlink:href="#toggles2"></use>
-        </svg>
+      <div class="col-8 text-black p-4">
+        <div class="container align-content-sm-center text-black">
+          <div class="text-center text-black">
+            <h1>BIENVENIDO ADMIN DE CINE</h1>
+          </div>
 
-        <h2>Peliculas</h2>
-        <h5 class="text-muted">
-          Apartado para ver el listado de peliculas disponibles, para poder asignar a alguna sala 
-        </h5>
-        <a routerLink="/peliculas" class="btn btn-success">
-          <i class="bi bi-toggles2"></i> Ver Peliculas
-        </a>
+          <div class="container mt-5">
+            <div class="row justify-content-center">
+              <div class="col-md-4 text-center border rounded-3 p-3 shadow-sm bg-gradient">
+                <svg class="bi" width="2em" height="2em">
+                  <use xlink:href="#toggles2"></use>
+                </svg>
+                <h2>Salas</h2>
+                <h5 class="text-muted">Apartado para ver el listado de salas, o crear una nueva</h5>
+                <a routerLink="/salas" class="btn btn-success">
+                  <i class="bi bi-toggles2"></i> Ir a Salas Registradas
+                </a>
+              </div>
+
+              <div class="col-md-4 text-center border rounded-3 p-3 shadow-sm bg-gradient">
+                <svg class="bi" width="2em" height="2em">
+                  <use xlink:href="#toggles2"></use>
+                </svg>
+
+                <h2>Peliculas</h2>
+                <h5 class="text-muted">
+                  Apartado para ver el listado de peliculas disponibles, para poder asignar a alguna
+                  sala
+                </h5>
+                <a routerLink="/peliculas" class="btn btn-success">
+                  <i class="bi bi-toggles2"></i> Ver Peliculas
+                </a>
+              </div>
+
+              <div class="col-md-4 text-center border rounded-3 p-3 shadow-sm bg-gradient">
+                <svg class="bi" width="2em" height="2em">
+                  <use xlink:href="#toggles2"></use>
+                </svg>
+
+                <h2>Proyecciones</h2>
+                <h5 class="text-muted">
+                  Apartado para ver, crear o actualizar las proyecciones disponibles en el cine, ver
+                  horarios y diponibilidad de salas
+                </h5>
+                <a routerLink="/proyecciones" class="btn btn-success">
+                  <i class="bi bi-toggles2"></i> Ir a Configuracion de Precios
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="container mt-5">
+            <div class="row justify-content-center">
+              <div class="col-md-4 text-center border rounded-3 p-3 shadow-sm bg-gradient">
+                <svg class="bi" width="2em" height="2em">
+                  <use xlink:href="#toggles2"></use>
+                </svg>
+                <h2>Bloqueo Anuncios</h2>
+                <h5 class="text-muted">
+                  Apartado para bloquear anuncios en las paginas relacionadas al cine
+                </h5>
+                <a routerLink="/anuncios/bloqueo" class="btn btn-success">
+                  <i class="bi bi-toggles2"></i> Ir a bloqueo de anuncios
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="col-md-4 text-center border rounded-3 p-3 shadow-sm bg-gradient">
-        <svg class="bi" width="2em" height="2em">
-          <use xlink:href="#toggles2"></use>
-        </svg>
-
-        <h2>Proyecciones</h2>
-        <h5 class="text-muted">
-          Apartado para ver, crear o actualizar las proyecciones disponibles en el cine,
-          ver horarios y diponibilidad de salas
-        </h5>
-        <a routerLink="/proyecciones" class="btn btn-success">
-          <i class="bi bi-toggles2"></i> Ir a Configuracion de Precios
-        </a>
+      <div class="col-2 bg-transparent border-start p-3">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anuncios.length==2){
+        <app-anuncio-card-component [anuncio]="anuncios[1]"> </app-anuncio-card-component>
+        }
       </div>
     </div>
   </div>
-
 </div>

@@ -5,9 +5,13 @@ import { CineServices } from '../../../services/cine/cine.services';
 import { AdminCineProperties } from '../../../shared/user/admin-cine-properties';
 import { RecargaCineComponent } from "../../../components/cine/recarga-saldo-component/recarga-cine.component";
 import { CurrencyPipe } from '@angular/common';
+import { AnuncioResponse } from '../../../models/anuncio/anuncio-response';
+import { AnuncioServices } from '../../../services/anuncio/anuncio.services';
+import { UserProperties } from '../../../shared/user/user-properties';
+import { AnuncioCardComponent } from "../../../components/anuncio/anuncio-card/anuncio-card.component";
 @Component({
   selector: 'app-saldo-cine-page',
-  imports: [HeaderAdminCineComponent, RecargaCineComponent, CurrencyPipe],
+  imports: [HeaderAdminCineComponent, RecargaCineComponent, CurrencyPipe, AnuncioCardComponent],
   templateUrl: './saldo-cine-page.html',
   styleUrl: './saldo-cine-page.css'
 })
@@ -16,8 +20,10 @@ export class SaldoCinePage implements OnInit {
   cine!: Cine;
   codigoCine!: string | null;
   saldoActual!: number;
+  hayBloqueador!: string | null;
+  anuncios: AnuncioResponse[] = [];
 
-  constructor(private cineServices: CineServices) {
+  constructor(private cineServices: CineServices, private anunciosServices: AnuncioServices) {
 
   }
   ngOnInit(): void {
@@ -25,6 +31,10 @@ export class SaldoCinePage implements OnInit {
     console.log('codigo cine: ' + this.codigoCine);
     this.obtenerCine();
     this.obtenerSaldo();
+    this.hayBloqueador = localStorage.getItem(AdminCineProperties.TIENE_BLOQUEADOR_ANUNCIOS);
+    if (this.hayBloqueador == 'false') {
+      this.obtenerAnuncios();
+    }
   }
 
   obtenerCine() {
@@ -57,5 +67,26 @@ export class SaldoCinePage implements OnInit {
       });
     }
   }
+
+  obtenerAnuncios() {
+    const indice = Number(localStorage.getItem(UserProperties.INDICE_ANUNCIO));
+    this.anunciosServices.obtenerAnunciosParaMostrar(indice).subscribe({
+      next: (anunciosServer: AnuncioResponse[]) => {
+        this.anuncios = anunciosServer;
+        if (this.anuncios.length < 2) {
+          localStorage.setItem(UserProperties.INDICE_ANUNCIO, '0');
+        }
+        else {
+          const nuevoIndice = indice + 2;
+          localStorage.setItem(UserProperties.INDICE_ANUNCIO, nuevoIndice.toString());
+        }
+      },
+      error: (error) => {
+        console.log(error.error);
+      }
+    });
+  }
+
+
 }
 

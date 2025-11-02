@@ -1,4 +1,5 @@
 export const AdminCineProperties = {
   CODIGO_CINE:'CODIGO-CINE',
+  TIENE_BLOQUEADOR_ANUNCIOS:'BLOQUEADOR-ANUNCIOS'
 
 };

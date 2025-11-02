@@ -1,6 +1,7 @@
 package com.ronaldo.gestor.cines.api.rest.services.preciosAnuncios;
 
 import com.ronaldo.gestor.cines.api.rest.db.general.HerramientaDB;
+import com.ronaldo.gestor.cines.api.rest.db.preciosAnunciosDB.CostoBloqueoRequest;
 import com.ronaldo.gestor.cines.api.rest.db.preciosAnunciosDB.PreciosAnunciosDB;
 import com.ronaldo.gestor.cines.api.rest.dtos.preciosAnuncios.PreciosAnunciosRequest;
 import com.ronaldo.gestor.cines.api.rest.dtos.preciosAnuncios.PreciosAnunciosResponse;
@@ -9,7 +10,6 @@ import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.UserDataInvalidException;
 import com.ronaldo.gestor.cines.api.rest.models.herencia.EntidadRequest;
-import com.ronaldo.gestor.cines.api.rest.models.herencia.EntidadResponse;
 import com.ronaldo.gestor.cines.api.rest.models.preciosAnuncios.PrecioAnuncio;
 import java.util.List;
 
@@ -19,6 +19,8 @@ import java.util.List;
  */
 public class CRUDPreciosAnuncios {
 
+       private static final int MAXIMO=100000000;
+       private static final int MINIMO=0;
        public PreciosAnunciosResponse[] obtenerPrecios() throws DataBaseException {
 
               PreciosAnunciosDB preciosAnunciosDB = new PreciosAnunciosDB();
@@ -69,6 +71,35 @@ public class CRUDPreciosAnuncios {
                      throw new UserDataInvalidException("Error en los datos enviados");
               }
               return precioAnuncio;
+       }
+
+       /**
+        * 
+        * @param nuevoCosto
+        * @throws DataBaseException
+        * @throws UserDataInvalidException 
+        */
+       public void actualizarCostoBloqueo(CostoBloqueoRequest nuevoCosto) throws DataBaseException, UserDataInvalidException {
+              PreciosAnunciosDB preciosAnunciosDB = new PreciosAnunciosDB();
+              try {
+                     
+                     if (nuevoCosto.getCostoBloqueo() < MINIMO || nuevoCosto.getCostoBloqueo() > MAXIMO) {
+                            throw new UserDataInvalidException("Valor fuera del rango permitido");
+                     }
+              } catch (NumberFormatException e) {
+                     throw new UserDataInvalidException("Error en los datos enviados");
+              }
+              preciosAnunciosDB.actualizarCostoBloqueo(nuevoCosto.getCostoBloqueo());
+       }
+
+       /**
+        * 
+        * @return
+        * @throws DataBaseException 
+        */
+       public double obtenerCostoBloqueo() throws DataBaseException {
+              PreciosAnunciosDB preciosAnunciosDB = new PreciosAnunciosDB();
+              return preciosAnunciosDB.obtenerCostoBloqueo();
        }
 
 }
