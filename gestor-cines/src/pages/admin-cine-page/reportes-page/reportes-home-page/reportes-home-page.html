@@ -1,0 +1,39 @@
+<app-header-admin-cine></app-header-admin-cine>
+<div id="contenedor">
+  <div class="container-fluid">
+    <div class="row min-vh-100">
+      <div class="col-2 bg-transparent border-end p-3">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anuncios.length>0){
+        <app-anuncio-card-component [anuncio]="anuncios[0]"> </app-anuncio-card-component>
+        }
+      </div>
+
+      <div class="col-8 text-black p-4 text-center">
+        <h1><strong>REPORTES:</strong></h1>
+        <br />
+        <h5>Selecciona alguno:</h5>
+        <br />
+        <a routerLink="/reportes-admin-cine/comentarios-de-salas" class="btn btn-success">
+          <i class="bi bi-file-earmark-text"></i>
+          <h5>Reporte de comentarios de salas</h5>
+        </a>
+      </div>
+
+      <div class="col-2 bg-transparent border-start p-3">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @if(anuncios.length==2){
+        <app-anuncio-card-component [anuncio]="anuncios[1]"> </app-anuncio-card-component>
+        }
+      </div>
+    </div>
+  </div>
+</div>
