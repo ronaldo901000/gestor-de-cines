@@ -44,6 +44,8 @@ import { MisComprasPage } from '../pages/general/mis-compras-page/mis-compras-pa
 import { PagoBloqueoAnunciosPage } from '../pages/admin-cine-page/pago-bloqueo-anuncios-page/pago-bloqueo-anuncios-page';
 import { OpinionPage } from '../pages/general/opinion-page/opinion-page';
 import { OpinionesPage } from '../pages/general/opiniones-page/opiniones-page';
+import { ReportesHomePage } from '../pages/admin-cine-page/reportes-page/reportes-home-page/reportes-home-page';
+import { ReporteComentariosSalasPage } from '../pages/admin-cine-page/reportes-page/reporte-comentarios-salas/reporte-comentarios-salas-page';
 export const routes: Routes = [
     {
         path: '',
@@ -298,5 +300,17 @@ export const routes: Routes = [
         data: { allowedRoles: [Roles.ADMIN_CINE, Roles.ADMIN_SISTEMA, Roles.USUARIO_NORMAL] },
         component: OpinionesPage
 
+    },
+    {
+        path: 'reportes-admin-cine',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: [Roles.ADMIN_CINE] },
+        component: ReportesHomePage
+    },
+    {
+        path: 'reportes-admin-cine/comentarios-de-salas',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: [Roles.ADMIN_CINE] },
+        component: ReporteComentariosSalasPage
     }
 ];
