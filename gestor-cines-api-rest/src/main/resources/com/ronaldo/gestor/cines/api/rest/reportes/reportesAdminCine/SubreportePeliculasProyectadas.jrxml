@@ -63,13 +63,14 @@
 		<field name="horaInicio" class="java.time.LocalTime"/>
 		<field name="horaFin" class="java.time.LocalTime"/>
 	</dataset>
+	<parameter name="listaProyecciones" class="java.util.List"/>
 	<query language="sql"><![CDATA[]]></query>
 	<detail>
 		<band height="120" splitType="Stretch">
 			<element kind="component" uuid="36915b96-ccdb-4a14-b68e-eb6a6a37705e" x="0" y="1" width="550" height="119">
 				<component kind="table">
-					<datasetRun uuid="898bd9e9-c06d-4a4f-b15a-aacfb752a771" subDataset="DatasetProyecciones">
-						<dataSourceExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></dataSourceExpression>
+					<datasetRun uuid="0f31bd0a-9c56-4ce5-a337-25892c1228e7" subDataset="DatasetProyecciones">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{listaProyecciones})]]></dataSourceExpression>
 					</datasetRun>
 					<column kind="single" uuid="9d3e8b30-301f-46c7-94d3-0d2181f2c341" width="90">
 						<columnHeader height="30" rowSpan="1" style="Table 1_CH">
