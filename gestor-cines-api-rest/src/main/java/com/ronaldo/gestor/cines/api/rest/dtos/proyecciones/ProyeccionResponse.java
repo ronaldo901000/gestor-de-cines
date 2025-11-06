@@ -43,6 +43,14 @@ public class ProyeccionResponse extends EntidadResponse{
               return pelicula;
        }
 
+       public String getCodigoPelicula() {
+              return pelicula.getCodigo();
+       }
+
+       public String getNombrePelicula() {
+              return pelicula.getTitulo();
+       }
+
        public void setPelicula(PeliculaUpdateResponse pelicula) {
               this.pelicula = pelicula;
        }

@@ -6,8 +6,9 @@ import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.UserDataInvalidException;
 import com.ronaldo.gestor.cines.api.rest.models.reporteComentarios.ReporteComentarios;
+import com.ronaldo.gestor.cines.api.rest.models.reportePeliculasProyectadas.ReportePeliculasProyectadas;
 import com.ronaldo.gestor.cines.api.rest.services.reporteAdminsCines.CreadorReportesAdminCine;
-import jakarta.ws.rs.Consumes;
+import com.ronaldo.gestor.cines.api.rest.services.reporteAdminsCines.CreadorRequest;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.UriInfo;
@@ -35,7 +36,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
  */
 @Path("reportes-admin-cine")
 public class ReportesAdminCineResource {
-       
+
        @Context
        private UriInfo context;
 
@@ -48,11 +49,9 @@ public class ReportesAdminCineResource {
                @QueryParam("fechaInicio") String fechaInicio,
                @QueryParam("fechaFin") String fechaFin
        ) throws JRException {
-              FiltroComentariosSalasRequest request = new FiltroComentariosSalasRequest();
-              request.setCodigoCine(codigoCine);
-              request.setCodigoSala(codigoSala);
-              request.setFechaInicio(fechaInicio);
-              request.setFechaFin(fechaFin);
+
+              CreadorRequest creadorRequest = new CreadorRequest();
+              FiltroComentariosSalasRequest request = creadorRequest.obtenerRequest(codigoCine, codigoSala, fechaInicio, fechaFin);
 
               CreadorReportesAdminCine creador = new CreadorReportesAdminCine();
               ReporteComentarios reporte;
@@ -95,4 +94,59 @@ public class ReportesAdminCineResource {
                       .header("content-disposition", "attachment; filename=" + fileName)
                       .build();
        }
+
+       
+       
+       @GET
+       @Path("reporte-peliculas-proyectadas")
+       @Produces(MediaType.APPLICATION_OCTET_STREAM)
+       public Response generarReportePeliculasProyectadas(
+               @QueryParam("codigoCine") String codigoCine,
+               @QueryParam("codigoSala") String codigoSala,
+               @QueryParam("fechaInicio") String fechaInicio,
+               @QueryParam("fechaFin") String fechaFin
+       ) throws JRException {
+              CreadorRequest creadorRequest = new CreadorRequest();
+              FiltroComentariosSalasRequest request = creadorRequest.obtenerRequest(codigoCine, codigoSala, fechaInicio, fechaFin);
+
+              CreadorReportesAdminCine creador = new CreadorReportesAdminCine();
+              ReportePeliculasProyectadas reporte;
+
+              try {
+                     reporte = creador.obtenerReporteProyeccioens(request);
+              } catch (UserDataInvalidException ex) {
+                     return Response.status(Response.Status.BAD_REQUEST).build();
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+              } catch (EntityNotFoundException ex) {
+                     return Response.status(Response.Status.NOT_FOUND).build();
+              }
+
+              InputStream reporteCompilado = getClass().getClassLoader()
+                      .getResourceAsStream(RutasReportesJasper.REPORTE_PELICULAS_PROYECTADAS.getRuta());
+              JRDataSource source = new JRBeanCollectionDataSource(reporte.getInfoSalas());
+
+              Map<String, Object> parametros = new HashMap<>();
+              parametros.put("nombreCine", reporte.getCine().getNombre());
+              parametros.put("ubicacion", reporte.getCine().getUbicacion());
+
+              JasperPrint printer = JasperFillManager.fillReport(reporteCompilado, parametros, source);
+
+              String fileName = "reporte_peliculas_proyectadas.pdf";
+
+              StreamingOutput fileStream = (java.io.OutputStream output) -> {
+                     try {
+                            JasperExportManager.exportReportToPdfStream(printer, output);
+                            output.flush();
+                     } catch (Exception e) {
+                            throw new WebApplicationException("Error al generar el reporte");
+                     }
+              };
+
+              return Response
+                      .ok(fileStream, MediaType.APPLICATION_OCTET_STREAM)
+                      .header("content-disposition", "attachment; filename=" + fileName)
+                      .build();
+       }
+
 }

@@ -21,8 +21,8 @@ export class ReporteAdminCineServices {
         );
     }
 
-    public generarURLReporteComentariosSalas(filtro: FiltroComentariosSalas): string {
-        let url = this.restConstants.API_URL + 'reportes-admin-cine/reporte-comentarios-salas?codigoCine=' + filtro.codigoCine;
+    public generarURLReporteComentariosSalas(filtro: FiltroComentariosSalas, endPoint:string): string {
+        let url = this.restConstants.API_URL + 'reportes-admin-cine/'+endPoint+'?codigoCine=' + filtro.codigoCine;
 
         if (filtro.codigoSala) {
             url += '&codigoSala=' + filtro.codigoSala;

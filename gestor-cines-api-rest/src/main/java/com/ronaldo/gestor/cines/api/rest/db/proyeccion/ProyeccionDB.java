@@ -86,6 +86,7 @@ public class ProyeccionDB {
         * @param codigoCine
         * @param inicio
         * @param fin
+        * @param peticion
         * @return
         * @throws DataBaseException 
         */

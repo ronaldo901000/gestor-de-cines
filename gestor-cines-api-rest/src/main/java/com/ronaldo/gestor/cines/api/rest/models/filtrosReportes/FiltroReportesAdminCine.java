@@ -7,17 +7,18 @@ import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.UserDataInvalidException;
 import java.time.LocalDate;
+import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 /**
  *
  * @author ronaldo
  */
-public class FiltroComentariosSalas extends FiltroReporte {
-       public static final int FILTRO_COMPLETO=1;
-       public static final int FILTRO_NULO=2;
-       public static final int FILTRO_SALA=3;
-       public static final int FILTRO_FECHAS=4;
+public class FiltroReportesAdminCine extends FiltroReporte {
+       public static final int FILTRO_COMPLETO=0;
+       public static final int FILTRO_NULO=1;
+       public static final int FILTRO_SALA=2;
+       public static final int FILTRO_FECHAS=3;
        
        private String codigoCine;
        private String codigoSala;
@@ -76,23 +77,24 @@ public class FiltroComentariosSalas extends FiltroReporte {
               this.fechaFin = fechaFin;
        }
 
-       public void generarQuery() throws UserDataInvalidException {
+       public void generarQuery(List<String> querys) throws UserDataInvalidException {
 
               if (fechaInicio != null && fechaFin != null && StringUtils.isNotBlank(codigoSala)) {
-                     query = QueryFiltro.BUSCAR_COMENTARIOS_FILTRO_COMPLETO.getQuery();
+                     query=querys.get(FILTRO_COMPLETO);
                      tipoFiltro = FILTRO_COMPLETO;
               } else if (fechaInicio == null && StringUtils.isBlank(codigoSala)) {
-                     query = QueryFiltro.BUSCAR_COMENTARIOS_FILTRO_NULO.getQuery();
+                     query=querys.get(FILTRO_NULO);
                      tipoFiltro = FILTRO_NULO;
               } else if (fechaInicio == null && StringUtils.isNotBlank(codigoSala)) {
-                     query = QueryFiltro.BUSCAR_COMENTARIOS_FILTRO_SALA.getQuery();
+                     query=querys.get(FILTRO_SALA);
                      tipoFiltro = FILTRO_SALA;
-              } else if (fechaInicio != null && fechaFin != null && StringUtils.isBlank(codigoSala)) {
-                     query = QueryFiltro.BUSCAR_COMENTARIOS_FILTRO_FECHAS.getQuery();
+              } else if (fechaInicio != null && fechaFin != null && StringUtils.isBlank(codigoSala)) { 
+                     query=querys.get(FILTRO_FECHAS);
                      tipoFiltro = FILTRO_FECHAS;
               } else {
                      throw new UserDataInvalidException("Los parametros no coinciden con ningun filtro valido");
               }
+              
        }
 
        public void datoaValidos() throws UserDataInvalidException {

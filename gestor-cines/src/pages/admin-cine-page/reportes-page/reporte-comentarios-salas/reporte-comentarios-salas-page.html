@@ -14,7 +14,9 @@
       </div>
 
       <div class="col-8 text-black p-4 text-center">
-        <h1><strong>REPORTES DE SALAS:</strong></h1>
+        <h1>
+          <strong>{{ encabezado }}</strong>
+        </h1>
         <br />
         <div class="container text-center">
           <a routerLink="/reportes-admin-cine" class="btn btn-primary">
@@ -28,11 +30,15 @@
           <br />
           <br />
         </div>
-        @if(codigoCine){
+        @if(codigoCine){ @if(tipo=='1'){
         <app-comentarios-de-salas-form-component
           [codigoCine]="codigoCine"
         ></app-comentarios-de-salas-form-component>
-        }
+        } @else if(tipo=='2'){
+        <app-peliculas-proyectadas-component
+          [codigoCine]="codigoCine"
+        ></app-peliculas-proyectadas-component>
+        } }
         <br />
       </div>
 
