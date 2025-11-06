@@ -5,6 +5,7 @@ import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.models.filtrosReportes.FiltroReportesAdminCine;
 import com.ronaldo.gestor.cines.api.rest.models.proyecciones.Proyeccion;
 import com.ronaldo.gestor.cines.api.rest.models.reporteComentarios.Comentario;
+import com.ronaldo.gestor.cines.api.rest.models.reporteSalasGustadas.Calificacion;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -73,7 +74,9 @@ public class ReportesAdminCineDB {
                              prepareStatement(filtro.getQuery())) {
                             query.setString(1, codigoSala);
 
-                            if (filtro.getTipoFiltro() == FiltroReportesAdminCine.FILTRO_COMPLETO) {
+                            if (filtro.getTipoFiltro() == FiltroReportesAdminCine.FILTRO_COMPLETO || 
+                                    filtro.getTipoFiltro()==FiltroReportesAdminCine.FILTRO_FECHAS) {
+                                   
                                    query.setDate(2, Date.valueOf(filtro.getFechaInicio()));
                                    query.setDate(3, Date.valueOf(filtro.getFechaFin()));
                             }
@@ -107,5 +110,34 @@ public class ReportesAdminCineDB {
               proyeccion.setHoraFin(LocalTime.parse(resultSet.getString("p.hora_fin")));
               proyeccion.setPrecio(resultSet.getDouble("p.precio"));
               proyeccion.setDisponible(resultSet.getBoolean("p.disponible"));
+       }
+
+       public List<Calificacion> obtenerCalificacionesSala(String codigoSala, FiltroReportesAdminCine filtro) throws DataBaseException {
+              List<Calificacion> calificaciones = new ArrayList<>();
+              try (Connection connnection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement query = connnection.
+                             prepareStatement(filtro.getQuery())) {
+                            query.setString(1, codigoSala);
+
+                            if (filtro.getTipoFiltro() == FiltroReportesAdminCine.FILTRO_COMPLETO
+                                    || filtro.getTipoFiltro()==FiltroReportesAdminCine.FILTRO_FECHAS) {
+                                   query.setDate(2, Date.valueOf(filtro.getFechaInicio()));
+                                   query.setDate(3, Date.valueOf(filtro.getFechaFin()));
+                            }
+
+                            ResultSet resultSet = query.executeQuery();
+                            while (resultSet.next()) {
+                                   Calificacion calificacion = new Calificacion();
+                                   calificacion.setIdUsuario(resultSet.getString("id_usuario"));
+                                   calificacion.setCalificacion(resultSet.getInt("calificacion"));
+                                   calificacion.setFecha(LocalDate.parse(resultSet.getString("fecha")));
+                                   calificaciones.add(calificacion);
+                            }
+                     }
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al obtener Proyecciones por sala en db");
+              }
+              return calificaciones;
        }
 }

@@ -45,7 +45,7 @@ import { PagoBloqueoAnunciosPage } from '../pages/admin-cine-page/pago-bloqueo-a
 import { OpinionPage } from '../pages/general/opinion-page/opinion-page';
 import { OpinionesPage } from '../pages/general/opiniones-page/opiniones-page';
 import { ReportesHomePage } from '../pages/admin-cine-page/reportes-page/reportes-home-page/reportes-home-page';
-import { ReporteComentariosSalasPage } from '../pages/admin-cine-page/reportes-page/reporte-comentarios-salas/reporte-comentarios-salas-page';
+import { ReporteComentariosSalasPage } from '../pages/admin-cine-page/reportes-page/reportes-page/reporte-comentarios-salas-page';
 export const routes: Routes = [
     {
         path: '',
