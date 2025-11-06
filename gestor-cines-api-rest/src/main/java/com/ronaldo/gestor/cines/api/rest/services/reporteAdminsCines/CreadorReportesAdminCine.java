@@ -2,14 +2,24 @@ package com.ronaldo.gestor.cines.api.rest.services.reporteAdminsCines;
 
 import com.ronaldo.gestor.cines.api.rest.db.cines.CinesDB;
 import com.ronaldo.gestor.cines.api.rest.db.reportes.ReportesAdminCineDB;
+import com.ronaldo.gestor.cines.api.rest.db.salas.SalasDB;
 import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminCine.FiltroComentariosSalasRequest;
+import com.ronaldo.gestor.cines.api.rest.dtos.proyecciones.ProyeccionResponse;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.UserDataInvalidException;
 import com.ronaldo.gestor.cines.api.rest.models.cines.Cine;
-import com.ronaldo.gestor.cines.api.rest.models.filtrosReportes.FiltroComentariosSalas;
+import com.ronaldo.gestor.cines.api.rest.models.filtrosReportes.FiltroReportesAdminCine;
+import com.ronaldo.gestor.cines.api.rest.models.filtrosReportes.QueryFiltro;
 import com.ronaldo.gestor.cines.api.rest.models.reporteComentarios.ReporteComentarios;
+import com.ronaldo.gestor.cines.api.rest.models.reportePeliculasProyectadas.ProyeccionesSala;
+import com.ronaldo.gestor.cines.api.rest.models.reportePeliculasProyectadas.ReportePeliculasProyectadas;
+import com.ronaldo.gestor.cines.api.rest.models.salas.Sala;
+import com.ronaldo.gestor.cines.api.rest.services.proyecciones.CreadorProyeccionesResponse;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -32,12 +42,17 @@ public class CreadorReportesAdminCine {
               ReportesAdminCineDB reportesAdminCineDB = new ReportesAdminCineDB();
               ReporteComentarios reporte = new ReporteComentarios();
 
-              FiltroComentariosSalas filtro = extraer(request);
+              FiltroReportesAdminCine filtro = extraer(request);
 
               filtro.existeCineYSala();
 
+              List<String> querys = new ArrayList<>();
+              querys.add(QueryFiltro.BUSCAR_COMENTARIOS_FILTRO_COMPLETO.getQuery());
+              querys.add(QueryFiltro.BUSCAR_COMENTARIOS_FILTRO_NULO.getQuery());
+              querys.add(QueryFiltro.BUSCAR_COMENTARIOS_FILTRO_SALA.getQuery());
+              querys.add(QueryFiltro.BUSCAR_COMENTARIOS_FILTRO_FECHAS.getQuery());
+              filtro.generarQuery(querys);
               //se hace la consulta a la db para obtener cine y comentarios
-              filtro.generarQuery();
               Optional<Cine> cine = cinesDB.obtenerCinePorCodigo(filtro.getCodigoCine());
 
               reporte.setCine(cine.get());
@@ -46,8 +61,8 @@ public class CreadorReportesAdminCine {
               return reporte;
        }
 
-       private FiltroComentariosSalas extraer(FiltroComentariosSalasRequest request) throws UserDataInvalidException {
-              FiltroComentariosSalas filtro = new FiltroComentariosSalas();
+       private FiltroReportesAdminCine extraer(FiltroComentariosSalasRequest request) throws UserDataInvalidException {
+              FiltroReportesAdminCine filtro = new FiltroReportesAdminCine();
               filtro.setCodigoCine(request.getCodigoCine());
               filtro.setCodigoSala(request.getCodigoSala());
               filtro.setFechaInicio(request.getFechaInicio());
@@ -55,5 +70,58 @@ public class CreadorReportesAdminCine {
 
               filtro.datoaValidos();
               return filtro;
+       }
+
+       public ReportePeliculasProyectadas obtenerReporteProyeccioens(FiltroComentariosSalasRequest request) throws UserDataInvalidException,
+               DataBaseException, EntityNotFoundException {
+              
+              SalasDB salasDB = new SalasDB();
+              CinesDB cinesDB = new CinesDB();
+              ReportePeliculasProyectadas reporte = new ReportePeliculasProyectadas();
+
+              FiltroReportesAdminCine filtro = extraer(request);
+
+              filtro.existeCineYSala();
+
+              //se cargan las posibles querys para la db y se crea la que indique el usuario
+              List<String> querys = new ArrayList<>();
+              querys.add(QueryFiltro.BUSCAR_PELICULAS_PROYECTADAS_FILTRO_COMPLETO.getQuery());
+              querys.add(QueryFiltro.BUSCAR_PELICULAS_PROYECTADAS_FILTRO_SALA.getQuery());
+              querys.add(QueryFiltro.BUSCAR_PELICULAS_PROYECTADAS_FILTRO_SALA.getQuery());
+              filtro.generarQuery(querys);
+
+              //se hace la consulta a la db para obtener cine
+              Optional<Cine> cine = cinesDB.obtenerCinePorCodigo(filtro.getCodigoCine());
+
+              reporte.setCine(cine.get());
+              List<ProyeccionesSala> salas = new ArrayList<>();
+              //si ingresa codigo para una sala, solo se obtinen proyecciones de esa sala
+              if (StringUtils.isNotBlank(filtro.getCodigoSala())) {
+                     Optional<Sala> sala = salasDB.obtenerSala(filtro.getCodigoSala());
+                     salas.add(obtenerInfoSalas(sala.get(), filtro));
+                     reporte.setSalas(salas);
+                     return reporte;
+              } else {
+                     List<Sala> salasCine =salasDB.obtenerSalaPorCine(filtro.getCodigoCine());
+                     for (int i = 0; i < salasCine.size(); i++) {
+                            salas.add(obtenerInfoSalas(salasCine.get(i), filtro));
+                     }
+                     reporte.setSalas(salas);
+
+              }
+              return reporte;
+       }
+
+       private ProyeccionesSala obtenerInfoSalas(Sala sala, FiltroReportesAdminCine filtro) throws DataBaseException {
+              ProyeccionesSala proyeccionesSala = new ProyeccionesSala();
+              proyeccionesSala.setSala(sala);
+              proyeccionesSala.setProyecciones(obtenerProyeccionesSala(sala.getCodigo(), filtro));
+              return proyeccionesSala;
+       }
+
+       private List<ProyeccionResponse> obtenerProyeccionesSala(String codigoSala, FiltroReportesAdminCine filtro) throws DataBaseException {
+              ReportesAdminCineDB adminCineDB = new ReportesAdminCineDB();
+              CreadorProyeccionesResponse creador = new CreadorProyeccionesResponse();
+              return creador.crearListaResponse(adminCineDB.obtenerProyeccionesPorSala(codigoSala, filtro));
        }
 }

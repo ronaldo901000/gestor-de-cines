@@ -308,7 +308,7 @@ export const routes: Routes = [
         component: ReportesHomePage
     },
     {
-        path: 'reportes-admin-cine/comentarios-de-salas',
+        path: 'reportes-admin-cine/:titulo/:tipo',
         canActivate: [RoleGuardService],
         data: { allowedRoles: [Roles.ADMIN_CINE] },
         component: ReporteComentariosSalasPage

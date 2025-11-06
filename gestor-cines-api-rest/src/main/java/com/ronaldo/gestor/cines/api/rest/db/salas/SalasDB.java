@@ -159,10 +159,10 @@ public class SalasDB {
        }
 
        /**
-        * 
+        *
         * @param codigo
         * @param nuevoEstado
-        * @throws DataBaseException 
+        * @throws DataBaseException
         */
        public void cambiarVisibilidad(String codigo, boolean nuevoEstado) throws DataBaseException {
               try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
@@ -175,5 +175,22 @@ public class SalasDB {
               } catch (SQLException e) {
                      throw new DataBaseException("Error al eliminar sala en la base de datos");
               }
+       }
+
+       public List<Sala> obtenerSalaPorCine(String codigoCine) throws DataBaseException {
+              List<Sala> salas = new ArrayList<>();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement query = connection.
+                             prepareStatement(PeticionesAdminCine.OBTENER_SALAS.get())) {
+                            query.setString(1, codigoCine);
+                            ResultSet resultSet = query.executeQuery();
+                            while (resultSet.next()) {
+                                   salas.add(construirSala(resultSet));
+                            }
+                     }
+              } catch (SQLException e) {
+                     throw new DataBaseException("Error al obtener salas por cine en la base de datos");
+              }
+              return salas;
        }
 }
