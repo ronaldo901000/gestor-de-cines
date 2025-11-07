@@ -11,6 +11,7 @@ public enum RutasReportesJasper {
        REPORTE_BOLETOS_VENDIDOS("com/ronaldo/gestor/cines/api/rest/reportes/reportesAdminCine/ReporteBoletosVendidos.jasper"),
        REPORTE_GANANCIAS_ANUNCIANTES("com/ronaldo/gestor/cines/api/rest/reportes/reportesAdminSistema/ReporteGananciasAnunciates.jasper"),
        REPORTE_SALAS_POPULARES("com/ronaldo/gestor/cines/api/rest/reportes/reportesAdminSistema/ReporteSalasPopulares.jasper"),
+       REPORTE_SALAS_COMENTADAS("com/ronaldo/gestor/cines/api/rest/reportes/reportesAdminSistema/ReporteSalasComentadas.jasper"),
        
        ;
        

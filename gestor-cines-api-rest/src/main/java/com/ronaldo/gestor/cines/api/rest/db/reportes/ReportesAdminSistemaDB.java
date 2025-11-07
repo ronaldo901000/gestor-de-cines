@@ -4,6 +4,7 @@ import com.ronaldo.gestor.cines.api.rest.db.DataSourceDBSingleton;
 import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroSalasMasPopulares;
 import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionAdminSistema;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
+import com.ronaldo.gestor.cines.api.rest.models.opinion.Opinion;
 import com.ronaldo.gestor.cines.api.rest.models.reporteBoletosVendidos.CompraBoleto;
 import com.ronaldo.gestor.cines.api.rest.models.reporteSalasGustadas.Calificacion;
 import java.sql.Connection;
@@ -74,8 +75,9 @@ public class ReportesAdminSistemaDB {
                      }
               } catch (SQLException e) {
                      e.printStackTrace();
-                     throw new DataBaseException("Error al obtener Proyecciones por sala en db");
+                     throw new DataBaseException("Error al obtener boletos comprados por sala en db");
               }
               return boletosComprados;
        }
+
 }

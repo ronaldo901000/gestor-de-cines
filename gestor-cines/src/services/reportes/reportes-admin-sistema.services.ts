@@ -41,4 +41,16 @@ export class ReporteAdminSistemaServices {
         return url;
     }
 
+    public generarURLReporteSalasComentadas(filtro: FiltroComentariosSalas): string {
+        let url = this.restConstants.API_URL + 'reportes-admin-sistema/reporte-salas-mas-comentadas';
+
+        if (filtro.fechaInicio && filtro.fechaFin) {
+            const fechaInicio = new Date(filtro.fechaInicio);
+            url += '?fechaInicio=' + fechaInicio.toISOString();
+            const fechaFin = new Date(filtro.fechaFin);
+            url += '&fechaFin=' + fechaFin.toISOString();
+        }
+        return url;
+    }
+
 }

@@ -12,13 +12,6 @@ export class ReporteAdminCineServices {
 
     constructor(private httpClient: HttpClient) { }
 
-    public crearReporteComentariosSalas(filtro: FiltroComentariosSalas): Observable<Blob> {
-        return this.httpClient.post(
-            `${this.restConstants.getApiURL()}reportes-admin-cine/reporte-comentarios-salas`,
-            filtro, { responseType: 'blob' }
-        );
-    }
-
     public generarURLReporteComentariosSalas(filtro: FiltroComentariosSalas, endPoint:string): string {
         let url = this.restConstants.API_URL + 'reportes-admin-cine/'+endPoint+'?codigoCine=' + filtro.codigoCine;
 

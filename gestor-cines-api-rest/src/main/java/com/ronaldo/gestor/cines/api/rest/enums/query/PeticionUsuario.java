@@ -26,7 +26,9 @@ public enum PeticionUsuario {
        CREAR_OPINION_SALA("insert into opinion_sala (codigo_sala, id_usuario, comentario, calificacion, fecha) values(?, ?, ?, ?, ? )"),
        CREAR_OPINION_PELICULA("insert into opinion_pelicula (codigo_pelicula, id_usuario, comentario, calificacion, fecha) values(?, ?, ?, ?, ? )"),
        OBTENER_OPINIONES_PELCULA("select * from opinion_pelicula where codigo_pelicula=?"),
-       OBTENER_OPINIONES_SALA("select * from opinion_sala where codigo_sala=?"),;
+       OBTENER_OPINIONES_SALA("select * from opinion_sala where codigo_sala=?"),
+       OBTENER_TODAS_LAS_OPINIONES_SALA("select * from opinion_sala"),
+       ;
 
        private String peticion;
 
