@@ -1,17 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Status } from '../../../shared/status/status';
+import { Component, ViewChild } from '@angular/core';
 import { FiltroComentariosSalas } from '../../../models/filtros-reportes-admin-cine/filtro-comentarios.-salas';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Status } from '../../../shared/status/status';
 import { ToastComponent } from '../../toast/toast.component';
 import { HttpClient } from '@angular/common/http';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReporteAdminSistemaServices } from '../../../services/reportes/reportes-admin-sistema.services';
 
 @Component({
-  selector: 'app-reporte-salas-populares-form-component',
+  selector: 'app-reporte-salas-comentadas-form-component',
   imports: [ToastComponent, FormsModule, ReactiveFormsModule],
-  templateUrl: './reporte-salas-populares-form.component.html'
+  templateUrl: './reporte-salas-comentadas-form.component.html',
 })
-export class ReporteSalasPopularesFormComponent implements OnInit{
+export class ReporteSalasComentadasFormComponent {
   @ViewChild('toast') toast!: ToastComponent;
   nuevoFiltro!: FiltroComentariosSalas;
   filtroForm!: FormGroup;
@@ -24,9 +24,10 @@ export class ReporteSalasPopularesFormComponent implements OnInit{
     if (this.filtroForm.valid) {
       this.nuevoFiltro = this.filtroForm.value as FiltroComentariosSalas;
 
-      const url = this.reporteServices.generarURLReporteSalasPopulares(this.nuevoFiltro);
+      const url = this.reporteServices.generarURLReporteSalasComentadas(this.nuevoFiltro);
 
       this.httpClient.get(url, { responseType: 'blob' }).subscribe({
+
         next: () => {
           window.location.href = url;
         },

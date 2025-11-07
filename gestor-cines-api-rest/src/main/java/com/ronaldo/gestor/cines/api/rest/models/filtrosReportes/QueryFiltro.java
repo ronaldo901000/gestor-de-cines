@@ -16,13 +16,13 @@ public enum QueryFiltro {
        //para 5 salas mas gustadas
        BUSCAR_5_SALAS_GUSTADAS_FILTRO_COMPLETO("select * from opinion_sala where codigo_sala=? and fecha >= ? and fecha <= ?"),
        BUSCAR_5_SALAS_GUSTADAS_FILTRO_SALA("select * from opinion_sala where codigo_sala=?"),
-       
        //para obtener boletos vendidos
        BUSCAR_COMPRA_BOLETOS_VENDIDOS_FILTRO_COMPLETO("select * from compra_boletos c join proyeccion p on c.codigo_proyeccion=p.codigo where p.codigo_sala=? and c.fecha_compra >= ? and c.fecha_compra <= ?"),
        BUSCAR_COMPRA_BOLETOS_VENDIDOS_FILTRO_SALA("select * from compra_boletos c join proyeccion p on c.codigo_proyeccion=p.codigo where p.codigo_sala=?"),
-       
-       ;
-       
+       //para ontener comentarios de salas mas comentadas
+       BUSCAR_COMENTARIOS_SALAS_FILTRO_COMPLETO("select * from opinion_sala where codigo_sala=? and fecha >= ? and fecha<= ?"),
+       BUSCAR_COMENTARIOS_SALAS_FILTRO_SALA("select * from opinion_sala where codigo_sala=?"),;
+
        private String query;
 
        private QueryFiltro(String query) {

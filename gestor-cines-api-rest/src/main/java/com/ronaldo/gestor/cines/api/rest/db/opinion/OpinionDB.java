@@ -1,6 +1,9 @@
 package com.ronaldo.gestor.cines.api.rest.db.opinion;
 
 import com.ronaldo.gestor.cines.api.rest.db.DataSourceDBSingleton;
+import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroSalasMasPopulares;
+import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionAdminSistema;
+import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionUsuario;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.models.opinion.Opinion;
 import java.sql.Connection;
@@ -75,9 +78,6 @@ public class OpinionDB {
                      try (PreparedStatement query = connection.prepareStatement(consulta)) {
                             query.setString(1, codigoEntidad);
                             ResultSet resultSet = query.executeQuery();
-                            System.out.println("codigo: " + codigoEntidad);
-                            System.out.println("consulta: " + consulta);
-                            System.out.println("es pelicula: " + esPelicula);
                             while (resultSet.next()) {
                                    Opinion opinion = new Opinion();
                                    if (esPelicula) {
@@ -92,12 +92,67 @@ public class OpinionDB {
                                    opinion.setId(resultSet.getString("id"));
                                    opiniones.add(opinion);
                             }
-                            System.out.println("total opiniones en db: "+ opiniones.size());
                      }
               } catch (SQLException e) {
                      throw new DataBaseException("Error al obtener opiniones a la db");
               }
               return opiniones;
+       }
+
+       /**
+        *
+        * @param codigoSala
+        * @param filtro
+        * @return
+        * @throws DataBaseException
+        */
+       public List<Opinion> obtenerOpiniones(String codigoSala, FiltroSalasMasPopulares filtro) throws DataBaseException {
+              List<Opinion> opiniones = new ArrayList<>();
+              filtro.generarQuerySalasComentadas();
+              try (Connection connnection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement query = connnection.
+                             prepareStatement(filtro.getQuery())) {
+                            query.setString(1, codigoSala);
+                            if (filtro.getTipo() == FiltroSalasMasPopulares.CON_FILTRO) {
+                                   query.setDate(2, Date.valueOf(filtro.getFechaInicio()));
+                                   query.setDate(3, Date.valueOf(filtro.getFechaFin()));
+                            }
+                            ResultSet resultSet = query.executeQuery();
+                            while (resultSet.next()) {
+                                   Opinion opinion = new Opinion();
+                                   opinion.setIdUsuario(resultSet.getString("id_usuario"));
+                                   opinion.setComentario(resultSet.getString("comentario"));
+                                   opinion.setFecha(LocalDate.parse(resultSet.getString("fecha")));
+                                   opiniones.add(opinion);
+                            }
+                     }
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al obtener opiniones por sala en db");
+              }
+              return opiniones;
+       }
+
+       /**
+        * 
+        * @return
+        * @throws DataBaseException 
+        */
+       public List<String> obtenerCodigoSalaOpiniones() throws DataBaseException {
+              List<String> codigosSalas = new ArrayList<>();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement query = connection.
+                             prepareStatement(PeticionUsuario.OBTENER_TODAS_LAS_OPINIONES_SALA.get())) {
+
+                            ResultSet resultSet = query.executeQuery();
+                            while (resultSet.next()) {
+                                   codigosSalas.add(resultSet.getString("codigo_sala"));
+                            }
+                     }
+              } catch (SQLException e) {
+                     throw new DataBaseException("Error al obtener codigo de salas en tabla opiniones en la db");
+              }
+              return codigosSalas;
        }
 
 }

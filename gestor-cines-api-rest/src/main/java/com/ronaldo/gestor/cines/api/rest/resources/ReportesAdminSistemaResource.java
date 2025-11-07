@@ -7,6 +7,7 @@ import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.UserDataInvalidException;
 import com.ronaldo.gestor.cines.api.rest.models.reporteGananciasAnunciantes.ReporteGananciaAnunciantes;
+import com.ronaldo.gestor.cines.api.rest.models.reporteSalasComentadas.ReporteSalasComentadas;
 import com.ronaldo.gestor.cines.api.rest.models.reporteSalasGustadas.SalasGustadas;
 import com.ronaldo.gestor.cines.api.rest.services.reporteAdminsSistema.GeneradorFiltros;
 import com.ronaldo.gestor.cines.api.rest.services.reporteAdminsSistema.GeneradorReportes;
@@ -116,6 +117,52 @@ public class ReportesAdminSistemaResource {
               JasperPrint printer = JasperFillManager.fillReport(reporteCompilado, null, source);
 
               String fileName = "reporte_top_5_salas_populares.pdf";
+
+              StreamingOutput fileStream = (java.io.OutputStream output) -> {
+                     try {
+                            JasperExportManager.exportReportToPdfStream(printer, output);
+                            output.flush();
+                     } catch (Exception e) {
+                            throw new WebApplicationException("Error al generar el reporte");
+                     }
+              };
+              return Response
+                      .ok(fileStream, MediaType.APPLICATION_OCTET_STREAM)
+                      .header("content-disposition", "attachment; filename=" + fileName)
+                      .build();
+       }
+
+       @GET
+       @Path("reporte-salas-mas-comentadas")
+       @Produces(MediaType.APPLICATION_OCTET_STREAM)
+       public Response generarReporteSalasMasComentadas(
+               @QueryParam("fechaInicio") String fechaInicio,
+               @QueryParam("fechaFin") String fechaFin) throws JRException {
+
+              GeneradorFiltros generador = new GeneradorFiltros();
+              GeneradorReportes generadorReportes = new GeneradorReportes();
+
+              FiltroSalasMasPopulares request;
+
+              ReporteSalasComentadas reporte;
+
+              try {
+                     request = generador.generarFiltroSalasPopulares(fechaInicio, fechaFin);
+                     reporte = generadorReportes.obtenerReporteSalasComentadas(request);
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+              } catch (UserDataInvalidException ex) {
+                     return Response.status(Response.Status.BAD_REQUEST).build();
+              }
+
+              InputStream reporteCompilado = getClass().getClassLoader()
+                      .getResourceAsStream(RutasReportesJasper.REPORTE_SALAS_COMENTADAS.getRuta());
+
+              JRDataSource source = new JRBeanCollectionDataSource(reporte.getSalasComentadas());
+
+              JasperPrint printer = JasperFillManager.fillReport(reporteCompilado, null, source);
+
+              String fileName = "reporte_top_5_salas_comentadas.pdf";
 
               StreamingOutput fileStream = (java.io.OutputStream output) -> {
                      try {

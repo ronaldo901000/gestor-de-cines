@@ -60,4 +60,14 @@ public class FiltroSalasMasPopulares extends FiltroReporteRequest {
               }
        }
 
+       public void generarQuerySalasComentadas() {
+              if (fechaInicio != null && fechaFin != null) {
+                     tipo = CON_FILTRO;
+                     query = QueryFiltro.BUSCAR_COMENTARIOS_SALAS_FILTRO_COMPLETO.getQuery();
+              } else {
+                     query = QueryFiltro.BUSCAR_COMENTARIOS_SALAS_FILTRO_SALA.getQuery();
+                     tipo = SIN_FILTRO;
+              }
+       }
+
 }

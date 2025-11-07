@@ -1,0 +1,135 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="ReporteSalasComentadas" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d96ee02-674e-46b7-9829-df3b3a983401">
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<dataset name="DatasetComentarios" uuid="e70a73d4-fe6f-4012-812d-a69330160adf">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+		<query language="sql"><![CDATA[]]></query>
+		<field name="idUsuario" class="java.lang.String"/>
+		<field name="fecha" class="java.time.LocalDate"/>
+		<field name="comentario" class="java.lang.String"/>
+	</dataset>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="nombreSala" class="java.lang.String"/>
+	<field name="totalComentarios" class="java.lang.Integer"/>
+	<field name="opiniones" class="java.util.List"/>
+	<field name="nombreCine" class="java.lang.String"/>
+	<title height="149" splitType="Stretch">
+		<element kind="frame" uuid="1f75e81b-a821-4867-b663-0cfc2b6f7913" x="0" y="5" width="549" height="140">
+			<element kind="staticText" uuid="3201d8c7-163b-4cd4-88e6-b9d0d0f15679" mode="Opaque" x="0" y="100" width="549" height="30" forecolor="#FFFFFF" backcolor="#1313B0" fontSize="20.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Reporte 5 Salas Mas Comentadas]]></text>
+			</element>
+			<element kind="staticText" uuid="08fad8da-a304-4809-b897-fe5f3846ec5d" x="100" y="0" width="360" height="50" fontSize="35.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[GESTOR DE CINES]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="staticText" uuid="20916e82-b7e5-4c9c-891a-5cc20c75d034" x="15" y="50" width="205" height="35" fontSize="15.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[Fecha y Hora de Impresion:]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="1a25f8da-b36f-4a1b-b938-7e056f25a2e4" x="220" y="50" width="99" height="35" fontSize="15.0" pattern="MMMMM dd, yyyy" vTextAlign="Middle">
+				<expression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date())
+]]></expression>
+			</element>
+			<element kind="textField" uuid="8483e550-c5bf-4120-ae5e-d049c735032f" x="319" y="50" width="100" height="35" fontSize="15.0" pattern="HH:mm" vTextAlign="Middle">
+				<expression><![CDATA[new java.util.Date()]]></expression>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="line" uuid="14d280c6-bf61-43b1-a8d1-7fd014507fe8" x="-4" y="140" width="549" height="1"/>
+		</element>
+	</title>
+	<detail>
+		<band height="136" splitType="Stretch">
+			<element kind="textField" uuid="59432a7b-e1cb-4836-b3cb-bff09a9a7296" x="120" y="10" width="100" height="20" fontSize="12.0">
+				<expression><![CDATA[$F{nombreSala}]]></expression>
+			</element>
+			<element kind="staticText" uuid="d1f31c12-7eb7-41ce-bdc4-ca845bc5b4c7" x="10" y="10" width="120" height="20" fontSize="12.0" bold="true">
+				<text><![CDATA[Nombre de la sala:]]></text>
+			</element>
+			<element kind="textField" uuid="363bf02a-fc2e-4291-bd63-6e6c9205bf51" x="494" y="10" width="55" height="20" fontSize="12.0">
+				<expression><![CDATA[$F{totalComentarios}]]></expression>
+			</element>
+			<element kind="staticText" uuid="1d446c85-cb2c-46e5-b5f3-2c7f25919aee" x="374" y="10" width="120" height="20" fontSize="12.0" bold="true">
+				<text><![CDATA[Total Comentarios:]]></text>
+			</element>
+			<element kind="component" uuid="2691f3bd-3d50-455d-bda5-9a8b0262c966" x="14" y="50" width="515" height="60">
+				<component kind="table">
+					<datasetRun uuid="1ef86c8a-6b8a-470a-a6b1-6b17d7e8eba8" subDataset="DatasetComentarios">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{opiniones})]]></dataSourceExpression>
+					</datasetRun>
+					<column kind="single" uuid="76a39131-dc19-48a0-a18a-061399f867c0" width="90">
+						<columnHeader height="30" style="Table_CH">
+							<element kind="staticText" uuid="8264580b-068a-416c-abe9-81d0bb81f083" mode="Transparent" x="0" y="0" width="90" height="30" fontSize="12.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[ID USUARIO]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="fab02f43-f82d-4f0a-8f19-6e487ee9c5a0" x="0" y="0" width="90" height="30" hTextAlign="Center" vTextAlign="Middle">
+								<expression><![CDATA[$F{idUsuario}]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+					</column>
+					<column kind="single" uuid="e206ec3b-fa7f-4ba6-a33a-b31adc4c3741" width="90">
+						<columnHeader height="30" style="Table_CH">
+							<element kind="staticText" uuid="383ab702-2e09-4ef1-9ff9-6c3796645799" x="0" y="0" width="90" height="30" fontSize="12.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[FECHA]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="64a113f6-e3b9-41f8-b481-0fdcb1f27749" x="0" y="0" width="90" height="30" hTextAlign="Center" vTextAlign="Middle">
+								<expression><![CDATA[$F{fecha}.format( java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy") )]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+					</column>
+					<column kind="single" uuid="b6d16c9d-668d-43d2-94b3-0d69fcba2eb5" width="335">
+						<columnHeader height="30" style="Table_CH">
+							<element kind="staticText" uuid="ddaefa44-c9a4-4364-a078-2841234f3710" x="0" y="0" width="335" height="30" fontSize="12.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[COMENTARIO]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="96a41409-0d80-45fb-a2ba-b724f9efaee9" x="0" y="0" width="335" height="30" hTextAlign="Center" vTextAlign="Middle">
+								<expression><![CDATA[$F{comentario}]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+					</column>
+				</component>
+				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+				<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+				<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+				<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+			</element>
+			<element kind="textField" uuid="9bf69278-6d46-4c56-bc01-f3923794e858" x="230" y="10" width="140" height="30" fontSize="11.0" bold="true" italic="true">
+				<expression><![CDATA[$F{nombreCine}]]></expression>
+			</element>
+		</band>
+	</detail>
+</jasperReport>
