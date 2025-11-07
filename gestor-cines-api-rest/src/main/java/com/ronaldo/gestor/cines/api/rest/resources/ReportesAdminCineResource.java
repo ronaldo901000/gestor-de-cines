@@ -5,6 +5,7 @@ import com.ronaldo.gestor.cines.api.rest.enums.rutasJasper.RutasReportesJasper;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.UserDataInvalidException;
+import com.ronaldo.gestor.cines.api.rest.models.reporteBoletosVendidos.ReporteBoletosVendidos;
 import com.ronaldo.gestor.cines.api.rest.models.reporteComentarios.ReporteComentarios;
 import com.ronaldo.gestor.cines.api.rest.models.reportePeliculasProyectadas.ReportePeliculasProyectadas;
 import com.ronaldo.gestor.cines.api.rest.models.reporteSalasGustadas.ReporteSalasGustadas;
@@ -186,6 +187,58 @@ public class ReportesAdminCineResource {
               JasperPrint printer = JasperFillManager.fillReport(reporteCompilado, parametros, source);
 
               String fileName = "reporte_top5_salas_gustadas.pdf";
+
+              StreamingOutput fileStream = (java.io.OutputStream output) -> {
+                     try {
+                            JasperExportManager.exportReportToPdfStream(printer, output);
+                            output.flush();
+                     } catch (Exception e) {
+                            throw new WebApplicationException("Error al generar el reporte");
+                     }
+              };
+
+              return Response
+                      .ok(fileStream, MediaType.APPLICATION_OCTET_STREAM)
+                      .header("content-disposition", "attachment; filename=" + fileName)
+                      .build();
+       }
+
+       @GET
+       @Path("reporte-boletos-vendidos-salas")
+       @Produces(MediaType.APPLICATION_OCTET_STREAM)
+       public Response generarReporteBoletosVendidos(
+               @QueryParam("codigoCine") String codigoCine,
+               @QueryParam("codigoSala") String codigoSala,
+               @QueryParam("fechaInicio") String fechaInicio,
+               @QueryParam("fechaFin") String fechaFin
+       ) throws JRException {
+              CreadorRequest creadorRequest = new CreadorRequest();
+              FiltroComentariosSalasRequest request = creadorRequest.obtenerRequest(codigoCine, codigoSala, fechaInicio, fechaFin);
+
+              CreadorReportesAdminCine creador = new CreadorReportesAdminCine();
+              ReporteBoletosVendidos reporte;
+
+              try {
+                     reporte = creador.obtenerReporteBoletosVendidos(request);
+              } catch (UserDataInvalidException ex) {
+                     return Response.status(Response.Status.BAD_REQUEST).build();
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+              } catch (EntityNotFoundException ex) {
+                     return Response.status(Response.Status.NOT_FOUND).build();
+              }
+
+              InputStream reporteCompilado = getClass().getClassLoader()
+                      .getResourceAsStream(RutasReportesJasper.REPORTE_BOLETOS_VENDIDOS.getRuta());
+              JRDataSource source = new JRBeanCollectionDataSource(reporte.getComprasPorSalas());
+
+              Map<String, Object> parametros = new HashMap<>();
+              parametros.put("nombreCine", reporte.getCine().getNombre());
+              parametros.put("ubicacion", reporte.getCine().getUbicacion());
+
+              JasperPrint printer = JasperFillManager.fillReport(reporteCompilado, parametros, source);
+
+              String fileName = "reporte_compra_boletos_salas.pdf";
 
               StreamingOutput fileStream = (java.io.OutputStream output) -> {
                      try {

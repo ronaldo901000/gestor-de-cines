@@ -1,0 +1,161 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="ReporteBoletosVendidos" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f647e800-cfdb-48f6-a966-07dc79590d07">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<dataset name="dataSourceBoletosVendidos" uuid="005d1cdb-91ca-4c8e-a50d-5b731092d62b">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+		<query language="sql"><![CDATA[]]></query>
+		<field name="idUsario" class="java.lang.String"/>
+		<field name="fecha" class="java.time.LocalDate"/>
+		<field name="totalBoletos" class="java.lang.Integer"/>
+		<field name="costoTotal" class="java.lang.Double"/>
+	</dataset>
+	<parameter name="nombreCine" class="java.lang.String"/>
+	<parameter name="ubicacion" class="java.lang.String"/>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="nombreSala" class="java.lang.String"/>
+	<field name="totalRecaudado" class="java.lang.Double"/>
+	<field name="compras" class="java.util.List"/>
+	<background splitType="Stretch"/>
+	<title height="145" splitType="Stretch">
+		<element kind="frame" uuid="944de16a-cc01-4f9d-a40b-74c81f3158d7" x="0" y="5" width="549" height="140">
+			<element kind="staticText" uuid="1a2d9bd4-6cc1-4a38-9c61-b519b583a46f" mode="Opaque" x="0" y="100" width="549" height="30" forecolor="#FFFFFF" backcolor="#1313B0" fontSize="20.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Reporte de Boletos Vendidos Por Sala]]></text>
+			</element>
+			<element kind="staticText" uuid="0803e488-b4fd-44c5-a764-ea355934fbf0" x="15" y="5" width="100" height="26" fontSize="11.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Nombre del Cine:]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="staticText" uuid="7858c08a-7db0-4eea-8596-9f31a70d6724" x="15" y="35" width="60" height="19" fontSize="11.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Direccion:]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="staticText" uuid="d39e66fc-d56b-4473-83e3-17a12b216a50" x="15" y="65" width="150" height="20" fontSize="11.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[Fecha y Hora de Impresion:]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="7cce1d82-eac2-45c8-9fa0-a5b8971e1b5c" x="165" y="65" width="90" height="20" fontSize="11.0" pattern="MMMMM dd, yyyy" vTextAlign="Middle">
+				<expression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date())
+]]></expression>
+			</element>
+			<element kind="textField" uuid="ccedf587-ce4b-4d1a-82df-e326b461b7d3" x="255" y="65" width="100" height="20" fontSize="11.0" pattern="HH:mm" vTextAlign="Middle">
+				<expression><![CDATA[new java.util.Date()]]></expression>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="9601ce96-be19-4b55-9cc0-f8f8dcfb14ea" x="115" y="5" width="426" height="26" fontSize="11.0" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$P{nombreCine}]]></expression>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="3c225258-a7e8-4bf6-9458-eba906b4fafe" x="75" y="35" width="466" height="19" fontSize="11.0" vTextAlign="Middle">
+				<expression><![CDATA[$P{ubicacion}]]></expression>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="line" uuid="c32e330a-a48d-479c-b4f5-39da1807ba3b" x="0" y="140" width="549" height="1"/>
+		</element>
+	</title>
+	<detail>
+		<band height="181" splitType="Stretch">
+			<element kind="textField" uuid="5abe70ee-e862-4c1f-b3e9-a87c8cfe2f3f" x="100" y="10" width="164" height="20" fontSize="14.0">
+				<expression><![CDATA[$F{nombreSala}]]></expression>
+			</element>
+			<element kind="staticText" uuid="17b1c3de-98d1-4754-a7d1-fb163f0ea504" x="5" y="10" width="94" height="20" fontSize="14.0" bold="true">
+				<text><![CDATA[Nombre Sala:]]></text>
+			</element>
+			<element kind="textField" uuid="828d74bc-1d30-488e-ac0f-7a927cdd7be9" x="410" y="10" width="150" height="20" fontSize="14.0">
+				<expression><![CDATA["Q " + $F{totalRecaudado}]]></expression>
+			</element>
+			<element kind="staticText" uuid="9ef4e88b-cbe9-4e97-b6c9-7d3d64ee2b94" x="290" y="10" width="147" height="20" fontSize="14.0" bold="true">
+				<text><![CDATA[Total Recaudado:]]></text>
+			</element>
+			<element kind="component" uuid="fb3ae7b7-7f1e-4547-8e1b-a93535232e33" x="0" y="40" width="549" height="60">
+				<component kind="table">
+					<datasetRun uuid="491ab037-30df-4797-a4c6-0cba4ff1c5ae" subDataset="dataSourceBoletosVendidos">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{compras})]]></dataSourceExpression>
+					</datasetRun>
+					<column kind="single" uuid="e32b9659-0eae-409e-839f-23245b519273" width="120">
+						<columnHeader height="30" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="008a162b-6fde-4100-a9d6-0837d66b2d51" x="0" y="0" width="120" height="30" fontSize="14.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[ID Usuario]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="6f4408bf-6628-4a68-96ef-c22a813bf5a1" x="0" y="0" width="120" height="30" fontSize="11.0" hTextAlign="Center" vTextAlign="Middle">
+								<expression><![CDATA[$F{idUsario}]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+					</column>
+					<column kind="single" uuid="3728a23f-d97d-4c16-8321-f7fddb26e659" width="120">
+						<columnHeader height="30" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="8ba24969-2aa2-450d-80c9-3573c702cfa6" x="0" y="0" width="120" height="30" fontSize="14.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[Fecha Compra]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="8c76889b-c561-4d53-aba8-3877e2ff4d10" x="0" y="0" width="120" height="30" fontSize="11.0" hTextAlign="Center" vTextAlign="Middle">
+								<expression><![CDATA[$F{fecha}.format( java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy") )]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+					</column>
+					<column kind="single" uuid="77d7181d-c1bb-4ca2-b819-35810f55e615" width="140">
+						<columnHeader height="30" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="75dbf840-7229-490e-9a52-1c05b540233a" x="0" y="0" width="140" height="30" fontSize="14.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[Boletos Comprados]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="ba7e6f3e-a4c9-4a93-9eda-ee3016effa82" x="0" y="0" width="140" height="30" fontSize="11.0" hTextAlign="Center" vTextAlign="Middle">
+								<expression><![CDATA[$F{totalBoletos}]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+					</column>
+					<column kind="single" uuid="a624f53a-70ff-401f-9227-87e07b28857d" width="170">
+						<columnHeader height="30" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="8d595bca-0850-4d28-8572-47ad75aaaabd" x="0" y="0" width="170" height="30" fontSize="14.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[Costo Total]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="4f6ea664-0a36-44d4-a7dd-27c3cca6e341" x="0" y="0" width="170" height="30" fontSize="11.0" hTextAlign="Center" vTextAlign="Middle">
+								<expression><![CDATA["Q " + $F{costoTotal}]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+					</column>
+				</component>
+				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+				<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+				<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+				<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+			</element>
+		</band>
+	</detail>
+</jasperReport>

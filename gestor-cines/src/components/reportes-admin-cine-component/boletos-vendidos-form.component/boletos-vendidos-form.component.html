@@ -1,0 +1,49 @@
+<app-toast-component #toast></app-toast-component>
+<div class="container">
+  <form [formGroup]="filtroForm" (submit)="generar()">
+    <div class="row">
+      <input type="hidden" formControlName="codigoCine" />
+
+      <div class="col-12 justify-content-lg-center">
+        <label for="codigoSala" class="form-label"><h4>Codigo De sala:</h4></label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Ingresa un codigo de sala ej- SL-01"
+          formControlName="codigoSala"
+        />
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-6 justify-content-lg-center">
+        <label for="descripcion" class="form-label"><h4>Fecha De Inicio:</h4></label>
+        <input
+          type="date"
+          class="form-control"
+          placeholder="Ingresa la fecha inicial del rango"
+          formControlName="fechaInicio"
+        />
+      </div>
+      <div class="col-6 justify-content-lg-center">
+        <label for="descripcion" class="form-label"><h4>Fecha De Fin:</h4></label>
+        <input
+          type="date"
+          class="form-control"
+          placeholder="Ingresa la fecha inicial del rango"
+          formControlName="fechaFin"
+        />
+      </div>
+    </div>
+    <br />
+    <hr class="my-4" />
+    <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
+      <button class="btn btn-success" [disabled]="filtroForm.invalid">
+        <strong>Generar Reporte</strong>
+      </button>
+    </div>
+  </form>
+  <br />
+  <button class="btn btn-secondary" (click)="limpiar()">Limpiar</button>
+</div>
+

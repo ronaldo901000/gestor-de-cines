@@ -11,6 +11,9 @@ import com.ronaldo.gestor.cines.api.rest.exceptions.UserDataInvalidException;
 import com.ronaldo.gestor.cines.api.rest.models.cines.Cine;
 import com.ronaldo.gestor.cines.api.rest.models.filtrosReportes.FiltroReportesAdminCine;
 import com.ronaldo.gestor.cines.api.rest.models.filtrosReportes.QueryFiltro;
+import com.ronaldo.gestor.cines.api.rest.models.reporteBoletosVendidos.CompraBoleto;
+import com.ronaldo.gestor.cines.api.rest.models.reporteBoletosVendidos.CompraBoletosSala;
+import com.ronaldo.gestor.cines.api.rest.models.reporteBoletosVendidos.ReporteBoletosVendidos;
 import com.ronaldo.gestor.cines.api.rest.models.reporteComentarios.ReporteComentarios;
 import com.ronaldo.gestor.cines.api.rest.models.reportePeliculasProyectadas.ProyeccionesSala;
 import com.ronaldo.gestor.cines.api.rest.models.reportePeliculasProyectadas.ReportePeliculasProyectadas;
@@ -108,7 +111,11 @@ public class CreadorReportesAdminCine {
               } else {
                      List<Sala> salasCine = salasDB.obtenerSalaPorCine(filtro.getCodigoCine());
                      for (int i = 0; i < salasCine.size(); i++) {
-                            salas.add(obtenerInfoSalas(salasCine.get(i), filtro));
+                            ProyeccionesSala proyeccionesSala = obtenerInfoSalas(salasCine.get(i), filtro);
+                            if (!proyeccionesSala.getProyecciones().isEmpty()) {
+                                   salas.add(proyeccionesSala);
+                            }
+
                      }
                      reporte.setSalas(salas);
 
@@ -177,7 +184,11 @@ public class CreadorReportesAdminCine {
 
                      List<Sala> salasCine = salasDB.obtenerSalaPorCine(filtro.getCodigoCine());
                      for (int i = 0; i < salasCine.size(); i++) {
-                            salasGustadas.add(generarSalaGustada(salasCine.get(i), filtro, reportesAdminCineDB));
+                            SalasGustadas salaGustada = generarSalaGustada(salasCine.get(i), filtro, reportesAdminCineDB);
+                            if (!salaGustada.getCalificaciones().isEmpty()) {
+                                   salasGustadas.add(salaGustada);
+                            }
+
                      }
                      reporte.setSalasGustadas(salasGustadas);
                      //se obtiene las 5 salas mas gustadas 
@@ -188,12 +199,12 @@ public class CreadorReportesAdminCine {
        }
 
        /**
-        * 
+        *
         * @param sala
         * @param filtro
         * @param reportesAdminCineDB
         * @return
-        * @throws DataBaseException 
+        * @throws DataBaseException
         */
        private SalasGustadas generarSalaGustada(Sala sala, FiltroReportesAdminCine filtro, ReportesAdminCineDB reportesAdminCineDB)
                throws DataBaseException {
@@ -203,5 +214,85 @@ public class CreadorReportesAdminCine {
               salasGustadas.setSala(sala);
               salasGustadas.setCalificaciones(calificaciones);
               return salasGustadas;
+       }
+
+       /**
+        *
+        * @param request
+        * @return
+        * @throws UserDataInvalidException
+        * @throws DataBaseException
+        * @throws EntityNotFoundException
+        */
+       public ReporteBoletosVendidos obtenerReporteBoletosVendidos(FiltroComentariosSalasRequest request) throws UserDataInvalidException, DataBaseException, EntityNotFoundException {
+              ReportesAdminCineDB reportesAdminCineDB = new ReportesAdminCineDB();
+              SalasDB salasDB = new SalasDB();
+              CinesDB cinesDB = new CinesDB();
+              ReporteBoletosVendidos reporte = new ReporteBoletosVendidos();
+
+              FiltroReportesAdminCine filtro = extraer(request);
+
+              filtro.existeCineYSala();
+
+              //se hace la consulta a la db para obtener cine
+              Optional<Cine> cine = cinesDB.obtenerCinePorCodigo(filtro.getCodigoCine());
+
+              reporte.setCine(cine.get());
+              //se cargan las posibles querys para la db y se crea la que indique el usuario
+              List<String> querys = new ArrayList<>();
+              querys.add(QueryFiltro.BUSCAR_COMPRA_BOLETOS_VENDIDOS_FILTRO_COMPLETO.getQuery());
+              querys.add(QueryFiltro.BUSCAR_COMPRA_BOLETOS_VENDIDOS_FILTRO_SALA.getQuery());
+              querys.add(QueryFiltro.BUSCAR_COMPRA_BOLETOS_VENDIDOS_FILTRO_SALA.getQuery());
+              querys.add(QueryFiltro.BUSCAR_COMPRA_BOLETOS_VENDIDOS_FILTRO_COMPLETO.getQuery());
+              filtro.generarQuery(querys);
+
+              List<CompraBoletosSala> compraBoletosTodasLasSalas = new ArrayList<>();
+              //si ingresa codigo para una sala, solo se obtinen proyecciones de esa sala
+              if (StringUtils.isNotBlank(filtro.getCodigoSala())) {
+                     Optional<Sala> sala = salasDB.obtenerSala(filtro.getCodigoSala());
+                     //se obtienen las calificaciones de la sala en la db
+                     List<CompraBoleto> boletosComprados = reportesAdminCineDB.obtenerBoletosComprados(sala.get().getCodigo(), filtro);
+                     CompraBoletosSala comprasBoletosSala = new CompraBoletosSala();
+                     comprasBoletosSala.setSala(sala.get());
+                     comprasBoletosSala.setCompras(boletosComprados);
+                     comprasBoletosSala.calcularTotalRecaudado();
+                     //se agregan solo las salas que tengan boletos vendidos
+                     if (!comprasBoletosSala.getCompras().isEmpty()) {
+                            compraBoletosTodasLasSalas.add(comprasBoletosSala);
+                     }
+                     reporte.setComprasPorSalas(compraBoletosTodasLasSalas);
+              } else {
+
+                     List<Sala> salasCine = salasDB.obtenerSalaPorCine(filtro.getCodigoCine());
+                     for (int i = 0; i < salasCine.size(); i++) {
+                            CompraBoletosSala comprasEnSala = generarCompraBoletosPorSala(salasCine.get(i), filtro, reportesAdminCineDB);
+                            if (!comprasEnSala.getCompras().isEmpty()) {
+                                   compraBoletosTodasLasSalas.add(comprasEnSala);
+                            }
+                     }
+                     reporte.setComprasPorSalas(compraBoletosTodasLasSalas);
+
+              }
+              return reporte;
+       }
+
+       /**
+        *
+        * @param sala
+        * @param filtro
+        * @param reportesAdminCineDB
+        * @return
+        * @throws DataBaseException
+        */
+       private CompraBoletosSala generarCompraBoletosPorSala(Sala sala, FiltroReportesAdminCine filtro, ReportesAdminCineDB reportesAdminCineDB)
+               throws DataBaseException {
+              CompraBoletosSala compraBoletosSala = new CompraBoletosSala();
+
+              List<CompraBoleto> comprasUsuarios = reportesAdminCineDB.obtenerBoletosComprados(sala.getCodigo(), filtro);
+
+              compraBoletosSala.setSala(sala);
+              compraBoletosSala.setCompras(comprasUsuarios);
+              compraBoletosSala.calcularTotalRecaudado();
+              return compraBoletosSala;
        }
 }

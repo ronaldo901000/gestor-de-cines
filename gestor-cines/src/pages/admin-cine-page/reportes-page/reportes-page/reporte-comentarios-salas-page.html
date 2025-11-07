@@ -43,7 +43,13 @@
         <app-salas-mas-gustadas-form-component
           [codigoCine]="codigoCine"
         ></app-salas-mas-gustadas-form-component>
-        } }
+        } 
+        @else if(tipo=='4'){
+        <app-boletos-vendidos-form-component
+          [codigoCine]="codigoCine"
+        ></app-boletos-vendidos-form-component>
+        } 
+      }
         <br />
       </div>
 

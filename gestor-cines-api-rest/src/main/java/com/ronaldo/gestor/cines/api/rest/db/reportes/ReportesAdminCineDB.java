@@ -4,6 +4,7 @@ import com.ronaldo.gestor.cines.api.rest.db.DataSourceDBSingleton;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.models.filtrosReportes.FiltroReportesAdminCine;
 import com.ronaldo.gestor.cines.api.rest.models.proyecciones.Proyeccion;
+import com.ronaldo.gestor.cines.api.rest.models.reporteBoletosVendidos.CompraBoleto;
 import com.ronaldo.gestor.cines.api.rest.models.reporteComentarios.Comentario;
 import com.ronaldo.gestor.cines.api.rest.models.reporteSalasGustadas.Calificacion;
 import java.sql.Connection;
@@ -139,5 +140,42 @@ public class ReportesAdminCineDB {
                      throw new DataBaseException("Error al obtener Proyecciones por sala en db");
               }
               return calificaciones;
+       }
+       
+       /**
+        *
+        * @param codigoSala
+        * @param filtro
+        * @return
+        * @throws DataBaseException
+        */
+       public List<CompraBoleto> obtenerBoletosComprados(String codigoSala, FiltroReportesAdminCine filtro) throws DataBaseException {
+              List<CompraBoleto> boletosComprados = new ArrayList<>();
+              try (Connection connnection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement query = connnection.
+                             prepareStatement(filtro.getQuery())) {
+                            query.setString(1, codigoSala);
+
+                            if (filtro.getTipoFiltro() == FiltroReportesAdminCine.FILTRO_COMPLETO
+                                    || filtro.getTipoFiltro() == FiltroReportesAdminCine.FILTRO_FECHAS) {
+                                   query.setDate(2, Date.valueOf(filtro.getFechaInicio()));
+                                   query.setDate(3, Date.valueOf(filtro.getFechaFin()));
+                            }
+
+                            ResultSet resultSet = query.executeQuery();
+                            while (resultSet.next()) {
+                                   CompraBoleto compra = new CompraBoleto();
+                                   compra.setIdUsario(resultSet.getString("id_usuario"));
+                                   compra.setFecha(LocalDate.parse(resultSet.getString("fecha_compra")));
+                                   compra.setTotalBoletos(resultSet.getInt("cantidad"));
+                                   compra.setCostoTotal(resultSet.getDouble("costo_total"));
+                                   boletosComprados.add(compra);
+                            }
+                     }
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al obtener Proyecciones por sala en db");
+              }
+              return boletosComprados;
        }
 }
