@@ -37,6 +37,7 @@ public enum PeticionesAdminCine {
        AGREGAR_DIA_ACTIVO_BLOQUEADOR("update pago_bloqueo_anuncio set dias_activo=dias_activo+1 where id=?"),
        CAMBIAR_ESTADO_ACTIVO_BLOQUEADOR("update pago_bloqueo_anuncio set activo=? where id=?"),
        OBTENER_PROYECCIONES_POR_SALA("select * from proyeccion p join sala s on p.codigo_sala=s.codigo where s.codigo=?"),
+       OBTENER_TODAS_LAS_SALAS("select * from sala s join cine c on s.codigo_cine = c.codigo"),
        ;
        private String peticion;
 

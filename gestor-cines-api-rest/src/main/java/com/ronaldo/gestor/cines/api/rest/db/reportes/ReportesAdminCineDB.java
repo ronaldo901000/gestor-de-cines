@@ -137,7 +137,7 @@ public class ReportesAdminCineDB {
                      }
               } catch (SQLException e) {
                      e.printStackTrace();
-                     throw new DataBaseException("Error al obtener Proyecciones por sala en db");
+                     throw new DataBaseException("Error al obtener calificaciones por sala en db");
               }
               return calificaciones;
        }

@@ -64,7 +64,7 @@ public enum PeticionAdminSistema {
        ACTUALIZAR_COSTO_BLOQUEO_ANUNCIO("update costo_bloqueo_anuncio set costo=?"),
        OBTENER_COSTO_BLOQUEO_ANUNCIO("select * from costo_bloqueo_anuncio"),
        PAGAR_BLOQUEO_ANUNCIOS("insert into pago_bloqueo_anuncio (codigo_cine, fecha_pago, total_dias, costo) values(?, ?, ?, ?)"),
-       ;
+       OBTENER_TODOS_LOS_BOLETOS_VENDIDOS_POR_SALA("select * from compra_boletos c join proyeccion p on c.codigo_proyeccion = p.codigo where p.codigo_sala=?");
        
        private String peticion;
 

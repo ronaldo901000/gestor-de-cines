@@ -1,17 +1,17 @@
-import { Component, Input, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
 import { Status } from '../../../shared/status/status';
 import { FiltroComentariosSalas } from '../../../models/filtros-reportes-admin-cine/filtro-comentarios.-salas';
-import { HttpClient } from '@angular/common/http';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastComponent } from '../../toast/toast.component';
+import { HttpClient } from '@angular/common/http';
 import { ReporteAdminSistemaServices } from '../../../services/reportes/reportes-admin-sistema.services';
 
 @Component({
-  selector: 'app-reporte-ganancias-anunciante-form-component',
+  selector: 'app-reporte-salas-populares-form-component',
   imports: [ToastComponent, FormsModule, ReactiveFormsModule],
-  templateUrl: './reporte-ganancias-anunciante-form.component.html'
+  templateUrl: './reporte-salas-populares-form.component.html'
 })
-export class ReporteGananciasAnuncianteFormComponent {
+export class ReporteSalasPopularesFormComponent {
   @ViewChild('toast') toast!: ToastComponent;
   nuevoFiltro!: FiltroComentariosSalas;
   filtroForm!: FormGroup;
@@ -24,7 +24,7 @@ export class ReporteGananciasAnuncianteFormComponent {
     if (this.filtroForm.valid) {
       this.nuevoFiltro = this.filtroForm.value as FiltroComentariosSalas;
 
-      const url = this.reporteServices.generarURLReporteGananciasPorAnunciante(this.nuevoFiltro);
+      const url = this.reporteServices.generarURLReporteSalasPopulares(this.nuevoFiltro);
 
       this.httpClient.get(url, { responseType: 'blob' }).subscribe({
         next: () => {
@@ -43,9 +43,6 @@ export class ReporteGananciasAnuncianteFormComponent {
       case Status.BAD_REQUEST:
         this.toast.mensaje = 'Error en los datos enviados';
         break;
-      case Status.NOT_FOUND:
-        this.toast.mensaje = 'El ID ingresado no pertenece a ningun anunciante';
-        break;
       case Status.INTERNAL_SERVER_ERROR:
         this.toast.mensaje = 'Error del servidor';
         break;
@@ -57,7 +54,6 @@ export class ReporteGananciasAnuncianteFormComponent {
 
   limpiar(): void {
     this.filtroForm.reset({
-
     });
   }
 

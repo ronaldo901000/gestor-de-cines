@@ -1,5 +1,6 @@
 package com.ronaldo.gestor.cines.api.rest.models.reporteSalasGustadas;
 
+import com.ronaldo.gestor.cines.api.rest.models.reporteBoletosVendidos.CompraBoleto;
 import com.ronaldo.gestor.cines.api.rest.models.salas.Sala;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class SalasGustadas {
        private Sala sala;
        private List<Calificacion> calificaciones;
        private double promedio;
+       private List<CompraBoleto> boletosComprados;
 
        public String getNombreSala() {
               return sala.getNombre();
@@ -47,6 +49,25 @@ public class SalasGustadas {
        public void setPromedio(double promedio) {
               this.promedio = promedio;
        }
+
+       public List<CompraBoleto> getBoletosComprados() {
+              return boletosComprados;
+       }
+
+       public void setBoletosComprados(List<CompraBoleto> boletosComprados) {
+              this.boletosComprados = boletosComprados;
+       }
+
+       public Sala getSala() {
+              return sala;
+       }
        
-       
+       public int getTotalBoletosVendidos(){
+              int contador =0;
+              for (int i = 0; i < boletosComprados.size(); i++) {
+                     contador+=boletosComprados.get(i).getTotalBoletos();
+              }
+              return contador;
+       }
+
 }

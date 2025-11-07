@@ -9,7 +9,11 @@ public enum RutasReportesJasper {
        REPORTE_PELICULAS_PROYECTADAS("com/ronaldo/gestor/cines/api/rest/reportes/reportesAdminCine/ReportePeliculasProyectadas.jasper"),
        REPORTE_TOP_SALAS_GUSTADAS("com/ronaldo/gestor/cines/api/rest/reportes/reportesAdminCine/ReporteSalasGustadas.jasper"),
        REPORTE_BOLETOS_VENDIDOS("com/ronaldo/gestor/cines/api/rest/reportes/reportesAdminCine/ReporteBoletosVendidos.jasper"),
-       REPORTE_GANANCIAS_ANUNCIANTES("com/ronaldo/gestor/cines/api/rest/reportes/reportesAdminSistema/ReporteGananciasAnunciates.jasper");
+       REPORTE_GANANCIAS_ANUNCIANTES("com/ronaldo/gestor/cines/api/rest/reportes/reportesAdminSistema/ReporteGananciasAnunciates.jasper"),
+       REPORTE_SALAS_POPULARES("com/ronaldo/gestor/cines/api/rest/reportes/reportesAdminSistema/ReporteSalasPopulares.jasper"),
+       
+       ;
+       
        private String ruta;
 
        private RutasReportesJasper(String ruta) {

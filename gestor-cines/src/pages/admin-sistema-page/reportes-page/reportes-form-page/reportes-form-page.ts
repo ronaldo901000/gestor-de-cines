@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HeaderAdminSistemaComponent } from "../../../../components/header/header-admin-sistema/header-admin-sistema.component";
 import { ReporteGananciasAnuncianteFormComponent } from "../../../../components/reportes-admin-sistema-component/reporte-ganancias-anunciante-form.component/reporte-ganancias-anunciante-form.component";
+import { ReporteSalasPopularesFormComponent } from "../../../../components/reportes-admin-sistema-component/reporte-salas-populares-form.component/reporte-salas-populares-form.component";
 
 @Component({
   selector: 'app-reportes-form-page',
-  imports: [HeaderAdminSistemaComponent, RouterLink, ReporteGananciasAnuncianteFormComponent],
+  imports: [HeaderAdminSistemaComponent, RouterLink, ReporteGananciasAnuncianteFormComponent, ReporteSalasPopularesFormComponent],
   templateUrl: './reportes-form-page.html',
 })
 export class ReportesFormPage implements OnInit {

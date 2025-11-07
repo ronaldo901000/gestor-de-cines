@@ -5,15 +5,17 @@
       <strong>{{ encabezado }}</strong>
     </h1>
   </div>
-  <br>
+  <br />
   <div class="container text-center">
     <a routerLink="/reportes-admin-sistema" class="btn btn-primary">
       <i class="bi bi-arrow-left-square-fill"></i>
       Regresar a Home Repotes
     </a>
   </div>
-  <br>
+  <br />
   @if(tipo=='3'){
-    <app-reporte-ganancias-anunciante-form-component></app-reporte-ganancias-anunciante-form-component>
+  <app-reporte-ganancias-anunciante-form-component></app-reporte-ganancias-anunciante-form-component>
+  } @if(tipo=='4'){
+  <app-reporte-salas-populares-form-component></app-reporte-salas-populares-form-component>
   }
 </div>
