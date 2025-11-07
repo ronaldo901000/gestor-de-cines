@@ -193,4 +193,20 @@ public class SalasDB {
               }
               return salas;
        }
+
+       public List<Sala> obtenerTodasLasSalas() throws DataBaseException {
+              List<Sala> salas = new ArrayList<>();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement query = connection.
+                             prepareStatement(PeticionesAdminCine.OBTENER_TODAS_LAS_SALAS.get())) {
+                            ResultSet resultSet = query.executeQuery();
+                            while (resultSet.next()) {
+                                   salas.add(construirSala(resultSet));
+                            }
+                     }
+              } catch (SQLException e) {
+                     throw new DataBaseException("Error al obtener salas en la base de datos");
+              }
+              return salas;
+       }
 }
