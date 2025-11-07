@@ -15,7 +15,13 @@ public enum QueryFiltro {
        BUSCAR_PELICULAS_PROYECTADAS_FILTRO_SALA("select * from proyeccion p join sala s on p.codigo_sala=s.codigo where s.codigo=?"),
        //para 5 salas mas gustadas
        BUSCAR_5_SALAS_GUSTADAS_FILTRO_COMPLETO("select * from opinion_sala where codigo_sala=? and fecha >= ? and fecha <= ?"),
-       BUSCAR_5_SALAS_GUSTADAS_FILTRO_SALA("select * from opinion_sala where codigo_sala=?"),;
+       BUSCAR_5_SALAS_GUSTADAS_FILTRO_SALA("select * from opinion_sala where codigo_sala=?"),
+       
+       //para obtener boletos vendidos
+       BUSCAR_COMPRA_BOLETOS_VENDIDOS_FILTRO_COMPLETO("select * from compra_boletos c join proyeccion p on c.codigo_proyeccion=p.codigo where p.codigo_sala=? and c.fecha_compra >= ? and c.fecha_compra <= ?"),
+       BUSCAR_COMPRA_BOLETOS_VENDIDOS_FILTRO_SALA("select * from compra_boletos c join proyeccion p on c.codigo_proyeccion=p.codigo where p.codigo_sala=?"),
+       
+       ;
 
        private String query;
 

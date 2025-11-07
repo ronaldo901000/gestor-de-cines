@@ -9,9 +9,10 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ComentariosDeSalasFormComponent } from "../../../../components/reportes-admin-cine-component/comentarios-de-salas-form-component/comentarios-de-salas-form.component";
 import { PeliculasProyectadasComponent } from "../../../../components/reportes-admin-cine-component/peliculas-proyectadas-form.component/peliculas-proyectadas.component";
 import { SalasMasGustadasFormComponent } from "../../../../components/reportes-admin-cine-component/salas-mas-gustadas-form.component/salas-mas-gustadas-form.component";
+import { BoletosVendidosFormComponent } from "../../../../components/reportes-admin-cine-component/boletos-vendidos-form.component/boletos-vendidos-form.component";
 @Component({
   selector: 'app-reporte-comentarios-salas-page',
-  imports: [AnuncioCardComponent, HeaderAdminCineComponent, RouterLink, ComentariosDeSalasFormComponent, PeliculasProyectadasComponent, SalasMasGustadasFormComponent],
+  imports: [AnuncioCardComponent, HeaderAdminCineComponent, RouterLink, ComentariosDeSalasFormComponent, PeliculasProyectadasComponent, SalasMasGustadasFormComponent, BoletosVendidosFormComponent],
   templateUrl: './reporte-comentarios-salas-page.html'
 })
 export class ReporteComentariosSalasPage implements OnInit {
