@@ -1,0 +1,32 @@
+import { Injectable } from '@angular/core';
+import { RestConstants } from '../../shared/rest-api/rest-constants';
+import { FiltroComentariosSalas } from '../../models/filtros-reportes-admin-cine/filtro-comentarios.-salas';
+
+@Injectable({
+    providedIn: 'root',
+})
+export class ReporteAdminSistemaServices {
+    restConstants = new RestConstants();
+
+    public generarURLReporteGananciasPorAnunciante(filtro: FiltroComentariosSalas): string {
+        let url = this.restConstants.API_URL + 'reportes-admin-sistema/reporte-ganancias-anunciantes';
+
+        if (filtro.codigoSala) {
+            url += '?idAnunciante=' + filtro.codigoSala;
+        }
+
+        if (filtro.fechaInicio && filtro.fechaFin) {
+            const fechaInicio = new Date(filtro.fechaInicio);
+            if (!filtro.codigoSala) {
+                url += '?fechaInicio=' + fechaInicio.toISOString();
+            }
+            else {
+                url += '&fechaInicio=' + fechaInicio.toISOString();
+            }
+            const fechaFin = new Date(filtro.fechaFin);
+            url += '&fechaFin=' + fechaFin.toISOString();
+        }
+        return url;
+    }
+
+}

@@ -103,5 +103,9 @@ public class AnuncioResponse {
        public void setActivo(boolean activo) {
               this.activo = activo;
        }
+       
+       public double getCostoTotal(){
+              return precio*diasDuracion;
+       }
 
 }

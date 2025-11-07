@@ -24,9 +24,9 @@ public class CalculadorTopSalasGustadas {
               for (int i = 0; i < salasGustadas.size() - 1; i++) {
                      for (int j = i + 1; j < salasGustadas.size(); j++) {
                             if (salasGustadas.get(i).getPromedio() < salasGustadas.get(j).getPromedio()) {
-                                   SalasGustadas temp = salasGustadas.get(i);
+                                   SalasGustadas salaGustada = salasGustadas.get(i);
                                    salasGustadas.set(i, salasGustadas.get(j));
-                                   salasGustadas.set(j, temp);
+                                   salasGustadas.set(j, salaGustada);
                             }
                      }
               }

@@ -2,8 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RestConstants } from '../../shared/rest-api/rest-constants';
 import { Observable } from 'rxjs';
-import { Sala } from '../../models/sala/sala';
-import { SalaResponse } from '../../models/sala/sala-response';
 import { FiltroComentariosSalas } from '../../models/filtros-reportes-admin-cine/filtro-comentarios.-salas';
 
 @Injectable({

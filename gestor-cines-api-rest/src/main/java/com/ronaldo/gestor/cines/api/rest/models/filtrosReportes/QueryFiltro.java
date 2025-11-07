@@ -22,7 +22,7 @@ public enum QueryFiltro {
        BUSCAR_COMPRA_BOLETOS_VENDIDOS_FILTRO_SALA("select * from compra_boletos c join proyeccion p on c.codigo_proyeccion=p.codigo where p.codigo_sala=?"),
        
        ;
-
+       
        private String query;
 
        private QueryFiltro(String query) {

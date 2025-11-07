@@ -46,6 +46,8 @@ import { OpinionPage } from '../pages/general/opinion-page/opinion-page';
 import { OpinionesPage } from '../pages/general/opiniones-page/opiniones-page';
 import { ReportesHomePage } from '../pages/admin-cine-page/reportes-page/reportes-home-page/reportes-home-page';
 import { ReporteComentariosSalasPage } from '../pages/admin-cine-page/reportes-page/reportes-page/reporte-comentarios-salas-page';
+import { HomeReportesPage } from '../pages/admin-sistema-page/reportes-page/home-reportes-page/home-reportes-page';
+import { ReportesFormPage } from '../pages/admin-sistema-page/reportes-page/reportes-form-page/reportes-form-page';
 export const routes: Routes = [
     {
         path: '',
@@ -312,5 +314,17 @@ export const routes: Routes = [
         canActivate: [RoleGuardService],
         data: { allowedRoles: [Roles.ADMIN_CINE] },
         component: ReporteComentariosSalasPage
+    },
+    {
+        path: 'reportes-admin-sistema',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: [Roles.ADMIN_SISTEMA] },
+        component: HomeReportesPage
+    },
+    {
+        path: 'reportes-admin-sistema/:titulo/:tipo',
+        canActivate: [RoleGuardService],
+        data: { allowedRoles: [Roles.ADMIN_SISTEMA] },
+        component: ReportesFormPage
     }
 ];

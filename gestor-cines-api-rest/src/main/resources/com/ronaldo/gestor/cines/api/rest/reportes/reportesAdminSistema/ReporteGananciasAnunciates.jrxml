@@ -1,0 +1,195 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="ReporteGananciasAnunciates" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="29af4d54-a0ed-4751-9a6d-29ead6a60915">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<dataset name="dataSetAnuncios" uuid="ad917f61-2065-4080-98ef-bc4f03451f92">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+		<query language="sql"><![CDATA[]]></query>
+		<field name="codigo" class="java.lang.String"/>
+		<field name="titulo" class="java.lang.String"/>
+		<field name="tipo" class="java.lang.String"/>
+		<field name="fechaRegistro" class="java.time.LocalDate"/>
+		<field name="costoTotal" class="java.lang.Double"/>
+		<field name="diasDuracion" class="java.lang.Integer"/>
+		<field name="diasActivo" class="java.lang.Integer"/>
+	</dataset>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="idUsuario" class="java.lang.String"/>
+	<field name="nombreUsuario" class="java.lang.String"/>
+	<field name="totalIngresos" class="java.lang.Double"/>
+	<field name="anuncios" class="java.util.List"/>
+	<title height="145" splitType="Stretch">
+		<element kind="frame" uuid="08515e7f-c613-4a27-8894-e5d5ffb993ba" x="0" y="5" width="549" height="140">
+			<element kind="staticText" uuid="a21d7e89-d0ff-437d-8d96-9e4c299751ab" mode="Opaque" x="0" y="100" width="549" height="30" forecolor="#FFFFFF" backcolor="#1313B0" fontSize="20.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Reporte de Ganancias por Anunciante]]></text>
+			</element>
+			<element kind="staticText" uuid="72f8e68f-4eb9-4258-811f-a4d56849d321" x="100" y="0" width="360" height="50" fontSize="35.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[GESTOR DE CINES]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="staticText" uuid="159b21de-f869-44da-9d26-ea14ebe09cdb" x="15" y="50" width="205" height="35" fontSize="15.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[Fecha y Hora de Impresion:]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="4a69cb39-bf69-4bd3-a0fe-5617cdf364aa" x="220" y="50" width="99" height="35" fontSize="15.0" pattern="MMMMM dd, yyyy" vTextAlign="Middle">
+				<expression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date())
+]]></expression>
+			</element>
+			<element kind="textField" uuid="8db47cd7-24b5-4e86-abea-9dbf4a95acbd" x="319" y="50" width="100" height="35" fontSize="15.0" pattern="HH:mm" vTextAlign="Middle">
+				<expression><![CDATA[new java.util.Date()]]></expression>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="line" uuid="8536b7b7-b7ed-4506-a800-e97243eb5f5f" x="0" y="140" width="543" height="1"/>
+		</element>
+	</title>
+	<detail>
+		<band height="322" splitType="Stretch">
+			<element kind="textField" uuid="d89ac407-db6a-47ad-8133-48841b96097b" x="120" y="20" width="120" height="19" fontSize="12.0">
+				<expression><![CDATA[$F{idUsuario}]]></expression>
+			</element>
+			<element kind="staticText" uuid="43e51cb4-b72d-439f-9eb9-5cfc46f2df1a" x="0" y="20" width="120" height="19" fontSize="12.0" bold="true">
+				<text><![CDATA[ID del Anunciante:]]></text>
+			</element>
+			<element kind="textField" uuid="c3d3e2f7-3784-4ea6-a51a-ed2a7b94cf55" x="390" y="20" width="164" height="19" fontSize="12.0">
+				<expression><![CDATA[$F{nombreUsuario}]]></expression>
+			</element>
+			<element kind="staticText" uuid="ead6afa1-79f2-4d15-a584-628276b60d8d" x="240" y="20" width="150" height="19" fontSize="12.0" bold="true">
+				<text><![CDATA[Nombre del Anunciante:]]></text>
+			</element>
+			<element kind="textField" uuid="84ef2691-dbfc-419f-8202-7834218a27e3" x="250" y="50" width="170" height="20" fontSize="12.0">
+				<expression><![CDATA[   "Q " + $F{totalIngresos}]]></expression>
+			</element>
+			<element kind="staticText" uuid="53d421f5-132e-448f-9488-b0c0dd480430" x="160" y="50" width="90" height="20" fontSize="12.0" bold="true">
+				<text><![CDATA[Total Pagado:]]></text>
+			</element>
+			<element kind="component" uuid="5de3bc35-136d-4c65-9ab0-4b818d8b29d7" x="0" y="80" width="554" height="200">
+				<component kind="table">
+					<datasetRun uuid="0ebfd177-61d8-45c6-a184-a66176700165" subDataset="dataSetAnuncios">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{anuncios})]]></dataSourceExpression>
+					</datasetRun>
+					<column kind="single" uuid="e4b92fa5-f86a-4481-af17-05113324125e" width="70">
+						<columnHeader height="30" style="Table_CH">
+							<element kind="staticText" uuid="63c498d6-08fe-48c3-93e3-3eaccf590b89" x="0" y="0" width="70" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[CODIGO]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="e3abf1c7-ddf4-457a-84e4-3481d4aa3e5e" x="0" y="0" width="70" height="30">
+								<expression><![CDATA[$F{codigo}]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+					</column>
+					<column kind="single" uuid="0241d8de-bf31-47f0-b245-01a552dc8e28" width="110">
+						<columnHeader height="30" style="Table_CH">
+							<element kind="staticText" uuid="1fb66bbd-b86b-4a38-895b-5ba34d845af0" x="0" y="0" width="110" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[TITULO]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="e1038e15-ec42-4dca-b4ca-d017d5a36ae8" x="0" y="0" width="110" height="30">
+								<expression><![CDATA[$F{titulo}]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+					</column>
+					<column kind="single" uuid="114f9107-d083-4c66-9fd4-6359944c9837" width="66">
+						<columnHeader height="30" style="Table_CH">
+							<element kind="staticText" uuid="6767bf90-a3c7-4283-90a8-0825c23860df" x="0" y="0" width="66" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[TIPO]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="f5532be1-61e2-4dce-b3e8-207df2bccf63" x="0" y="0" width="66" height="30">
+								<expression><![CDATA[$F{tipo}]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+					</column>
+					<column kind="single" uuid="834d4455-4f0a-480c-b194-c46089960aae" width="80">
+						<columnHeader height="30" style="Table_CH">
+							<element kind="staticText" uuid="e12956bd-c4ec-4f8f-85e5-d203f4ade8cb" x="0" y="0" width="80" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[FECHA REGISTRO]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="4ede8870-2699-4433-9f7d-396b1ba4814d" x="0" y="0" width="80" height="30">
+								<expression><![CDATA[$F{fechaRegistro}.format( java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy") )]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+					</column>
+					<column kind="single" uuid="ad471fdd-6fa8-41cd-93ee-66b08ccf8d66" width="84">
+						<columnHeader height="30" style="Table_CH">
+							<element kind="staticText" uuid="703eb586-1ed0-4209-9652-497b4fa01058" x="0" y="0" width="84" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[PRECIO]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="1cdae2ed-cd06-49ab-afae-f281173800c9" x="0" y="0" width="84" height="30">
+								<expression><![CDATA["Q"+$F{costoTotal}]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+					</column>
+					<column kind="single" uuid="ceb45fbc-1a15-414b-b40b-d75988c74759" width="86">
+						<columnHeader height="30" style="Table_CH">
+							<element kind="staticText" uuid="dc7cd669-0757-407c-bbfe-dd69964248b6" x="0" y="0" width="86" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[DURACION EN DIAS]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="5919f2ff-d89c-48d2-96a9-ce5320104326" x="0" y="0" width="86" height="30">
+								<expression><![CDATA[$F{diasDuracion}]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+					</column>
+					<column kind="single" uuid="a4e48a87-6628-4d9c-ba12-d4b64188b30a" width="60">
+						<columnHeader height="30" style="Table_CH">
+							<element kind="staticText" uuid="36895982-19e5-4bbd-a7f0-1f84f79af11b" x="0" y="0" width="60" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[DIAS ACTIVO]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="1ef1673d-024a-413a-b36c-8ae76055ab3b" x="0" y="0" width="60" height="30">
+								<expression><![CDATA[$F{diasActivo}]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
+					</column>
+				</component>
+				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+				<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+				<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+				<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+			</element>
+		</band>
+	</detail>
+</jasperReport>

@@ -4,6 +4,7 @@ import com.ctc.wstx.util.StringUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.ronaldo.gestor.cines.api.rest.exceptions.UserDataInvalidException;
 import java.time.LocalDate;
 import org.apache.commons.lang3.StringUtils;
 
@@ -41,4 +42,13 @@ public class FiltroReporteRequest {
               }
        }
 
+       public void verificarFechas() throws UserDataInvalidException {
+              if (fechaInicio != null && fechaFin != null) {
+                     if (fechaInicio.isAfter(fechaFin)) {
+                            throw new UserDataInvalidException("La fecha inicial no puede ser posterior a la fecha final");
+                     }
+              } else if ((fechaInicio == null && fechaFin != null) || (fechaInicio != null && fechaFin == null)) {
+                     throw new UserDataInvalidException("Debes enviar ambas fechas, inicio y fin o ninguna");
+              }
+       }
 }
