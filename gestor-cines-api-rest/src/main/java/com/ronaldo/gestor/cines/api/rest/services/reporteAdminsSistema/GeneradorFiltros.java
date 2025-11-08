@@ -1,5 +1,6 @@
 package com.ronaldo.gestor.cines.api.rest.services.reporteAdminsSistema;
 
+import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroGanancias;
 import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroReporteGananciasAnunciante;
 import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroSalasMasPopulares;
 import com.ronaldo.gestor.cines.api.rest.exceptions.UserDataInvalidException;
@@ -32,6 +33,16 @@ public class GeneradorFiltros {
        public FiltroSalasMasPopulares generarFiltroSalasPopulares(
                String fechaInicio, String fechaFin) throws UserDataInvalidException {
               FiltroSalasMasPopulares filtro = new FiltroSalasMasPopulares();
+              filtro.setFechaInicio(fechaInicio);
+              filtro.setFechaFin(fechaFin);
+
+              filtro.verificarFechas();
+              return filtro;
+       }
+
+       public FiltroGanancias generarFiltroGanancias(
+               String fechaInicio, String fechaFin) throws UserDataInvalidException {
+              FiltroGanancias filtro = new FiltroGanancias();
               filtro.setFechaInicio(fechaInicio);
               filtro.setFechaFin(fechaFin);
 

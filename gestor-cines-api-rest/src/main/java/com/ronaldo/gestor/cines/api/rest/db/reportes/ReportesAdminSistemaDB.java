@@ -1,10 +1,14 @@
 package com.ronaldo.gestor.cines.api.rest.db.reportes;
 
 import com.ronaldo.gestor.cines.api.rest.db.DataSourceDBSingleton;
+import com.ronaldo.gestor.cines.api.rest.db.anuncios.AnunciosDB;
+import com.ronaldo.gestor.cines.api.rest.dtos.anuncios.AnuncioResponse;
+import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroGanancias;
 import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroSalasMasPopulares;
 import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionAdminSistema;
+import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionesAnunciante;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
-import com.ronaldo.gestor.cines.api.rest.models.opinion.Opinion;
+import com.ronaldo.gestor.cines.api.rest.models.pagosBloqueo.PagoBloqueo;
 import com.ronaldo.gestor.cines.api.rest.models.reporteBoletosVendidos.CompraBoleto;
 import com.ronaldo.gestor.cines.api.rest.models.reporteSalasGustadas.Calificacion;
 import java.sql.Connection;
@@ -78,6 +82,57 @@ public class ReportesAdminSistemaDB {
                      throw new DataBaseException("Error al obtener boletos comprados por sala en db");
               }
               return boletosComprados;
+       }
+
+       public List<AnuncioResponse> obtenerAnuncios(FiltroGanancias filtro) throws DataBaseException {
+              List<AnuncioResponse> anuncios = new ArrayList<>();
+              AnunciosDB anunciosDB = new AnunciosDB();
+              filtro.generarQueryAnuncios();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement query = connection.
+                             prepareStatement(filtro.getQueryAnuncios())) {
+                            if (filtro.getTipoFiltroAnuncios() == FiltroGanancias.FILTRO_CON_FECHAS) {
+                                   query.setDate(1, Date.valueOf(filtro.getFechaInicio()));
+                                   query.setDate(2, Date.valueOf(filtro.getFechaFin()));
+
+                            }
+                            ResultSet resultSet = query.executeQuery();
+                            while (resultSet.next()) {
+                                   anuncios.add(anunciosDB.crearAnuncio(resultSet));
+                            }
+                     }
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al obtener anuncios en la db");
+              }
+              return anuncios;
+       }
+
+       public List<PagoBloqueo> obtenerPagosPorBloqueo(FiltroGanancias filtro) throws DataBaseException {
+              List<PagoBloqueo> pagos = new ArrayList<>();
+              filtro.generarQueryPagosBloqueo();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement query = connection.
+                             prepareStatement(filtro.getQueryPagosBloqueo())) {
+                            if (filtro.getTipoFiltroAnuncios() == FiltroGanancias.FILTRO_CON_FECHAS) {
+                                   query.setDate(1, Date.valueOf(filtro.getFechaInicio()));
+                                   query.setDate(2, Date.valueOf(filtro.getFechaFin()));
+                            }
+                            ResultSet resultSet = query.executeQuery();
+                            while (resultSet.next()) {
+                                   PagoBloqueo pago = new PagoBloqueo();
+                                   pago.setCodigoCine(resultSet.getString("codigo_cine"));
+                                   pago.setFechaPago(LocalDate.parse(resultSet.getString("fecha_pago")));
+                                   pago.setTotalDias(resultSet.getInt("total_dias"));
+                                   pago.setCosto(resultSet.getDouble("costo"));
+                                   pagos.add(pago);
+                            }
+                     }
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al obtener anuncios en la db");
+              }
+              return pagos;
        }
 
 }

@@ -19,6 +19,7 @@ public enum PeticionesAnunciante {
        OBTENER_ANUNCIO_IMAGEN("select * from anuncio where codigo=?"),
        AGREGAR_DIA_ACTIVO_ANUNCIO("update anuncio set dias_activo=dias_activo+1 where codigo=?"),
        DESACTIVAR_ANUNCIO("update anuncio set activo =0 where codigo=?"),
+       OBTENER_ANUNCIOS("select * from anuncio"),
        ;
        private String peticion;
 
