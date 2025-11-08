@@ -249,4 +249,25 @@ public class CinesDB {
               }
        }
 
+       /**
+        * 
+        * @return
+        * @throws DataBaseException 
+        */
+       public int contarTotalCines() throws DataBaseException {
+              int contador = 0;
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection();) {
+                     try (PreparedStatement query = connection.
+                             prepareStatement(PeticionAdminSistema.OBTENER_CINES.get())) {
+                            ResultSet resultSet = query.executeQuery();
+                            while (resultSet.next()) {
+                                   contador++;
+                            }
+                     }
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al contar cines en db");
+              }
+              return contador;
+       }
 }

@@ -1,11 +1,13 @@
 package com.ronaldo.gestor.cines.api.rest.resources;
 
+import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroGanancias;
 import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroReporteGananciasAnunciante;
 import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroSalasMasPopulares;
 import com.ronaldo.gestor.cines.api.rest.enums.rutasJasper.RutasReportesJasper;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.UserDataInvalidException;
+import com.ronaldo.gestor.cines.api.rest.models.reporteGanancias.ReporteGanancias;
 import com.ronaldo.gestor.cines.api.rest.models.reporteGananciasAnunciantes.ReporteGananciaAnunciantes;
 import com.ronaldo.gestor.cines.api.rest.models.reporteSalasComentadas.ReporteSalasComentadas;
 import com.ronaldo.gestor.cines.api.rest.models.reporteSalasGustadas.SalasGustadas;
@@ -22,8 +24,11 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.StreamingOutput;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -163,6 +168,62 @@ public class ReportesAdminSistemaResource {
               JasperPrint printer = JasperFillManager.fillReport(reporteCompilado, null, source);
 
               String fileName = "reporte_top_5_salas_comentadas.pdf";
+
+              StreamingOutput fileStream = (java.io.OutputStream output) -> {
+                     try {
+                            JasperExportManager.exportReportToPdfStream(printer, output);
+                            output.flush();
+                     } catch (Exception e) {
+                            throw new WebApplicationException("Error al generar el reporte");
+                     }
+              };
+              return Response
+                      .ok(fileStream, MediaType.APPLICATION_OCTET_STREAM)
+                      .header("content-disposition", "attachment; filename=" + fileName)
+                      .build();
+       }
+
+       @GET
+       @Path("reporte-ganancias")
+       @Produces(MediaType.APPLICATION_OCTET_STREAM)
+       public Response generarReporteGanancias(
+               @QueryParam("fechaInicio") String fechaInicio,
+               @QueryParam("fechaFin") String fechaFin) throws JRException {
+
+              GeneradorFiltros generador = new GeneradorFiltros();
+              GeneradorReportes generadorReportes = new GeneradorReportes();
+
+              FiltroGanancias request;
+
+              ReporteGanancias reporte;
+
+              try {
+                     request = generador.generarFiltroGanancias(fechaInicio, fechaFin);
+                     reporte = generadorReportes.generarReporteGanancias(request);
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+              } catch (UserDataInvalidException ex) {
+                     return Response.status(Response.Status.BAD_REQUEST).build();
+              }
+
+              InputStream reporteCompilado = getClass().getClassLoader()
+                      .getResourceAsStream(RutasReportesJasper.REPORTE_GANANCIAS.getRuta());
+
+              JRDataSource sourceCostos = new JRBeanCollectionDataSource(reporte.getCostosCines());
+              JRDataSource sourceAnuncios = new JRBeanCollectionDataSource(reporte.getAnuncios());
+              JRDataSource sourcePagosBloqueo = new JRBeanCollectionDataSource(reporte.getPagosBloqueo());
+              Map<String, Object> parametros = new HashMap<>();
+              parametros.put("costosCines", sourceCostos);
+              parametros.put("anuncios", sourceAnuncios);
+              parametros.put("pagosBloqueo", sourcePagosBloqueo);
+              parametros.put("costos", reporte.getBalanceFinanciero().getCostos());
+              parametros.put("ingresos", reporte.getBalanceFinanciero().getIngresos());
+              parametros.put("ganancias", reporte.getBalanceFinanciero().getGanancia());
+              parametros.put("fechaInicio", request.getFechaInicio());
+              parametros.put("fechaFin", request.getFechaFin());
+              JasperPrint printer = JasperFillManager.fillReport(reporteCompilado, parametros, new JREmptyDataSource());
+
+              String fileName = "reporte_ganancias.pdf";
 
               StreamingOutput fileStream = (java.io.OutputStream output) -> {
                      try {

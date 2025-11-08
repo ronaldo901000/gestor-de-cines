@@ -53,4 +53,15 @@ export class ReporteAdminSistemaServices {
         return url;
     }
 
+        public generarURLReporteGanancias(filtro: FiltroComentariosSalas): string {
+        let url = this.restConstants.API_URL + 'reportes-admin-sistema/reporte-ganancias';
+        if (filtro.fechaInicio && filtro.fechaFin) {
+            const fechaInicio = new Date(filtro.fechaInicio);
+            url += '?fechaInicio=' + fechaInicio.toISOString();
+            const fechaFin = new Date(filtro.fechaFin);
+            url += '&fechaFin=' + fechaFin.toISOString();
+        }
+        return url;
+    }
+
 }

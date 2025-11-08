@@ -3,15 +3,18 @@ package com.ronaldo.gestor.cines.api.rest.services.reporteAdminsSistema;
 import com.ronaldo.gestor.cines.api.rest.db.anunciantes.AnunciantesDB;
 import com.ronaldo.gestor.cines.api.rest.db.reportes.ReportesAdminSistemaDB;
 import com.ronaldo.gestor.cines.api.rest.dtos.anuncios.AnuncioResponse;
+import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroGanancias;
 import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroReporteGananciasAnunciante;
 import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroSalasMasPopulares;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.exceptions.EntityNotFoundException;
+import com.ronaldo.gestor.cines.api.rest.models.reporteGanancias.ReporteGanancias;
 import com.ronaldo.gestor.cines.api.rest.models.reporteGananciasAnunciantes.AnuncianteReport;
 import com.ronaldo.gestor.cines.api.rest.models.reporteGananciasAnunciantes.ReporteGananciaAnunciantes;
 import com.ronaldo.gestor.cines.api.rest.models.reporteSalasComentadas.ReporteSalasComentadas;
 import com.ronaldo.gestor.cines.api.rest.models.reporteSalasGustadas.SalasGustadas;
 import com.ronaldo.gestor.cines.api.rest.models.usuario.Usuario;
+import com.ronaldo.gestor.cines.api.rest.services.reporteGanancias.ConstructorReporteGanancias;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
@@ -88,5 +91,11 @@ public class GeneradorReportes {
               ReporteSalasComentadas reporte = new ReporteSalasComentadas();
               reporte.setSalasComentadas(creadorSalasPopulares.obtenerSalasComentadas(filtro));
               return reporte;
+       }
+       
+       public ReporteGanancias generarReporteGanancias(FiltroGanancias filtro) throws DataBaseException {
+
+              ConstructorReporteGanancias constructor = new ConstructorReporteGanancias();
+              return constructor.construirReporte(filtro);
        }
 }
