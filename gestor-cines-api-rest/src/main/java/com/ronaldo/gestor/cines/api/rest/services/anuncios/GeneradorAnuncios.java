@@ -59,4 +59,9 @@ public class GeneradorAnuncios {
               }
               return link.get();
        }
+
+       public List<AnuncioResponse> obtenerTodosLosAnuncios() throws DataBaseException {
+              AnunciosDB anunciosDB = new AnunciosDB();
+              return anunciosDB.obtenerTodosLosAnuncios();
+       }
 }

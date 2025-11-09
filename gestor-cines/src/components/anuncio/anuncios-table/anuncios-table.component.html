@@ -1,3 +1,4 @@
+<app-toast-component #toast></app-toast-component>
 <div class="text-center" id="tabla">
   @if(anuncios.length==0){
   <h2>No Tienes anuncios comprados</h2>
@@ -13,6 +14,8 @@
         <th scope="col">Duracion</th>
         <th scope="col">Dias activo</th>
         <th scope="col">Activo</th>
+        <th scope="col">Desactivar</th>
+        <th scope="col">Eliminar</th>
       </tr>
     </thead>
     <tbody>
@@ -32,7 +35,20 @@
         } @else{
         <td>NO</td>
         }
+        <td>
+          @if(anuncio.activo){
+          <button class="btn btn-warning" (click)="desactivar(anuncio.codigo)">
+            <i class="bi-lock"></i>
+          </button>
+          }
+        </td>
+        <td>
+          <button class="btn btn-danger" (click)="eliminar(anuncio.codigo)">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
       </tr>
+
       }
     </tbody>
   </table>
