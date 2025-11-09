@@ -3,6 +3,7 @@ package com.ronaldo.gestor.cines.api.rest.services.reporteAdminsSistema;
 import com.ronaldo.gestor.cines.api.rest.db.anunciantes.AnunciantesDB;
 import com.ronaldo.gestor.cines.api.rest.db.reportes.ReportesAdminSistemaDB;
 import com.ronaldo.gestor.cines.api.rest.dtos.anuncios.AnuncioResponse;
+import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroAnunciosComprados;
 import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroGanancias;
 import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroReporteGananciasAnunciante;
 import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroSalasMasPopulares;
@@ -97,5 +98,10 @@ public class GeneradorReportes {
 
               ConstructorReporteGanancias constructor = new ConstructorReporteGanancias();
               return constructor.construirReporte(filtro);
+       }
+
+       public List<AnuncioResponse> obtenerReporteAnuncios(FiltroAnunciosComprados filtro) throws DataBaseException {
+              ReportesAdminSistemaDB adminSistemaDB = new ReportesAdminSistemaDB();
+              return adminSistemaDB.obtenerAnuncioReporte(filtro);
        }
 }

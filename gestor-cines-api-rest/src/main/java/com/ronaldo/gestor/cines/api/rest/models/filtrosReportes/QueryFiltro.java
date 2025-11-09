@@ -21,8 +21,26 @@ public enum QueryFiltro {
        BUSCAR_COMPRA_BOLETOS_VENDIDOS_FILTRO_SALA("select * from compra_boletos c join proyeccion p on c.codigo_proyeccion=p.codigo where p.codigo_sala=?"),
        //para ontener comentarios de salas mas comentadas
        BUSCAR_COMENTARIOS_SALAS_FILTRO_COMPLETO("select * from opinion_sala where codigo_sala=? and fecha >= ? and fecha<= ?"),
-       BUSCAR_COMENTARIOS_SALAS_FILTRO_SALA("select * from opinion_sala where codigo_sala=?"),;
+       BUSCAR_COMENTARIOS_SALAS_FILTRO_SALA("select * from opinion_sala where codigo_sala=?"),
 
+       
+       
+       
+       
+       
+       
+       
+       //para buscar anuncios comprados
+       BUSCAR_ANUNCIOS_FILTRO_COMPLETO("select * from anuncio where fecha_registro>=? and fecha_registro<=? and tipo=? and duracion_dias=?"),
+       BUSCAR_ANUNCIOS_FILTRO_FECHA("select * from anuncio where fecha_registro>=? and fecha_registro<=? "),
+       BUSCAR_ANUNCIOS_FILTRO_FECHAS_Y_TIPO_ANUNCIO("select * from anuncio where fecha_registro>=? and fecha_registro<=? and tipo=?"),
+       BUSCAR_ANUNCIOS_FILTRO_FECHAS_Y_PERIODO_TIEMPO("select * from anuncio where fecha_registro>=? and fecha_registro<=? and duracion_dias=?"),
+       BUSCAR_ANUNCIOS_FILTRO_TIPO_ANUNCIO("select * from anuncio where tipo=?"),
+       BUSCAR_ANUNCIOS_FILTRO_TIPO_ANUNCIO_Y_PERIODO_TIEMPO("select * from anuncio where tipo=? and duracion_dias=?"),
+       BUSCAR_ANUNCIOS_FILTRO_PERIODO_TIEMPO("select * from anuncio where duracion_dias=?"),
+       BUSCAR_ANUNCIOS_FILTRO_NULO("select * from anuncio"),
+       
+       ;
        private String query;
 
        private QueryFiltro(String query) {
