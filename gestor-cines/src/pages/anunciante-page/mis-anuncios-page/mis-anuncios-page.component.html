@@ -51,7 +51,7 @@
           <h1><strong>Mis Anuncios</strong></h1>
           <br />
           <br />
-          <app-anuncios-table-component [anuncios]="anuncios"></app-anuncios-table-component>
+          <app-anuncios-table-component [anuncios]="anuncios" (actualizarTabla)="obtenerAnuncios()"></app-anuncios-table-component>
         </div>
       </div>
       <div class="col-2 bg-transparent border-start p-3">

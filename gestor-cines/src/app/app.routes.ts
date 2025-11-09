@@ -48,6 +48,7 @@ import { ReportesHomePage } from '../pages/admin-cine-page/reportes-page/reporte
 import { ReporteComentariosSalasPage } from '../pages/admin-cine-page/reportes-page/reportes-page/reporte-comentarios-salas-page';
 import { HomeReportesPage } from '../pages/admin-sistema-page/reportes-page/home-reportes-page/home-reportes-page';
 import { ReportesFormPage } from '../pages/admin-sistema-page/reportes-page/reportes-form-page/reportes-form-page';
+import { DesactivarAnunciosPage } from '../pages/admin-sistema-page/desactivar-anuncios-page/desactivar-anuncios-page';
 export const routes: Routes = [
     {
         path: '',
@@ -326,5 +327,11 @@ export const routes: Routes = [
         canActivate: [RoleGuardService],
         data: { allowedRoles: [Roles.ADMIN_SISTEMA] },
         component: ReportesFormPage
+    },
+    {
+        path: 'anuncios/desactivar',
+        canActivate:[RoleGuardService],
+        data: { allowedRoles: [Roles.ADMIN_SISTEMA] },
+        component:DesactivarAnunciosPage
     }
 ];

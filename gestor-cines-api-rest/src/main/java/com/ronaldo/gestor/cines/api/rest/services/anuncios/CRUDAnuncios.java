@@ -257,5 +257,28 @@ public class CRUDAnuncios {
               anunciosDB.crearAnuncioImagen(anuncio, costoTotal);
        }
 
+       public void eliminarAnuncio(String codigoAnuncio) throws UserDataInvalidException, DataBaseException, EntityNotFoundException {
+              AnunciosDB anunciosDB = new AnunciosDB();
+
+              verificarDatos(codigoAnuncio);
+              anunciosDB.eliminarAnuncio(codigoAnuncio);
+       }
+
+       public void desactivarAnuncio(String codigoAnuncio) throws UserDataInvalidException, DataBaseException, EntityNotFoundException {
+              AnunciosDB anunciosDB = new AnunciosDB();
+              verificarDatos(codigoAnuncio);
+              anunciosDB.desactivarAnuncio(codigoAnuncio);
+       }
+
+       private void verificarDatos(String codigoAnuncio) throws UserDataInvalidException, DataBaseException, EntityNotFoundException {
+              HerramientaDB herramientaDB = new HerramientaDB();
+              if (StringUtils.isBlank(codigoAnuncio)) {
+                     throw new UserDataInvalidException("Codigo de anuncio no enviado");
+              }
+
+              if (!herramientaDB.existeEntidad(codigoAnuncio, PeticionesAnunciante.BUSCAR_ANUNCIO.get())) {
+                     throw new EntityNotFoundException("Anuncio inexistente en el sistema");
+              }
+       }
 
 }

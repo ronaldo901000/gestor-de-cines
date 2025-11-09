@@ -33,9 +33,9 @@ export class AnuncioServices {
     }
 
 
-    public desactivarAnuncio(codigo: string): Observable<void> {
+    public eliminarAnuncio(codigo: string): Observable<void> {
         return this.httpClient.delete<void>(
-            `${this.restConstants.getApiURL()}cines/${codigo}`);
+            `${this.restConstants.getApiURL()}anuncios/${codigo}`);
     }
 
     public obtenerAnunciosParaMostrar(inicio: number) {
@@ -54,5 +54,12 @@ export class AnuncioServices {
         ) as Observable<string>;
     }
 
+    public desactivarAnuncio(codigoAnuncio: string): Observable<void> {
+        return this.httpClient.put<void>(`${this.restConstants.getApiURL()}anuncios/desactivaciones/${codigoAnuncio}`, {});
+    }
 
+    public obtenerTodosLosAnuncios(): Observable<AnuncioResponse[]> {
+        return this.httpClient.get<AnuncioResponse[]>
+            (`${this.restConstants.getApiURL()}anuncios/todos-los-anuncios`);
+    }
 }

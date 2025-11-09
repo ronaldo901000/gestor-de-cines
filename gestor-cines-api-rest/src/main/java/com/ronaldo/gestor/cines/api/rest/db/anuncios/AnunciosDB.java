@@ -128,7 +128,7 @@ public class AnunciosDB {
        }
 
        /**
-        * 
+        * lista de anuncios para mostrar en los laterales de las paginas
         * @param inicio
         * @param fin
         * @return
@@ -262,5 +262,58 @@ public class AnunciosDB {
               }
               return Optional.empty();
        }
-       
+
+       /**
+        *
+        * @param codigoAnuncio
+        * @throws DataBaseException
+        */
+       public void eliminarAnuncio(String codigoAnuncio) throws DataBaseException {
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement delete = connection.
+                             prepareStatement(PeticionesAnunciante.ELIMINAR_ANUNCIO.get())) {
+                            delete.setString(1, codigoAnuncio);
+                            delete.executeUpdate();
+                     }
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al eliminar anuncio para mostrar en la db");
+              }
+       }
+
+       public void desactivarAnuncio(String codigoAnuncio) throws DataBaseException {
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement update = connection.
+                             prepareStatement(PeticionesAnunciante.DESACTIVAR_ANUNCIO.get())) {
+                            update.setString(1, codigoAnuncio);
+                            update.executeUpdate();
+                     }
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al desactivar anuncio para mostrar en la db");
+              }
+       }
+
+       /**
+        * 
+        * @return
+        * @throws DataBaseException 
+        */
+       public List<AnuncioResponse> obtenerTodosLosAnuncios() throws DataBaseException {
+              List<AnuncioResponse> anuncios = new ArrayList<>();
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement query = connection.
+                             prepareStatement(PeticionesAnunciante.OBTENER_ANUNCIOS.get())) {
+                            ResultSet resultSet = query.executeQuery();
+                            while (resultSet.next()) {
+                                   anuncios.add(crearAnuncio(resultSet));
+                            }
+                     }
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al obtener anuncio en la db");
+              }
+              return anuncios;
+       }
+
 }

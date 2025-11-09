@@ -13,8 +13,10 @@ import com.ronaldo.gestor.cines.api.rest.services.anuncios.GeneradorAnuncios;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -183,6 +185,55 @@ public class AnunciosResource {
                      return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
               } catch (EntityNotFoundException ex) {
                      return Response.status(Response.Status.NOT_FOUND).entity(ex.getMessage()).build();
+              }
+       }
+
+       @DELETE
+       @Path("{codigoAnuncio}")
+       @Consumes(MediaType.APPLICATION_JSON)
+       public Response eliminarAnuncio(@PathParam("codigoAnuncio") String codigoAnuncio) {
+              CRUDAnuncios crud = new CRUDAnuncios();
+              try {
+                     crud.eliminarAnuncio(codigoAnuncio);
+                     return Response.ok().build();
+              } catch (DataBaseException e) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+              } catch (EntityNotFoundException e) {
+                     return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+              } catch (UserDataInvalidException e) {
+                     return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+              }
+       }
+       
+       @PUT
+       @Path("desactivaciones/{codigo}")
+       @Consumes(MediaType.APPLICATION_JSON)
+       @Produces(MediaType.APPLICATION_JSON)
+       public Response desactivarAnuncio(@PathParam("codigo") String codigoAnuncio) {
+              CRUDAnuncios crud = new CRUDAnuncios();
+              try {
+                     crud.desactivarAnuncio(codigoAnuncio);
+                     return Response.ok().build();
+              } catch (UserDataInvalidException ex) {
+                     return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+
+              } catch (EntityNotFoundException ex) {
+                     return Response.status(Response.Status.NOT_FOUND).entity(ex.getMessage()).build();
+              }
+
+       }
+
+       @GET
+       @Path("todos-los-anuncios")
+       @Produces(MediaType.APPLICATION_JSON)
+       public Response obtenerTodosLosAnuncios() {
+              GeneradorAnuncios generador = new GeneradorAnuncios();
+              try {
+                     return Response.ok(generador.obtenerTodosLosAnuncios()).build();
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
               }
        }
 }
