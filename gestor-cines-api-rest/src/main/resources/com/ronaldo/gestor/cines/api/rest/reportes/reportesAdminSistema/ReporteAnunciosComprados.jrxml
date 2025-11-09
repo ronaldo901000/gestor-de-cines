@@ -1,0 +1,177 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="ReporteAnunciosComprados" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b2440176-2814-4a93-a7d0-63d178d2c6fc">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<dataset name="DatasetAnuncios" uuid="81821938-8cee-425e-b465-7fab6092a879">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+		<query language="sql"><![CDATA[]]></query>
+		<field name="codigo" class="java.lang.String"/>
+		<field name="idAnunciante" class="java.lang.String"/>
+		<field name="titulo" class="java.lang.String"/>
+		<field name="tipo" class="java.lang.String"/>
+		<field name="fechaRegistro" class="java.time.LocalDate"/>
+		<field name="costoTotal" class="java.lang.Double"/>
+		<field name="diasDuracion" class="java.lang.Integer"/>
+	</dataset>
+	<parameter name="anuncios" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<query language="sql"><![CDATA[]]></query>
+	<title height="145" splitType="Stretch">
+		<element kind="frame" uuid="77432680-7af5-4703-b85f-651f0ba7d187" x="0" y="5" width="549" height="140">
+			<element kind="staticText" uuid="273cc1d4-81e5-4eba-a3da-57b4ad3631df" mode="Opaque" x="0" y="100" width="549" height="30" forecolor="#FFFFFF" backcolor="#1313B0" fontSize="20.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Reporte Anuncios Comprados]]></text>
+			</element>
+			<element kind="staticText" uuid="ca45f47a-7d7a-4e6c-91b1-36f4da41ff31" x="100" y="0" width="360" height="50" fontSize="35.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[GESTOR DE CINES]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="staticText" uuid="fbb1bf96-cc41-4abb-9ac6-ac6fe128c0c9" x="15" y="50" width="205" height="35" fontSize="15.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[Fecha y Hora de Impresion:]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="d1b0075e-2ee7-43b0-a9a2-8bf33a480122" x="220" y="50" width="99" height="35" fontSize="15.0" pattern="MMMMM dd, yyyy" vTextAlign="Middle">
+				<expression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date())
+]]></expression>
+			</element>
+			<element kind="textField" uuid="d6c05135-f031-4a01-b6ef-6bd89de7a6b1" x="319" y="50" width="100" height="35" fontSize="15.0" pattern="HH:mm" vTextAlign="Middle">
+				<expression><![CDATA[new java.util.Date()]]></expression>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="line" uuid="ff0a17ae-a6cb-4859-abf4-a7cf5c6d607e" x="-4" y="140" width="549" height="1"/>
+		</element>
+	</title>
+	<detail>
+		<band height="140" splitType="Stretch">
+			<element kind="component" uuid="61c00b2b-3cf3-4243-81ac-9d51889cd60f" x="1" y="50" width="553" height="60">
+				<component kind="table">
+					<datasetRun uuid="c2d56360-67d3-4011-be37-8b44e150e96d" subDataset="DatasetAnuncios">
+						<dataSourceExpression><![CDATA[$P{anuncios}]]></dataSourceExpression>
+					</datasetRun>
+					<column kind="single" uuid="b5fe9bbc-430f-4b29-91ac-9fcddf0b6403" width="70">
+						<columnHeader height="30" style="Table_CH">
+							<element kind="staticText" uuid="887ce9a5-ebe8-4802-9af6-220d5544392a" x="0" y="0" width="70" height="30" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[CODIGO]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="ae51432d-7384-4cd7-927c-6903d7a6f08d" x="0" y="0" width="70" height="30" hTextAlign="Center" vTextAlign="Middle">
+								<expression><![CDATA[$F{codigo}]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+					</column>
+					<column kind="single" uuid="9e224573-ea9e-4d15-b2ec-303f4e040a53" width="74">
+						<columnHeader height="30" style="Table_CH">
+							<element kind="staticText" uuid="a04e7637-19a9-41b5-9a0f-dcceedbdd242" x="0" y="0" width="74" height="30" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[ID ANUNCIANTE]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="a8c49cb1-d98f-438d-ad55-7b67d919830d" x="0" y="0" width="74" height="30" hTextAlign="Center" vTextAlign="Middle">
+								<expression><![CDATA[$F{idAnunciante}]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+					</column>
+					<column kind="single" uuid="320251e4-d108-4bb8-9f57-652dc3747fac" width="106">
+						<columnHeader height="30" style="Table_CH">
+							<element kind="staticText" uuid="6ff28351-c920-44ea-ad36-f2f0afd7a7e7" x="0" y="0" width="106" height="30" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[TITULO]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="a0b3c58c-f740-48ae-889e-09dc939ecf1d" x="0" y="0" width="106" height="30" hTextAlign="Center" vTextAlign="Middle">
+								<expression><![CDATA[$F{titulo}]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+					</column>
+					<column kind="single" uuid="ca904896-09b6-4b29-90fe-6769fe677d44" width="72">
+						<columnHeader height="30" style="Table_CH">
+							<element kind="staticText" uuid="7c68c2e0-8bbc-4b00-bedf-ad7ab0530379" x="0" y="0" width="72" height="30" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[TIPO]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="c728d0a1-a30b-4b22-9a25-9074be2dc9a6" x="0" y="0" width="72" height="30" hTextAlign="Center" vTextAlign="Middle">
+								<expression><![CDATA[$F{tipo}]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+					</column>
+					<column kind="single" uuid="5af2ebba-bf18-4935-bf9b-172a9d097dc6" width="86">
+						<columnHeader height="30" style="Table_CH">
+							<element kind="staticText" uuid="1fe6bd71-ed19-4f70-aa27-737e7b9ce5a3" x="0" y="0" width="86" height="30" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[FECHA COMPRA]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="a0509739-7306-493c-a969-dc450a74142b" x="0" y="0" width="86" height="30" hTextAlign="Center" vTextAlign="Middle">
+								<expression><![CDATA[$F{fechaRegistro}.format( java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy") )]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+					</column>
+					<column kind="single" uuid="79f7214b-a6b2-40fa-b4e3-11bdec0c93b4" width="66">
+						<columnHeader height="30" style="Table_CH">
+							<element kind="staticText" uuid="3768c155-5e1f-4eb4-b194-5cc1a4bd9625" x="0" y="0" width="66" height="30" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[COSTO]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="004e68eb-3b1a-4dea-9698-b418c6ad56ab" x="0" y="0" width="66" height="30" hTextAlign="Center" vTextAlign="Middle">
+								<expression><![CDATA["Q"+$F{costoTotal}]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+					</column>
+					<column kind="single" uuid="6cd40758-52e8-496a-b1eb-e8333384ceeb" width="80">
+						<columnHeader height="30" style="Table_CH">
+							<element kind="staticText" uuid="173e41f2-c35a-443a-af98-6a3ca076141e" x="0" y="0" width="80" height="30" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[PERIODO TIEMPO]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="7418d8ff-0c5b-4424-bad9-87f2067bc1e2" x="0" y="0" width="80" height="30" hTextAlign="Center" vTextAlign="Middle">
+								<expression><![CDATA[$F{diasDuracion}+ "dias"]]></expression>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
+					</column>
+				</component>
+				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+				<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+				<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+				<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+			</element>
+			<element kind="staticText" uuid="bd0c51f9-1067-41f3-a7a2-69f108dfa996" x="10" y="20" width="140" height="20" fontSize="13.0" bold="true">
+				<text><![CDATA[Anuncios Comprados]]></text>
+			</element>
+		</band>
+	</detail>
+</jasperReport>

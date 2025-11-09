@@ -1,5 +1,7 @@
 package com.ronaldo.gestor.cines.api.rest.resources;
 
+import com.ronaldo.gestor.cines.api.rest.dtos.anuncios.AnuncioResponse;
+import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroAnunciosComprados;
 import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroGanancias;
 import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroReporteGananciasAnunciante;
 import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroSalasMasPopulares;
@@ -224,6 +226,58 @@ public class ReportesAdminSistemaResource {
               JasperPrint printer = JasperFillManager.fillReport(reporteCompilado, parametros, new JREmptyDataSource());
 
               String fileName = "reporte_ganancias.pdf";
+
+              StreamingOutput fileStream = (java.io.OutputStream output) -> {
+                     try {
+                            JasperExportManager.exportReportToPdfStream(printer, output);
+                            output.flush();
+                     } catch (Exception e) {
+                            throw new WebApplicationException("Error al generar el reporte");
+                     }
+              };
+              return Response
+                      .ok(fileStream, MediaType.APPLICATION_OCTET_STREAM)
+                      .header("content-disposition", "attachment; filename=" + fileName)
+                      .build();
+       }
+
+       @GET
+       @Path("reporte-anuncios-comprados")
+       @Produces(MediaType.APPLICATION_OCTET_STREAM)
+       public Response generarReporteAnunciosComprados(
+               @QueryParam("fechaInicio") String fechaInicio,
+               @QueryParam("fechaFin") String fechaFin,
+               @QueryParam("tipoAnuncio") String tipoAnuncio,
+               @QueryParam("periodoTiempo") String periodoTiempo
+       ) throws JRException {
+
+              GeneradorFiltros generador = new GeneradorFiltros();
+              GeneradorReportes generadorReportes = new GeneradorReportes();
+
+              FiltroAnunciosComprados request;
+
+              List<AnuncioResponse> listaAnuncios;
+
+              try {
+                     request = generador.generarFiltroAnunciosComprados(fechaInicio, fechaFin, tipoAnuncio, periodoTiempo);
+                     listaAnuncios = generadorReportes.obtenerReporteAnuncios(request);
+              } catch (DataBaseException ex) {
+                     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+              } catch (UserDataInvalidException ex) {
+                     return Response.status(Response.Status.BAD_REQUEST).build();
+              }
+
+              InputStream reporteCompilado = getClass().getClassLoader()
+                      .getResourceAsStream(RutasReportesJasper.REPORTE_ANUNCIOS_COMPRADOS.getRuta());
+
+              JRDataSource source = new JRBeanCollectionDataSource(listaAnuncios);
+
+              Map<String, Object> parametros = new HashMap<>();
+              parametros.put("anuncios", source);
+
+              JasperPrint printer = JasperFillManager.fillReport(reporteCompilado, parametros, new JREmptyDataSource());
+
+              String fileName = "reporte_anuncios_comprados.pdf";
 
               StreamingOutput fileStream = (java.io.OutputStream output) -> {
                      try {

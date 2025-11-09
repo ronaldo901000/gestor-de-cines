@@ -13,8 +13,10 @@ public enum RutasReportesJasper {
        REPORTE_SALAS_POPULARES("com/ronaldo/gestor/cines/api/rest/reportes/reportesAdminSistema/ReporteSalasPopulares.jasper"),
        REPORTE_SALAS_COMENTADAS("com/ronaldo/gestor/cines/api/rest/reportes/reportesAdminSistema/ReporteSalasComentadas.jasper"),
        REPORTE_GANANCIAS("com/ronaldo/gestor/cines/api/rest/reportes/reportesAdminSistema/ReporteGanancias.jasper"),
+       REPORTE_ANUNCIOS_COMPRADOS("com/ronaldo/gestor/cines/api/rest/reportes/reportesAdminSistema/ReporteAnunciosComprados.jasper"),
        
        ;
+       
        
        private String ruta;
 

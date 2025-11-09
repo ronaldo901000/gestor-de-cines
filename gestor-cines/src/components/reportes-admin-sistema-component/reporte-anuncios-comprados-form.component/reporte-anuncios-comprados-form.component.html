@@ -1,0 +1,59 @@
+<app-toast-component #toast></app-toast-component>
+<div class="container">
+  <form [formGroup]="filtroForm" (submit)="generar()">
+    <div class="row">
+      <div class="col-6 justify-content-lg-center">
+        <label for="tipoAnuncio" class="form-label">
+          <h4>Tipo de anuncio :</h4>
+        </label>
+        <select class="form-select" id="tipoAnuncio" formControlName="tipoAnuncio">
+          <option value="TEXTO">Texto</option>
+          <option value="IMAGEN">Imagen y Texto</option>
+          <option value="VIDEO">Video y Texto</option>
+        </select>
+      </div>
+
+      <div class="col-6 justify-content-lg-center">
+        <label for="periodoTiempo" class="form-label">
+          <h4>Periodo Tiempo :</h4>
+        </label>
+        <select class="form-select" id="periodoTiempo" formControlName="periodoTiempo">
+          <option value="1">1 dia</option>
+          <option value="3">3 dias</option>
+          <option value="7">1 semana</option>
+          <option value="14">2 semanas</option>
+        </select>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-6 justify-content-lg-center">
+        <label for="descripcion" class="form-label"><h4>Fecha De Inicio:</h4></label>
+        <input
+          type="date"
+          class="form-control"
+          placeholder="Ingresa la fecha inicial del rango"
+          formControlName="fechaInicio"
+        />
+      </div>
+      <div class="col-6 justify-content-lg-center">
+        <label for="descripcion" class="form-label"><h4>Fecha De Fin:</h4></label>
+        <input
+          type="date"
+          class="form-control"
+          placeholder="Ingresa la fecha inicial del rango"
+          formControlName="fechaFin"
+        />
+      </div>
+    </div>
+    <br />
+    <hr class="my-4" />
+    <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
+      <button type="button" class="btn btn-secondary" (click)="limpiar()">Limpiar</button>
+      <button class="btn btn-success" [disabled]="filtroForm.invalid">
+        <strong>Generar Reporte</strong>
+      </button>
+    </div>
+  </form>
+  <br />
+</div>

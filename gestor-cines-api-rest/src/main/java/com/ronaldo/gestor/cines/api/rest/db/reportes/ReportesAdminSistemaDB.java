@@ -3,10 +3,10 @@ package com.ronaldo.gestor.cines.api.rest.db.reportes;
 import com.ronaldo.gestor.cines.api.rest.db.DataSourceDBSingleton;
 import com.ronaldo.gestor.cines.api.rest.db.anuncios.AnunciosDB;
 import com.ronaldo.gestor.cines.api.rest.dtos.anuncios.AnuncioResponse;
+import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroAnunciosComprados;
 import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroGanancias;
 import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroSalasMasPopulares;
 import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionAdminSistema;
-import com.ronaldo.gestor.cines.api.rest.enums.query.PeticionesAnunciante;
 import com.ronaldo.gestor.cines.api.rest.exceptions.DataBaseException;
 import com.ronaldo.gestor.cines.api.rest.models.pagosBloqueo.PagoBloqueo;
 import com.ronaldo.gestor.cines.api.rest.models.reporteBoletosVendidos.CompraBoleto;
@@ -133,6 +133,67 @@ public class ReportesAdminSistemaDB {
                      throw new DataBaseException("Error al obtener anuncios en la db");
               }
               return pagos;
+       }
+
+       /**
+        *
+        * @param filtro
+        * @return
+        * @throws DataBaseException
+        */
+       public List<AnuncioResponse> obtenerAnuncioReporte(FiltroAnunciosComprados filtro) throws DataBaseException {
+              List<AnuncioResponse> anuncios = new ArrayList<>();
+              AnunciosDB anunciosDB = new AnunciosDB();
+              filtro.generarQuery();
+
+              try (Connection connection = DataSourceDBSingleton.getInstance().getConnection()) {
+                     try (PreparedStatement query = connection.
+                             prepareStatement(filtro.getQuery())) {
+                            switch (filtro.getTipo()) {
+                                   case FiltroAnunciosComprados.FILTRO_COMPLETO:
+                                          query.setDate(1, Date.valueOf(filtro.getFechaInicio()));
+                                          query.setDate(2, Date.valueOf(filtro.getFechaFin()));
+                                          query.setString(3, filtro.getTipoAnuncio());
+                                          query.setInt(4, filtro.getPeriodoTiempo());
+                                          break;
+                                   case FiltroAnunciosComprados.FILTRO_FECHA:
+                                          query.setDate(1, Date.valueOf(filtro.getFechaInicio()));
+                                          query.setDate(2, Date.valueOf(filtro.getFechaFin()));
+                                          break;
+                                   case FiltroAnunciosComprados.FILTRO_FECHA_Y_TIPO_ANUNCIO:
+                                          query.setDate(1, Date.valueOf(filtro.getFechaInicio()));
+                                          query.setDate(2, Date.valueOf(filtro.getFechaFin()));
+                                          query.setString(3, filtro.getTipoAnuncio());
+                                          break;
+                                   case FiltroAnunciosComprados.FILTRO_FECHA_Y_PERIODO_TIEMPO:
+                                          query.setDate(1, Date.valueOf(filtro.getFechaInicio()));
+                                          query.setDate(2, Date.valueOf(filtro.getFechaFin()));
+                                          query.setInt(3, filtro.getPeriodoTiempo());
+                                          break;
+                                   case FiltroAnunciosComprados.FILTRO_TIPO_ANUNCIO:
+                                          query.setString(1, filtro.getTipoAnuncio());
+                                          break;
+                                   case FiltroAnunciosComprados.FILTRO_TIPO_ANUNCIO_Y_PERIODO_TIEMPO:
+                                          query.setString(1, filtro.getTipoAnuncio());
+                                          query.setInt(2, filtro.getPeriodoTiempo());
+                                          break;
+                                   case FiltroAnunciosComprados.FILTRO_PERIODO_TIEMPO:
+                                          query.setInt(1, filtro.getPeriodoTiempo());
+                                          break;
+                                   default:
+                                          break;
+                            }
+
+                            ResultSet resultSet = query.executeQuery();
+                            while (resultSet.next()) {
+                                   anuncios.add(anunciosDB.crearAnuncio(resultSet));
+                            }
+                     }
+              } catch (SQLException e) {
+                     e.printStackTrace();
+                     throw new DataBaseException("Error al obtener anuncios en la db");
+              }
+              return anuncios;
        }
 
 }

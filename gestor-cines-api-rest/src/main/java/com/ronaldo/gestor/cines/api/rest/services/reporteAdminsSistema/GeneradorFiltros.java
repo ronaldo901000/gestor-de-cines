@@ -1,9 +1,11 @@
 package com.ronaldo.gestor.cines.api.rest.services.reporteAdminsSistema;
 
+import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroAnunciosComprados;
 import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroGanancias;
 import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroReporteGananciasAnunciante;
 import com.ronaldo.gestor.cines.api.rest.dtos.filtrosReportesAdminSistema.FiltroSalasMasPopulares;
 import com.ronaldo.gestor.cines.api.rest.exceptions.UserDataInvalidException;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -45,6 +47,26 @@ public class GeneradorFiltros {
               FiltroGanancias filtro = new FiltroGanancias();
               filtro.setFechaInicio(fechaInicio);
               filtro.setFechaFin(fechaFin);
+
+              filtro.verificarFechas();
+              return filtro;
+       }
+
+       public FiltroAnunciosComprados generarFiltroAnunciosComprados(
+               String fechaInicio, String fechaFin, String tipoAnuncio, String periodoTiempo) throws UserDataInvalidException {
+
+              FiltroAnunciosComprados filtro = new FiltroAnunciosComprados();
+              filtro.setFechaInicio(fechaInicio);
+              filtro.setFechaFin(fechaFin);
+              filtro.setTipoAnuncio(tipoAnuncio);
+              try {
+                     if (StringUtils.isNotBlank(periodoTiempo)) {
+                            filtro.setPeriodoTiempo(Integer.parseInt(periodoTiempo));
+                     }
+
+              } catch (NumberFormatException e) {
+                     throw new UserDataInvalidException("Error en los datos enviados");
+              }
 
               filtro.verificarFechas();
               return filtro;
